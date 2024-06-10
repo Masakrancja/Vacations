@@ -1,0 +1,28 @@
+div[class="main"] {
+    display: flex;
+    flex-direction: column;
+}
+
+div[class="main"] > main {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: 70vh;
+}
+
+div[class="main"] > main > nav {
+    border: 1px solid black;
+    flex-grow: 1;
+}
+
+div[class="main"] > main > section {
+    border: 1px solid black;
+    flex-grow: 4;
+}
+
+
+@media (max-width: 800px) {
+    div[class="main"] > main {
+        flex-direction: column;
+    }
+}

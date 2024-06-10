@@ -1,0 +1,5 @@
+div > .error
+{
+    color: red;
+    font-weight: bold;
+}

@@ -1,0 +1,9 @@
+div [class="userMenu"] {
+    display: flex;
+    flex-direction: column;
+}
+
+div [class="userMenu"]  button {
+    font-size: 24px;
+    width: 100%;
+}
