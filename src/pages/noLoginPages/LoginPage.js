@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import Error from "../error/Error";
-
-import "./login.css";
+import Error from "../../components/Error";
 
 const Login = () => {
   const URI = "http://api.vacations.local";

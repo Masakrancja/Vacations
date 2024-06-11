@@ -1,9 +1,0 @@
-div [class="noLoginMenu"] {
-    display: flex;
-    flex-direction: column;
-}
-
-div [class="noLoginMenu"]  button {
-    font-size: 24px;
-    width: 100%;
-}

@@ -1,9 +1,0 @@
-div [class="adminMenu"] {
-    display: flex;
-    flex-direction: column;
-}
-
-div [class="adminMenu"]  button {
-    font-size: 24px;
-    width: 100%;
-}

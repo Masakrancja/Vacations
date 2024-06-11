@@ -1,7 +1,5 @@
 import React from "react";
-import Main from "./main/Main";
-
-import "./app.css";
+import Main from "./Main";
 
 const credentials = {
   groupId: 3,
@@ -11,10 +9,11 @@ const credentials = {
   login: "wania12",
   tokenApi: "9df3c0e13fed7a778cdf97fb778124ff",
 };
+// const credentials = {};
 
 function App() {
   return (
-    <div className="app">
+    <div>
       <Main credentials={credentials} />
     </div>
   );
