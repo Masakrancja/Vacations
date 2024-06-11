@@ -3,7 +3,7 @@ import Menu from "../components/Menu";
 
 const menuItems = [
   { id: "1", name: "Dodaj urlop", path: "/events/add", exact: "false" },
-  { id: "2", name: "Moje urlopy", path: "/events/all", exact: "true" },
+  { id: "2", name: "Moje urlopy", path: "/events", exact: "true" },
   {
     id: "3",
     name: "Urlopy oczekujące",
@@ -23,6 +23,7 @@ const menuItems = [
     exact: "false",
   },
   { id: "6", name: "Moje konto", path: "/me", exact: "false" },
+  { id: "7", name: "Wyloguj", path: "/logout", exact: "false" },
 ];
 
 const UserMenu = () => {

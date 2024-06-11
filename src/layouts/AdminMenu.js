@@ -7,22 +7,23 @@ const menuItems = [
   {
     id: "3",
     name: "Urlopy oczekujące",
-    path: "/events?status=wait",
+    path: "/events/waiting",
     exact: "true",
   },
   {
     id: "4",
     name: "Urlopy zatwierdzone",
-    path: "/users?status=approved",
+    path: "/events/approved",
     exact: "false",
   },
   {
     id: "5",
     name: "Urlopy odrzucone",
-    path: "/users?status=declined",
+    path: "/events/rejected",
     exact: "false",
   },
   { id: "6", name: "Moje konto", path: "/me", exact: "false" },
+  { id: "7", name: "Wyloguj", path: "/logout", exact: "false" },
 ];
 
 const AdminMenu = () => {
