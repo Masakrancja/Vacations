@@ -1,8 +1,8 @@
 import React, { useState } from "react";
+import URI from "../../uri";
 import Error from "../../components/Error";
 
 const Login = () => {
-  const URI = "http://api.vacations.local";
   const [loginValue, setLoginValue] = useState("");
   const [passValue, setPassValue] = useState("");
   const [message, setMessage] = useState("");
@@ -28,6 +28,7 @@ const Login = () => {
       .then((response) => {
         console.log(response);
         if (response.status === "OK") {
+            setMessage("");
           //ustawić cookie
         } else {
           setMessage(response.message);
