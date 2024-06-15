@@ -8,6 +8,7 @@ import ErrorPage from "../pages/ErrorPage";
 const NoLoginPages = () => {
   return (
     <Routes>
+      <Route path="/" Component={LoginPage} />
       <Route path="/login" Component={LoginPage} />
       <Route path="/register" Component={RegisterPage} />
       <Route path="/groups" Component={GroupsPage} />

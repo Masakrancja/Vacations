@@ -1,61 +1,29 @@
-import { useState } from "react";
-import { dataRegisterContext } from "../context/RegisterContext";
+import React from "react";
 
 import "./css/registerData.css";
 
-const RegisterData = () => {
-  const [login, setLogin] = useState("");
-  const [pass, setPass] = useState("");
-  const [pass2, setPass2] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [address, setAddress] = useState("");
-  const [postalCode, setPostalCode] = useState("");
-  const [city, setCity] = useState("");
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
-
-  const handleLoginChange = (e) => {
-    setLogin(e.target.value);
-    dataRegisterContext.login = login;
-  };
-  const handlePassChange = (e) => {
-    setPass(e.target.value);
-    dataRegisterContext.pass = pass;
-  };
-  const handlePass2Change = (e) => {
-    setPass2(e.target.value);
-    dataRegisterContext.pass2 = pass2;
-  };
-  const handleFirstNameChange = (e) => {
-    setFirstName(e.target.value);
-    dataRegisterContext.userData.firstName = firstName;
-  };
-  const handleLastNameChange = (e) => {
-    setLastName(e.target.value);
-    dataRegisterContext.userData.lastName = lastName;
-  };
-  const handleAddressChange = (e) => {
-    setAddress(e.target.value);
-    dataRegisterContext.userData.address = address;
-  };
-  const handlePostalCodeChange = (e) => {
-    setPostalCode(e.target.value);
-    dataRegisterContext.userData.postalCode = postalCode;
-  };
-  const handleCityChange = (e) => {
-    setCity(e.target.value);
-    dataRegisterContext.userData.city = city;
-  };
-  const handlePhoneChange = (e) => {
-    setPhone(e.target.value);
-    dataRegisterContext.userData.phone = phone;
-  };
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-    dataRegisterContext.userData.email = email;
-  };
-
+const RegisterData = ({
+  login,
+  pass,
+  pass2,
+  firstName,
+  lastName,
+  address,
+  postalCode,
+  city,
+  phone,
+  email,
+  handleLoginChange,
+  handlePassChange,
+  handlePass2Change,
+  handleFirstNameChange,
+  handleLastNameChange,
+  handleAddressChange,
+  handlePostalCodeChange,
+  handleCityChange,
+  handlePhoneChange,
+  handleEmailChange,
+}) => {
   return (
     <div className="registerData">
       <label htmlFor="login">

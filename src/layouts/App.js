@@ -11,12 +11,12 @@ import Main from "./Main";
 // };
 const credentials = {};
 
-const App = () =>  {
+const App = () => {
   return (
     <div>
       <Main credentials={credentials} />
     </div>
   );
-}
+};
 
 export default App;

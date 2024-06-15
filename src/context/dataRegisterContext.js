@@ -1,11 +1,9 @@
-import { createContext } from "react";
-
 export const dataRegisterContext = {
   login: "",
   pass: "",
   pass2: "",
   isAdmin: false,
-  groupId: null,
+  groupId: 0,
   userData: {
     firstName: "",
     lastName: "",
@@ -22,5 +20,3 @@ export const dataRegisterContext = {
     nip: "",
   },
 };
-
-export const RegisterContext = createContext(dataRegisterContext);

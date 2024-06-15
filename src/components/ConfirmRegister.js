@@ -1,13 +1,12 @@
-import { dataRegisterContext } from "../context/RegisterContext";
+import React from "react";
+import Error from "./Error";
+import Success from "./Success";
 
-const ConfirmRegister = () => {
-  const handleButtonClick = () => {
-    console.log(dataRegisterContext);
-  };
-
+const ConfirmRegister = ({ click, message, registered }) => {
   return (
     <div>
-      <button onClick={handleButtonClick}>Rejestruj</button>
+      <button onClick={click}>Rejestruj</button>
+      {registered ? <Success message={message} /> : <Error message={message} />}
     </div>
   );
 };
