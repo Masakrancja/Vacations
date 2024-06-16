@@ -1,5 +1,5 @@
 import React from "react";
-const IsAdmin = ({ change }) => {
+const IsAdmin = ({ isAdmin, handleChecked }) => {
   return (
     <div>
       <label htmlFor="isUser">
@@ -8,13 +8,19 @@ const IsAdmin = ({ change }) => {
           type="radio"
           name="userType"
           id="isUser"
-          onChange={change}
-          defaultChecked
+          defaultChecked={true}
+          onChange={handleChecked}
         />
       </label>
       <label htmlFor="isAdmin">
         Właściciel
-        <input type="radio" name="userType" id="isAdmin" onChange={change} />
+        <input
+          type="radio"
+          name="userType"
+          id="isAdmin"
+          checked={isAdmin}
+          onChange={handleChecked}
+        />
       </label>
     </div>
   );

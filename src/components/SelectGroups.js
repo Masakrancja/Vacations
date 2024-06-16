@@ -1,17 +1,10 @@
 import { useState, useEffect } from "react";
 import URI from "../uri";
-import { dataRegisterContext } from "../context/dataRegisterContext";
 import Error from "./Error";
 
-const SelectGroups = () => {
+const SelectGroups = ({ selectedGroup, handleSelectChange }) => {
   const [groups, setGroups] = useState([]);
-  const [selectedGroup, setSelectedGroup] = useState(0);
   const [message, setMessage] = useState("");
-
-  const handleSelectChange = (e) => {
-    setSelectedGroup(e.target.value);
-    dataRegisterContext.groupId = parseInt(e.target.value);
-  };
 
   useEffect(() => {
     fetch(URI + "/groups")

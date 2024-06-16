@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useCookies } from "react-cookie";
 import URI from "../../uri";
 import Error from "../../components/Error";
 
@@ -6,6 +7,7 @@ const Login = () => {
   const [loginValue, setLoginValue] = useState("");
   const [passValue, setPassValue] = useState("");
   const [message, setMessage] = useState("");
+  const [cookie, setCookie] = useCookies(["tokenApi"]);
 
   const handleLoginChange = (e) => {
     setLoginValue(e.target.value);
@@ -19,6 +21,10 @@ const Login = () => {
   };
 
   const handleButtonClick = () => {
+    const tokenApi = cookie.tokenApi;
+
+    console.log("tokenApi: " + tokenApi);
+
     const options = {
       method: "POST",
       body: JSON.stringify({ login: loginValue, pass: passValue }),
@@ -28,8 +34,15 @@ const Login = () => {
       .then((response) => {
         console.log(response);
         if (response.status === "OK") {
-            setMessage("");
-          //ustawić cookie
+          setMessage("");
+          console.log(response.response);
+          let expires = new Date();
+          expires.setTime(expires.getTime() + 600000);
+          setCookie("tokenApi", response.response.tokenApi, {
+            path: "/",
+            expires,
+            sameSite: "lax",
+          });
         } else {
           setMessage(response.message);
         }
