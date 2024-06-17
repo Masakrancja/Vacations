@@ -120,8 +120,8 @@ const RegisterPage = () => {
       hasError = true;
       setMessage("Podane hasła się różnią. Wpisz ponownie poprawne");
     }
+
     storeRegisterData();
-    console.log(dataRegisterContext);
 
     if (!hasError) {
       const options = {
@@ -131,7 +131,6 @@ const RegisterPage = () => {
       fetch(URI + "/users", options)
         .then((response) => response.json())
         .then((response) => {
-          console.log(response);
           if (response.status === "OK") {
             const { firstName, lastName } = dataRegisterContext.userData;
             setRegistered(true);

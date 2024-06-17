@@ -12,6 +12,7 @@ import ErrorPage from "../pages/ErrorPage";
 const UserPages = () => {
   return (
     <Routes>
+      <Route path="/" Component={AllVacationsPage} />
       <Route path="/event/add" Component={AddVacationPage} />
       <Route path="/events" Component={AllVacationsPage} />
       <Route path="/events/waiting" Component={WaitingVacationsPage} />

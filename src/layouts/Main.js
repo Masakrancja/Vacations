@@ -11,8 +11,10 @@ import Footer from "./Footer";
 
 import "./css/main.css";
 
-const Main = (props) => {
-  const { isAdmin, tokenApi } = props.credentials;
+const Main = ({ isAdmin, tokenApi }) => {
+  console.log("isAdmin: ", isAdmin);
+  console.log("tokenApi: ", tokenApi);
+
   return (
     <BrowserRouter>
       <div className="main">

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import URI from "../../uri";
 import Error from "../../components/Error";
@@ -8,6 +9,7 @@ const Login = () => {
   const [passValue, setPassValue] = useState("");
   const [message, setMessage] = useState("");
   const [cookie, setCookie] = useCookies(["tokenApi"]);
+  const navigate = useNavigate();
 
   const handleLoginChange = (e) => {
     setLoginValue(e.target.value);
@@ -18,13 +20,6 @@ const Login = () => {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-  };
-
-  const handleButtonClick = () => {
-    const tokenApi = cookie.tokenApi;
-
-    console.log("tokenApi: " + tokenApi);
-
     const options = {
       method: "POST",
       body: JSON.stringify({ login: loginValue, pass: passValue }),
@@ -32,17 +27,17 @@ const Login = () => {
     fetch(URI + "/auth", options)
       .then((response) => response.json())
       .then((response) => {
-        console.log(response);
         if (response.status === "OK") {
           setMessage("");
-          console.log(response.response);
           let expires = new Date();
-          expires.setTime(expires.getTime() + 600000);
+          expires.setTime(expires.getTime() + 60000);
           setCookie("tokenApi", response.response.tokenApi, {
             path: "/",
             expires,
             sameSite: "lax",
           });
+          navigate("/events");
+          window.location.reload();
         } else {
           setMessage(response.message);
         }
@@ -69,9 +64,7 @@ const Login = () => {
           onChange={handlePassChange}
           placeholder="Podaj hasło"
         />
-        <button type="submit" onClick={handleButtonClick}>
-          Zaloguj
-        </button>
+        <button type="submit">Zaloguj</button>
       </form>
       <Error message={message} />
     </>
