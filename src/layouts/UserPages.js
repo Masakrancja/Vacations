@@ -1,5 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
+import LoginPage from "../pages/noLoginPages/LoginPage";
 import AddVacationPage from "../pages/userPages/AddVacationPage";
 import AllVacationsPage from "../pages/AllVacationsPage";
 import WaitingVacationsPage from "../pages/WaitingVacationsPage";
@@ -13,7 +14,8 @@ const UserPages = () => {
   return (
     <Routes>
       <Route path="/" Component={AllVacationsPage} />
-      <Route path="/event/add" Component={AddVacationPage} />
+      <Route path="/login" Component={LoginPage} />
+      <Route path="/events/add" Component={AddVacationPage} />
       <Route path="/events" Component={AllVacationsPage} />
       <Route path="/events/waiting" Component={WaitingVacationsPage} />
       <Route path="/events/approved" Component={ApprovedVacationsPage} />

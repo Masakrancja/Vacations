@@ -15,12 +15,10 @@ import URI from "../uri";
 const App = () => {
   const [cookie, setCookie] = useCookies(["tokenApi"]);
   const [isAdmin, setIsAdmin] = useState(0);
-  const [tokenApi, setTokenApi] = useState(undefined);
+  const [isLogged, setIsLogged] = useState(false);
   let credentials = {};
 
-  if (tokenApi !== cookie.tokenApi) {
-    setTokenApi(cookie.tokenApi);
-  }
+  console.log("tokenApi:" + cookie.tokenApi);
 
   if (cookie.tokenApi !== undefined) {
     fetch(URI + "/auth?token=" + cookie.tokenApi)
@@ -28,30 +26,24 @@ const App = () => {
       .then((response) => {
         if (response.status === "OK") {
           credentials = {
-            groupId: response.response.groupId,
-            id: response.response.id,
-            isActive: response.response.isActive,
             isAdmin: response.response.isAdmin,
-            login: response.response.login,
-            tokenApi: cookie.tokenApi,
           };
+          setIsLogged(true);
+          if (isAdmin === 1 && credentials.isAdmin === 0) {
+            setIsAdmin(0);
+          } else if (isAdmin === 0 && credentials.isAdmin === 1) {
+            setIsAdmin(1);
+          }
+        } else {
+          setIsAdmin(0);
+          setIsLogged(false);
         }
       });
-    if (isAdmin === 1 && credentials.isAdmin === 0) {
-      setIsAdmin(0);
-    }
-    if (isAdmin === 0 && credentials.isAdmin === 1) {
-      setIsAdmin(1);
-    }
-  } else {
-    if (isAdmin === 1) {
-      setIsAdmin(0);
-    }
   }
 
   return (
     <div>
-      <Main credentials={credentials} isAdmin={isAdmin} tokenApi={tokenApi} />
+      <Main isAdmin={isAdmin} isLogged={isLogged} />
     </div>
   );
 };

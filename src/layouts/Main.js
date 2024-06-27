@@ -11,16 +11,16 @@ import Footer from "./Footer";
 
 import "./css/main.css";
 
-const Main = ({ isAdmin, tokenApi }) => {
+const Main = ({ isAdmin, isLogged }) => {
   console.log("isAdmin: ", isAdmin);
-  console.log("tokenApi: ", tokenApi);
+  console.log("isLogged: ", isLogged);
 
   return (
     <BrowserRouter>
       <div className="main">
         <Header />
         <main>
-          {tokenApi ? (
+          {isLogged ? (
             <>
               {isAdmin ? (
                 <>

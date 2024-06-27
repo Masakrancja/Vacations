@@ -10,6 +10,7 @@ const NoLoginPages = () => {
     <Routes>
       <Route path="/" Component={LoginPage} />
       <Route path="/login" Component={LoginPage} />
+      <Route path="/logout" Component={LoginPage} />
       <Route path="/register" Component={RegisterPage} />
       <Route path="/groups" Component={GroupsPage} />
       <Route path="*" Component={ErrorPage} />
