@@ -1,0 +1,27 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  border-bottom: 2px solid black;
+
+  &__logo-box {
+    width: 80px;
+    height: 80px;
+    background-color: green;
+  }
+
+  &__title-box {
+    flex-grow: 1;
+    align-content: center;
+    margin-left: 40px;
+  }
+
+  &__auth-box {
+    width: 200px;
+    height: 80px;
+    align-content: center;
+  }
+
+}
