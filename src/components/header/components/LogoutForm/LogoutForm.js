@@ -10,11 +10,10 @@ const style = BemCssModules(LogoutStyles);
 
 const LogoutForm = () => {
   const { setIsLogged, setIsAdmin, setToken } = useContext(StoreContext);
-  const [cookies, setCookie, removeCookie] = useCookies(["token"]);
+  const [, , removeCookie] = useCookies(["token"]);
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    console.log("Wylogowywanie...");
     setIsLogged(false);
     setIsAdmin(false);
     setToken("");

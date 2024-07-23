@@ -10,7 +10,7 @@ const style = BemCssModules(LoginStyles);
 
 const LoginForm = () => {
   const { setIsLogged, setIsAdmin, setToken } = useContext(StoreContext);
-  const [cookies, setCookie, removeCookie] = useCookies(["token"]);
+  const [, setCookie] = useCookies(["token"]);
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
 
@@ -19,13 +19,27 @@ const LoginForm = () => {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    console.log("Logowanie...");
     setIsLogged(true);
     setIsAdmin(false);
     setToken("dfdsfSDdcZxcZcZDvS");
-    setCookie("token", "dfdsfSDdcZxcZcZDvS", { path: "/", maxAge: 3660 });
-    setCookie("isLogged", true, { path: "/", maxAge: 3600 });
-    setCookie("isAdmin", false, { path: "/", maxAge: 3660 });
+    setCookie("token", "dfdsfSDdcZxcZcZDvS", {
+      path: "/",
+      maxAge: 3660,
+      secure: true,
+      sameSite: "none",
+    });
+    setCookie("isLogged", true, {
+      path: "/",
+      maxAge: 3600,
+      secure: true,
+      sameSite: "none",
+    });
+    setCookie("isAdmin", false, {
+      path: "/",
+      maxAge: 3660,
+      secure: true,
+      sameSite: "none",
+    });
   };
   return (
     <div className={style()}>

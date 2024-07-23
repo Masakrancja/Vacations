@@ -1,8 +1,7 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import React from "react";
+import { Routes, Route } from "react-router-dom";
 
 const AdminContent = () => {
-
   return (
     <section>
       AdminContent
@@ -13,5 +12,5 @@ const AdminContent = () => {
      </Routes> */}
     </section>
   );
-}
+};
 export default AdminContent;

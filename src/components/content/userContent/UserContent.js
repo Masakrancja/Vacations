@@ -1,8 +1,7 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import React from "react";
+import { Routes, Route } from "react-router-dom";
 
 const UserContent = () => {
-
   return (
     <section>
       UserContent
@@ -13,5 +12,5 @@ const UserContent = () => {
      </Routes> */}
     </section>
   );
-}
+};
 export default UserContent;

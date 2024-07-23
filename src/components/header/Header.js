@@ -2,8 +2,8 @@ import React, { useContext } from "react";
 import BemCssModules from "bem-css-modules";
 
 import { StoreContext } from "../../StoreProvider";
-import LoginForm from "./subcomponents/LoginForm/LoginForm";
-import LogoutForm from "./subcomponents/LogoutForm/LogoutForm";
+import LoginForm from "./components/LoginForm/LoginForm";
+import LogoutForm from "./components/LogoutForm/LogoutForm";
 
 import { default as HeaderStyles } from "./Header.module.scss";
 
