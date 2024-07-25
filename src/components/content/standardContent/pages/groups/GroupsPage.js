@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import BemCssModules from "bem-css-modules";
-import request from "../../../../../request";
+import { URI } from "../../../../../config";
 import Error from "../../../components/Error/Error";
 
 import { default as GroupsPageStyles } from "./GroupsPage.module.scss";
@@ -14,19 +14,26 @@ const GroupsPage = () => {
 
   useEffect(() => {
     (async () => {
-      try {
-        const res = await request.get("/groups");
-        if (res.status === 200) {
-          setGroups(res.data.response);
+      const options = {
+        method: "GET",
+      };
+      return await fetch(URI + "/groups", options);
+    })()
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        if (data.code === 200) {
+          setGroups(data.response);
         } else {
           setError(true);
-          setMessage(`Błąd: ${res.status} ${res.statusText}`);
+          setMessage(`Błąd: ${data.code} ${data.message}`);
         }
-      } catch (err) {
+      })
+      .catch((err) => {
         setError(true);
         setMessage(`Błąd: ${err.message}`);
-      }
-    })();
+      });
   }, []);
 
   const groupView = error ? (
