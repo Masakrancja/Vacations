@@ -5,7 +5,7 @@ import BemCssModules from "bem-css-modules";
 
 import { StoreContext } from "../../../../StoreProvider";
 import { URI } from "../../../../config";
-import Error from "../../../content/components/Error/Error";
+import Error from "../../../content/components/error/Error";
 
 import { default as LoginStyles } from "./LoginForm.module.scss";
 

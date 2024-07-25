@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import BemCssModules from "bem-css-modules";
 
-import { StoreContext } from "../../../StoreProvider";
+import { StandardStoreContext } from "../../../StandardStoreProvider";
 
 import { default as RegisterPageStyles } from "../RegisterPage.module.scss";
 
@@ -19,7 +19,7 @@ const GroupDataForm = () => {
     setGroupCity,
     groupNip,
     setGroupNip,
-  } = useContext(StoreContext);
+  } = useContext(StandardStoreContext);
 
   const handleGroupName = (e) => {
     setGroupName(e.target.value);

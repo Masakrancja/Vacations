@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useContext } from "react";
 import BemCssModules from "bem-css-modules";
 
-import { StoreContext } from "../../../StoreProvider";
+import { StandardStoreContext } from "../../../StandardStoreProvider";
 import { URI } from "../../../../../../config";
-import Error from "../../../../components/Error/Error";
+import Error from "../../../../components/error/Error";
 
 import { default as RegisterPageStyles } from "../RegisterPage.module.scss";
 
 const style = BemCssModules(RegisterPageStyles);
 
 const SelectDataForm = () => {
-  const { setGroupId } = useContext(StoreContext);
+  const { setGroupId } = useContext(StandardStoreContext);
   const [groups, setGroups] = useState([]);
   const [error, setError] = useState(false);
   const [message, setMessage] = useState("");

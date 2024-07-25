@@ -1,9 +1,9 @@
 import React from "react";
 import { useState } from "react";
 import { createContext } from "react";
-export const StoreContext = createContext(null);
+export const StandardStoreContext = createContext(null);
 
-const StoreProvider = ({ children }) => {
+const StandardStoreProvider = ({ children }) => {
   const [login, setLogin] = useState("");
   const [pass, setPass] = useState("");
   const [pass2, setPass2] = useState("");
@@ -23,7 +23,7 @@ const StoreProvider = ({ children }) => {
   const [userType, setUserType] = useState("user");
 
   return (
-    <StoreContext.Provider
+    <StandardStoreContext.Provider
       value={{
         login,
         setLogin,
@@ -62,7 +62,7 @@ const StoreProvider = ({ children }) => {
       }}
     >
       {children}
-    </StoreContext.Provider>
+    </StandardStoreContext.Provider>
   );
 };
-export default StoreProvider;
+export default StandardStoreProvider;

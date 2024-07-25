@@ -1,14 +1,14 @@
 import React, { useContext } from "react";
 import BemCssModules from "bem-css-modules";
 
-import { StoreContext } from "../../../StoreProvider";
+import { StandardStoreContext } from "../../../StandardStoreProvider";
 
 import { default as RegisterPageStyles } from "../RegisterPage.module.scss";
 
 const style = BemCssModules(RegisterPageStyles);
 
 const UserOrAdminDataForm = () => {
-  const { userType, setUserType } = useContext(StoreContext);
+  const { userType, setUserType } = useContext(StandardStoreContext);
   const handleChange = (e) => setUserType(e.target.id);
   const checkedUser = userType === "user" ? "checked" : null;
   const checkedAdmin = userType === "admin" ? "checked" : null;

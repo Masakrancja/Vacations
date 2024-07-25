@@ -2,15 +2,15 @@ import React, { useContext, useState } from "react";
 import BemCssModules from "bem-css-modules";
 
 import { default as RegisterPageStyles } from "./RegisterPage.module.scss";
-import { StoreContext } from "../../StoreProvider";
+import { StandardStoreContext } from "../../StandardStoreProvider";
 import { URI } from "../../../../../config";
 import UserOrAdminDataForm from "./components/UserOrAdminDataForm";
 import UserDataForm from "./components/UserDataForm";
 import AuthDataForm from "./components/AuthDataForm";
 import SelectGroupForm from "./components/SelectGroupForm";
 import GroupDataForm from "./components/GroupDataForm";
-import Error from "../../../components/Error/Error";
-import Success from "../../../components/Success/Success";
+import Error from "../../../components/error/Error";
+import Success from "../../../components/success/Success";
 
 const style = BemCssModules(RegisterPageStyles);
 
@@ -33,7 +33,7 @@ const RegisterPage = () => {
     groupCity,
     groupNip,
     userType,
-  } = useContext(StoreContext);
+  } = useContext(StandardStoreContext);
   const [message, setMessage] = useState("");
   const [error, setError] = useState(false);
 

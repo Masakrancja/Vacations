@@ -1,7 +1,7 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 
-import StoreProvider from "./StoreProvider";
+import StandardStoreProvider from "./StandardStoreProvider";
 import RegisterPage from "./pages/register/RegisterPage";
 import GroupsPage from "./pages/groups/GroupsPage";
 import ErrorPage from "../errorPage/ErrorPage";
@@ -9,13 +9,13 @@ import ErrorPage from "../errorPage/ErrorPage";
 const StandardContent = () => {
   return (
     <section>
-      <StoreProvider>
+      <StandardStoreProvider>
         <Routes>
           <Route path="/register" Component={RegisterPage} />
           <Route path="/groups" Component={GroupsPage} />
           <Route path="*" Component={ErrorPage} />
         </Routes>
-      </StoreProvider>
+      </StandardStoreProvider>
     </section>
   );
 };

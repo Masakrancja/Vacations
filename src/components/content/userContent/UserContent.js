@@ -1,15 +1,19 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 
+import UserStoreProvider from "./UserStoreProvider";
+import AddEventPage from "./pages/addEventPage/AddEventPage";
+import ErrorPage from "../errorPage/ErrorPage";
+
 const UserContent = () => {
   return (
     <section>
-      UserContent
-      {/* <Routes>
-        <Route path="/register" Component={RegisterPage} />
-        <Route path="/groups" Component={GroupsPage} />
-        <Route path="*" Component={ErrorPage} />
-     </Routes> */}
+      <UserStoreProvider>
+        <Routes>
+          <Route path="/events/add" Component={AddEventPage} />
+          <Route path="*" Component={ErrorPage} />
+        </Routes>
+      </UserStoreProvider>
     </section>
   );
 };

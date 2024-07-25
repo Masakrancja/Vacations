@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import BemCssModules from "bem-css-modules";
 
-import { StoreContext } from "../../../StoreProvider";
+import { StandardStoreContext } from "../../../StandardStoreProvider";
 
 import { default as RegisterPageStyles } from "../RegisterPage.module.scss";
 
@@ -9,7 +9,7 @@ const style = BemCssModules(RegisterPageStyles);
 
 const AuthDataForm = () => {
   const { login, setLogin, pass, setPass, pass2, setPass2 } =
-    useContext(StoreContext);
+    useContext(StandardStoreContext);
 
   const handleLoginChange = (e) => {
     setLogin(e.target.value);

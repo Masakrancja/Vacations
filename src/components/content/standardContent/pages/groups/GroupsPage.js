@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import BemCssModules from "bem-css-modules";
 import { URI } from "../../../../../config";
-import Error from "../../../components/Error/Error";
+import Error from "../../../components/error/Error";
 
 import { default as GroupsPageStyles } from "./GroupsPage.module.scss";
 
