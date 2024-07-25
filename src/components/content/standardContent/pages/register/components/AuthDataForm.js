@@ -1,25 +1,26 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import BemCssModules from "bem-css-modules";
+
+import { StoreContext } from "../../../StoreProvider";
 
 import { default as RegisterPageStyles } from "../RegisterPage.module.scss";
 
 const style = BemCssModules(RegisterPageStyles);
 
 const AuthDataForm = () => {
-  const [login, setLogin] = useState("");
-  const [pass, setPass] = useState("");
-  const [pass2, setPass2] = useState("");
+  const { login, setLogin, pass, setPass, pass2, setPass2 } =
+    useContext(StoreContext);
 
   const handleLoginChange = (e) => {
-    setLogin(e.taget.value);
+    setLogin(e.target.value);
   };
 
   const handlePassChange = (e) => {
-    setLogin(e.taget.value);
+    setPass(e.target.value);
   };
 
   const handlePass2Change = (e) => {
-    setLogin(e.taget.value);
+    setPass2(e.target.value);
   };
 
   return (

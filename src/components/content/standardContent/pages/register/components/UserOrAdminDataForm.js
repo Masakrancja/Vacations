@@ -1,19 +1,36 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import BemCssModules from "bem-css-modules";
+
+import { StoreContext } from "../../../StoreProvider";
 
 import { default as RegisterPageStyles } from "../RegisterPage.module.scss";
 
 const style = BemCssModules(RegisterPageStyles);
 
-const UserOrAdminDataForm = ({ userType, setUserType }) => {
+const UserOrAdminDataForm = () => {
+  const { userType, setUserType } = useContext(StoreContext);
   const handleChange = (e) => setUserType(e.target.id);
+  const checkedUser = userType === "user" ? "checked" : null;
+  const checkedAdmin = userType === "admin" ? "checked" : null;
 
   return (
     <section>
       <label htmlFor="user">Jestem pracownikiem</label>
-      <input type="radio" name="client" id="user" onChange={handleChange} />
+      <input
+        type="radio"
+        name="client"
+        id="user"
+        onChange={handleChange}
+        defaultChecked={checkedUser}
+      />
       <label htmlFor="admin">Jestem pracodawcą</label>
-      <input type="radio" name="client" id="admin" onChange={handleChange} />
+      <input
+        type="radio"
+        name="client"
+        id="admin"
+        onChange={handleChange}
+        defaultChecked={checkedAdmin}
+      />
     </section>
   );
 };

@@ -1,16 +1,25 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import BemCssModules from "bem-css-modules";
+
+import { StoreContext } from "../../../StoreProvider";
 
 import { default as RegisterPageStyles } from "../RegisterPage.module.scss";
 
 const style = BemCssModules(RegisterPageStyles);
 
 const GroupDataForm = () => {
-  const [groupName, setGroupName] = useState("");
-  const [groupAddress, setGroupAddress] = useState("");
-  const [groupPostalCode, setGroupPostalCode] = useState("");
-  const [groupCity, setGroupCity] = useState("");
-  const [groupNip, setGroupNip] = useState("");
+  const {
+    groupName,
+    setGroupName,
+    groupAddress,
+    setGroupAddress,
+    groupPostalCode,
+    setGroupPostalCode,
+    groupCity,
+    setGroupCity,
+    groupNip,
+    setGroupNip,
+  } = useContext(StoreContext);
 
   const handleGroupName = (e) => {
     setGroupName(e.target.value);

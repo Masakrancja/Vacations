@@ -1,18 +1,29 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import BemCssModules from "bem-css-modules";
+
+import { StoreContext } from "../../../StoreProvider";
 
 import { default as RegisterPageStyles } from "../RegisterPage.module.scss";
 
 const style = BemCssModules(RegisterPageStyles);
 
 const UserDataForm = () => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [address, setAddress] = useState("");
-  const [postalCode, setPostalCode] = useState("");
-  const [city, setCity] = useState("");
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
+  const {
+    firstName,
+    setFirstName,
+    lastName,
+    setLastName,
+    address,
+    setAddress,
+    postalCode,
+    setPostalCode,
+    city,
+    setCity,
+    phone,
+    setPhone,
+    email,
+    setEmail,
+  } = useContext(StoreContext);
 
   const handleFirstName = (e) => {
     setFirstName(e.target.value);
