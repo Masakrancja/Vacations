@@ -19,7 +19,7 @@ const SelectData = () => {
   };
 
   return (
-    <div>
+    <div className={style()}>
       <div>
         <span>Data rozpoczęcia urlopu</span>
         <input type="date" value={dateFrom} onChange={handleDateFromChange} />

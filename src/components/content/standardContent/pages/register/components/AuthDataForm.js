@@ -24,7 +24,7 @@ const AuthDataForm = () => {
   };
 
   return (
-    <section>
+    <section className={style()}>
       <input
         type="text"
         value={login}

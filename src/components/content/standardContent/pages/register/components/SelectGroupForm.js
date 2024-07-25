@@ -54,6 +54,10 @@ const SelectDataForm = () => {
     setGroupId(Number(e.target.value));
   };
 
-  return <select onChange={handleOnChange}>{groupView}</select>;
+  return (
+    <div className={style()}>
+      <select onChange={handleOnChange}>{groupView}</select>
+    </div>
+  );
 };
 export default SelectDataForm;

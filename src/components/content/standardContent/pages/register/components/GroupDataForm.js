@@ -38,7 +38,7 @@ const GroupDataForm = () => {
   };
 
   return (
-    <section>
+    <section className={style()}>
       <input
         type="text"
         value={groupName}

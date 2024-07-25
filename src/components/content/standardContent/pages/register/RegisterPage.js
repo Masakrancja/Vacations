@@ -101,7 +101,7 @@ const RegisterPage = () => {
   };
 
   return (
-    <>
+    <div className={style()}>
       <h2>Rejestracja</h2>
       <form method="POST" onSubmit={handleOnSubmit}>
         <AuthDataForm />
@@ -120,7 +120,7 @@ const RegisterPage = () => {
         <button type="submit">Zarejestruj</button>
       </form>
       {error ? <Error message={message} /> : <Success message={message} />}
-    </>
+    </div>
   );
 };
 export default RegisterPage;

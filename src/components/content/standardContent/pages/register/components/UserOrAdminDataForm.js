@@ -14,7 +14,7 @@ const UserOrAdminDataForm = () => {
   const checkedAdmin = userType === "admin" ? "checked" : null;
 
   return (
-    <section>
+    <section className={style()}>
       <label htmlFor="user">Jestem pracownikiem</label>
       <input
         type="radio"

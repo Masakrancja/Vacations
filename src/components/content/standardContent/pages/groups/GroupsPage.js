@@ -42,6 +42,6 @@ const GroupsPage = () => {
     groups.map((group) => <li key={group.id}>{group.name}</li>)
   );
 
-  return <>{groupView}</>;
+  return <div className={style()}>{groupView}</div>;
 };
 export default GroupsPage;

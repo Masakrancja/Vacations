@@ -9,7 +9,7 @@ const style = BemCssModules(AddEventStyles);
 
 const AddEventPage = () => {
   return (
-    <section>
+    <section className={style()}>
       <h2>Dodaj urlop</h2>
       <form method="POST">
         <SelectReason />

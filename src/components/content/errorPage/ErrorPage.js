@@ -6,6 +6,6 @@ import { default as ErrorPageStyles } from "./ErrorPage.module.scss";
 const style = BemCssModules(ErrorPageStyles);
 
 const ErrorPage = () => {
-  return <>Wybrana strona nie istnieje</>;
+  return <div className={style()}>Wybrana strona nie istnieje</div>;
 };
 export default ErrorPage;

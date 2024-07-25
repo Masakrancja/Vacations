@@ -48,7 +48,7 @@ const SelectReason = () => {
   ));
 
   return (
-    <div>
+    <div className={style()}>
       {error ? (
         <Error message={message} />
       ) : (
