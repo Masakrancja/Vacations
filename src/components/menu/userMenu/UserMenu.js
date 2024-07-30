@@ -21,7 +21,7 @@ const UserMenu = () => {
           </NavLink>
         </li>
         <li>
-          <NavLink to="/events/waiting" exact="false">
+          <NavLink to="/events/pending" exact="false">
             Urlopy oczekujące
           </NavLink>
         </li>
@@ -31,18 +31,13 @@ const UserMenu = () => {
           </NavLink>
         </li>
         <li>
-          <NavLink to="/events/rejected" exact="false">
+          <NavLink to="/events/cancelled" exact="false">
             Urlopy odrzucone
           </NavLink>
         </li>
         <li>
           <NavLink to="/me" exact="false">
             Moje konto
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/logout" exact="false">
-            Wyloguj
           </NavLink>
         </li>
       </ul>
