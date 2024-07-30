@@ -2,16 +2,16 @@ import React, { useContext, useState, useEffect } from "react";
 import BemCssModules from "bem-css-modules";
 import { StoreContext } from "../../../../../StoreProvider";
 import { URI } from "../../../../../config";
-import Event from "../../../components/event/Event";
+import Account from "../../../components/account/Account";
 import Error from "../../../components/error/Error";
 
-import { default as AllEventsStyles } from "./AllEventsPage.module.scss";
+import { default as AccountStyles } from "./AccountPage.module.scss";
 
-const style = BemCssModules(AllEventsStyles);
+const style = BemCssModules(AccountStyles);
 
-const AllEventsPage = () => {
+const AccountPage = () => {
   const { token } = useContext(StoreContext);
-  const [events, setEvents] = useState([]);
+  const [account, setAccount] = useState(null);
   const [error, setError] = useState(false);
   const [message, setMessage] = useState("");
 
@@ -21,14 +21,14 @@ const AllEventsPage = () => {
         method: "GET",
         headers: { Authorization: "Bearer " + token },
       };
-      return await fetch(URI + "/events", options);
+      return await fetch(URI + "/auth", options);
     })()
       .then((res) => {
         return res.json();
       })
       .then((data) => {
         if (data.code === 200) {
-          setEvents(data.response);
+          setAccount(data.response);
           setError(false);
           setMessage("");
         } else {
@@ -42,17 +42,11 @@ const AllEventsPage = () => {
       });
   }, [token]);
 
-  const eventsContent = events.map((event) => (
-    <div key={event.id}>
-      <Event {...event} />
-    </div>
-  ));
-
   return (
     <section className={style()}>
-      <h2>Moje urlopy</h2>
-      {error ? <Error message={message} /> : { eventsContent }}
+      <h2>Moje konto</h2>
+      {error ? <Error message={message} /> : <Account {...account} />}
     </section>
   );
 };
-export default AllEventsPage;
+export default AccountPage;

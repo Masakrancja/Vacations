@@ -12,7 +12,12 @@ const AdminMenu = () => {
       <ul>
         <li>
           <NavLink to="/users" exact="false">
-            Pokaż pracowników
+            Moi pracownicy
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/users/pending" exact="false">
+            Pracownicy oczekujący
           </NavLink>
         </li>
         <li>
@@ -21,7 +26,7 @@ const AdminMenu = () => {
           </NavLink>
         </li>
         <li>
-          <NavLink to="/events/waiting" exact="true">
+          <NavLink to="/events/pending" exact="true">
             Urlopy oczekujące
           </NavLink>
         </li>
@@ -31,18 +36,13 @@ const AdminMenu = () => {
           </NavLink>
         </li>
         <li>
-          <NavLink to="/events/rejected" exact="false">
+          <NavLink to="/events/cancelled" exact="false">
             Urlopy odrzucone
           </NavLink>
         </li>
         <li>
           <NavLink to="/me" exact="false">
             Moje konto
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/logout" exact="false">
-            Wyloguj
           </NavLink>
         </li>
       </ul>

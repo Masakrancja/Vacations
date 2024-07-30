@@ -53,8 +53,8 @@ const CancelledEventsPage = () => {
   return (
     <section className={style()}>
       <h2>Urlopy anulowane</h2>
-      {eventsContent}
-      {error ? <Error message={message} /> : null}
+
+      {error ? <Error message={message} /> : { eventsContent }}
     </section>
   );
 };

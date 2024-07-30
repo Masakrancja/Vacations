@@ -53,8 +53,8 @@ const ApprovedEventsPage = () => {
   return (
     <section className={style()}>
       <h2>Urlopy zatwierdzone</h2>
-      {eventsContent}
-      {error ? <Error message={message} /> : null}
+
+      {error ? <Error message={message} /> : { eventsContent }}
     </section>
   );
 };
