@@ -11,6 +11,11 @@ const AdminMenu = () => {
     <nav className={style()}>
       <ul>
         <li>
+          <NavLink to="/" exact="false">
+            Moi pracownicy
+          </NavLink>
+        </li>
+        <li>
           <NavLink to="/users" exact="false">
             Moi pracownicy
           </NavLink>

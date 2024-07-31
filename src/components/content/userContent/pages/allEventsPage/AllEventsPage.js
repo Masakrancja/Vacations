@@ -51,7 +51,7 @@ const AllEventsPage = () => {
   return (
     <section className={style()}>
       <h2>Moje urlopy</h2>
-      {error ? <Error message={message} /> : { eventsContent }}
+      {error ? <Error message={message} /> : eventsContent}
     </section>
   );
 };

@@ -11,12 +11,17 @@ const StandardMenu = () => {
     <nav className={style()}>
       <ul>
         <li>
-          <NavLink to="/register" exact="true">
+          <NavLink to="/" exact="false">
+            Dostępne firmy
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/register" exact="false">
             Rejestracja
           </NavLink>
         </li>
         <li>
-          <NavLink to="/groups" exact="false">
+          <NavLink to="/groups" exact="true">
             Dostępne firmy
           </NavLink>
         </li>

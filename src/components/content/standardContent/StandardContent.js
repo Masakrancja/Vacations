@@ -11,6 +11,7 @@ const StandardContent = () => {
     <section>
       <StandardStoreProvider>
         <Routes>
+          <Route path="/" Component={GroupsPage} />
           <Route path="/register" Component={RegisterPage} />
           <Route path="/groups" Component={GroupsPage} />
           <Route path="*" Component={ErrorPage} />

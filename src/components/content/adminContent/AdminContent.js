@@ -11,6 +11,7 @@ const AdminContent = () => {
     <section>
       <AdminStoreProvider>
         <Routes>
+          <Route path="/" Component={UsersPage} />
           <Route path="/users" Component={UsersPage} />
           {/* <Route path="/users/pending" Component={} />
           <Route path="/events" Component={} />

@@ -11,12 +11,17 @@ const UserMenu = () => {
     <nav className={style()}>
       <ul>
         <li>
+          <NavLink to="/" exact="false">
+            Moje urlopy
+          </NavLink>
+        </li>
+        <li>
           <NavLink to="/events/add" exact="false">
             Dodaj urlop
           </NavLink>
         </li>
         <li>
-          <NavLink to="/events" exact="false">
+          <NavLink to="/events" exact="true">
             Moje urlopy
           </NavLink>
         </li>

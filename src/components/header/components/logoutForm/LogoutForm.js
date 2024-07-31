@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
 import BemCssModules from "bem-css-modules";
 
 import { StoreContext } from "../../../../StoreProvider";
@@ -11,6 +12,7 @@ const style = BemCssModules(LogoutStyles);
 const LogoutForm = () => {
   const { setIsLogged, setIsAdmin, setToken } = useContext(StoreContext);
   const [, , removeCookie] = useCookies(["token"]);
+  const navigate = useNavigate();
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
@@ -20,6 +22,7 @@ const LogoutForm = () => {
     removeCookie("isLogged", { path: "/" });
     removeCookie("isAdmin", { path: "/" });
     removeCookie("token", { path: "/" });
+    navigate("/");
   };
 
   return (

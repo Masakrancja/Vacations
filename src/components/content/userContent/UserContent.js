@@ -15,6 +15,7 @@ const UserContent = () => {
     <section>
       <UserStoreProvider>
         <Routes>
+          <Route path="/" Component={AllEventsPage} />
           <Route path="/events/add" Component={AddEventPage} />
           <Route path="/events" Component={AllEventsPage} />
           <Route path="/events/pending" Component={PendingEventsPage} />
