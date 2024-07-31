@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import BemCssModules from "bem-css-modules";
 import { StoreContext } from "../../../../../../StoreProvider";
+import { AdminStoreContext } from "../../../AdminStoreProvider";
 import { URI } from "../../../../../../config";
 import User from "../../../../components/user/User";
 import Error from "../../../../components/error/Error";
@@ -11,7 +12,7 @@ const style = BemCssModules(UsersStyles);
 
 const UsersPage = () => {
   const { token } = useContext(StoreContext);
-  const [users, setUsers] = useState([]);
+  const { users, setUsers } = useContext(AdminStoreContext);
   const [error, setError] = useState(false);
   const [message, setMessage] = useState("");
 
@@ -27,7 +28,6 @@ const UsersPage = () => {
         return res.json();
       })
       .then((data) => {
-        console.log(data);
         if (data.code === 200) {
           setUsers(data.response);
           setError(false);
@@ -41,7 +41,7 @@ const UsersPage = () => {
         setError(true);
         setMessage(err.message);
       });
-  }, [token]);
+  }, [token, setUsers]);
 
   const usersContent = users
     .filter((user) => Boolean(user.isAdmin) === false)
