@@ -1,16 +1,16 @@
 import React, { useContext, useState, useEffect } from "react";
 import BemCssModules from "bem-css-modules";
-import { StoreContext } from "../../../../../../StoreProvider";
-import { AdminStoreContext } from "../../../AdminStoreProvider";
-import { URI } from "../../../../../../config";
-import User from "../../../../components/user/User";
-import Error from "../../../../components/error/Error";
+import { StoreContext } from "../../../../../StoreProvider";
+import { AdminStoreContext } from "../../AdminStoreProvider";
+import { URI } from "../../../../../config";
+import User from "../../../components/user/User";
+import Error from "../../../components/error/Error";
 
-import { default as UsersStyles } from "./UsersPage.module.scss";
+import { default as UsersPendingStyles } from "./UsersPendingPage.module.scss";
 
-const style = BemCssModules(UsersStyles);
+const style = BemCssModules(UsersPendingStyles);
 
-const UsersPage = () => {
+const UsersPendingPage = () => {
   const { token } = useContext(StoreContext);
   const { users, setUsers } = useContext(AdminStoreContext);
   const [error, setError] = useState(false);
@@ -44,7 +44,10 @@ const UsersPage = () => {
   }, [token, setUsers]);
 
   const usersContent = users
-    .filter((user) => Boolean(user.isAdmin) === false)
+    .filter(
+      (user) =>
+        Boolean(user.isAdmin) === false && Boolean(user.isActive) === false
+    )
     .map((user) => (
       <div key={user.id}>
         <User {...user} />
@@ -53,9 +56,9 @@ const UsersPage = () => {
 
   return (
     <section className={style()}>
-      <h2>Moi pracownicy</h2>
+      <h2>Pracownicy oczekujący za zatwierdzenie</h2>
       {error ? <Error message={message} /> : usersContent}
     </section>
   );
 };
-export default UsersPage;
+export default UsersPendingPage;

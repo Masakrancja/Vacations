@@ -22,7 +22,7 @@ const AdminMenu = () => {
         </li>
         <li>
           <NavLink to="/events" exact="false">
-            Wszystkie urlopy
+            Urlopy pracowników
           </NavLink>
         </li>
         <li>

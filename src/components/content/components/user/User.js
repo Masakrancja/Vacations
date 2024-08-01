@@ -62,7 +62,7 @@ const User = ({ id, isActive, createdAt, login }) => {
         method: "PATCH",
         headers: { Authorization: "Bearer " + token },
         body: JSON.stringify({
-          isActive: e.target.value,
+          isActive: e.target.value === "true",
         }),
       };
       return await fetch(URI + "/users/" + id, options);
