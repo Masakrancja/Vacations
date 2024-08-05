@@ -1,0 +1,28 @@
+User dodanie urlopu. Po poprawnym dodaniu urlopu wykasowac pola i  przekierowac na strone urlopy oczekujace
+
+User Urlopy odrzucone zmienic na urlopy anulowane
+
+user urlopy zaakceptowane. Dac przycisk "Wyślij prośbę o anulowanie urlopu"
+
+User Moje konto - dodać informacje o danych adresowych usera i firmie w jakiej pracuje
+
+user - usuniecie urlopu
+
+user - modyfikacja urlopu
+
+Bez logowania. Po poprawnej rejestracji usunac dane z formularza. Dopisac ze konto zostalo utworzone lecz trzeba poczekać na akceptacje administratora
+
+
+Admin Pracownicy
+dodać pole status jak w eventach. Po zmianie statusu aby też był ten tekst zmieniany
+
+Admin zmiana statusow pracownikow i eventow - powinien znikac z zakładki
+Admin moje konto. Dodac info o danych adresowych admina i jego firmie. Dodac ile ma pracownikow
+
+
+Backend
+user tworzenie urlopu aby nie było możliwości utworzenia urlopu jak któryś dzień tego urlopu jest już użyty w innym urlopie
+
+user wyslij prosbe o anulowanie urlopu - aby nie mozna bylo tego zrobic jak sie urlop zaczyna lub pozniej
+
+Sprawdzanie czy user lub admin zalogowany. Jezeli nie to przekierowac do strony logowania
