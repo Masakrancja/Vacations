@@ -1,4 +1,5 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import BemCssModules from "bem-css-modules";
 import { StoreContext } from "../../../../../StoreProvider";
 import { UserStoreContext } from "../../UserStoreProvider";
@@ -15,9 +16,28 @@ const style = BemCssModules(AddEventStyles);
 
 const AddEventPage = () => {
   const { token } = useContext(StoreContext);
-  const { reasonId, dateFrom, dateTo, notice } = useContext(UserStoreContext);
+  const {
+    reasonId,
+    setReasonId,
+    dateFrom,
+    setDateFrom,
+    dateTo,
+    setDateTo,
+    notice,
+    setNotice,
+  } = useContext(UserStoreContext);
   const [error, setError] = useState(false);
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const today = new Date().toISOString().substring(0, 10);
+    setReasonId(null);
+    setDateFrom(today);
+    setDateTo(today);
+    setNotice("");
+  }, []);
+
   const handleOnSubmit = (e) => {
     e.preventDefault();
     (async () => {
@@ -39,7 +59,7 @@ const AddEventPage = () => {
       .then((data) => {
         if (data.code === 201) {
           setError(false);
-          setMessage("Poprawnie dodano urlop");
+          navigate("/events/pending");
         } else {
           setError(true);
           setMessage(data.message);
