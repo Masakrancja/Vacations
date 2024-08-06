@@ -17,22 +17,39 @@ const style = BemCssModules(RegisterPageStyles);
 const RegisterPage = () => {
   const {
     login,
+    setLogin,
     pass,
+    setPass,
     pass2,
+    setPass2,
     groupId,
+    setGroupId,
     firstName,
+    setFirstName,
     lastName,
+    setLastName,
     address,
+    setAddress,
     postalCode,
+    setPostalCode,
     city,
+    setCity,
     phone,
+    setPhone,
     email,
+    setEmail,
     groupName,
+    setGroupName,
     groupAddress,
+    setGroupAddress,
     groupPostalCode,
+    setGroupPostalCode,
     groupCity,
+    setGroupCity,
     groupNip,
+    setGroupNip,
     userType,
+    setUserType,
   } = useContext(StandardStoreContext);
   const [message, setMessage] = useState("");
   const [error, setError] = useState(false);
@@ -84,7 +101,27 @@ const RegisterPage = () => {
       .then((data) => {
         if (data.code === 201) {
           setError(false);
-          setMessage(`Poprawnie dodano użytkownika: ${login}`);
+          setLogin("");
+          setPass("");
+          setPass2("");
+          setFirstName("");
+          setLastName("");
+          setAddress("");
+          setPostalCode("");
+          setCity("");
+          setPhone("");
+          setEmail("");
+          setGroupName("");
+          setGroupAddress("");
+          setGroupPostalCode("");
+          setGroupCity("");
+          setGroupNip("");
+          setUserType("user");
+          const msg =
+            userType === "user"
+              ? `Poprawnie dodano konto pracownicze dla użytkownika: ${login}. Konto jest jeszcze nie aktywne. Poczekaj na akceptacje przez właściciela`
+              : `Poprawnie dodano konto właściciela dla użytkownika: ${login}`;
+          setMessage(msg);
         } else {
           setError(true);
           setMessage(data.message);
