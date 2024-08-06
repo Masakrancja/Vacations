@@ -27,6 +27,7 @@ const AccountPage = () => {
         return res.json();
       })
       .then((data) => {
+        console.log(data);
         if (data.code === 200) {
           setAccount(data.response);
           setError(false);

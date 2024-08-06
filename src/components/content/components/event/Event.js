@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import BemCssModules from "bem-css-modules";
 import { StoreContext } from "../../../../StoreProvider";
 import EventChangeStatus from "../eventChangeStatus/EventChangeStatus";
+import EventWantCancel from "../eventWantCancel/EventWantCancel";
 
 import { default as EventStyle } from "./Event.module.scss";
 
@@ -34,6 +35,8 @@ const Event = ({ id, dateFrom, dateTo, days, notice, reasonName, status }) => {
           status={status}
           setStatusName={setStatusName}
         />
+      ) : status === "approved" ? (
+        <EventWantCancel id={id} />
       ) : null}
       {notice ? <p>{notice}</p> : null}
     </div>

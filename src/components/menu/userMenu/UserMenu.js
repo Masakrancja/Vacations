@@ -37,7 +37,7 @@ const UserMenu = () => {
         </li>
         <li>
           <NavLink to="/events/cancelled" exact="false">
-            Urlopy odrzucone
+            Urlopy anulowane
           </NavLink>
         </li>
         <li>
