@@ -1,9 +1,5 @@
-
-do bazy events dodac pole: "wantCancel". Domyslna wartosc false. True gdy user chce anulowac. Zmodyfikowac api.
-
+Front
 user urlopy zaakceptowane. Dodac metode do przycisku: Wyślij prośbę o anulowanie urlopu 
-
-dodac endpoint /me - w ktorym bedzie pelna iformacja o userze
 
 User Moje konto - dodać informacje o danych adresowych usera i firmie w jakiej pracuje
 
@@ -19,8 +15,6 @@ Admin moje konto. Dodac info o danych adresowych admina i jego firmie. Dodac ile
 
 
 Backend
-user tworzenie urlopu aby nie było możliwości utworzenia urlopu jak któryś dzień tego urlopu jest już użyty w innym urlopie
-
-user wyslij prosbe o anulowanie urlopu - aby nie mozna bylo tego zrobic jak sie urlop zaczyna lub pozniej
+Generowac tokeny wazne prze okreslony czas i nimi sie poslugowac do logowania
 
 Sprawdzanie czy user lub admin zalogowany. Jezeli nie to przekierowac do strony logowania
