@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import BemCssModules from "bem-css-modules";
 import { StoreContext } from "../../../../../StoreProvider";
@@ -15,7 +16,8 @@ import { default as AddEventStyles } from "./AddEventPage.module.scss";
 const style = BemCssModules(AddEventStyles);
 
 const AddEventPage = () => {
-  const { token } = useContext(StoreContext);
+  const { token, setToken, setIsLogged, setIsAdmin, setIsValid } =
+    useContext(StoreContext);
   const {
     reasonId,
     setReasonId,
@@ -26,8 +28,10 @@ const AddEventPage = () => {
     notice,
     setNotice,
   } = useContext(UserStoreContext);
+
   const [error, setError] = useState(false);
   const [message, setMessage] = useState("");
+  const [, , removeCookie] = useCookies(["token"]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -57,6 +61,16 @@ const AddEventPage = () => {
         return res.json();
       })
       .then((data) => {
+        if (data.code === 401) {
+          setIsLogged(false);
+          setIsAdmin(false);
+          setToken("");
+          setIsValid("");
+          removeCookie("isLogged", { path: "/" });
+          removeCookie("isAdmin", { path: "/" });
+          removeCookie("token", { path: "/" });
+          removeCookie("isValid", { path: "/" });
+        }
         if (data.code === 201) {
           setError(false);
           navigate("/events/pending");

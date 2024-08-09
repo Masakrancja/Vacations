@@ -10,7 +10,8 @@ import { default as LogoutStyles } from "./LogoutForm.module.scss";
 const style = BemCssModules(LogoutStyles);
 
 const LogoutForm = () => {
-  const { setIsLogged, setIsAdmin, setToken } = useContext(StoreContext);
+  const { setIsLogged, setIsAdmin, setToken, setValidAt } =
+    useContext(StoreContext);
   const [, , removeCookie] = useCookies(["token"]);
   const navigate = useNavigate();
 
@@ -19,9 +20,11 @@ const LogoutForm = () => {
     setIsLogged(false);
     setIsAdmin(false);
     setToken("");
+    setValidAt("");
     removeCookie("isLogged", { path: "/" });
     removeCookie("isAdmin", { path: "/" });
     removeCookie("token", { path: "/" });
+    removeCookie("isValid", { path: "/" });
     navigate("/");
   };
 

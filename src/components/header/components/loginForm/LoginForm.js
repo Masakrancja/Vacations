@@ -12,7 +12,8 @@ import { default as LoginStyles } from "./LoginForm.module.scss";
 const style = BemCssModules(LoginStyles);
 
 const LoginForm = () => {
-  const { setIsLogged, setIsAdmin, setToken } = useContext(StoreContext);
+  const { setIsLogged, setIsAdmin, setToken, setValidAt } =
+    useContext(StoreContext);
   const [, setCookie] = useCookies(["token"]);
   const navigate = useNavigate();
   const [login, setLogin] = useState("");
@@ -39,14 +40,16 @@ const LoginForm = () => {
     })()
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
         if (data.code === 201) {
-          const { isAdmin, tokenApi } = data.response;
+          const { isAdmin, token, validAt } = data.response;
           setIsLogged(true);
           setIsAdmin(Boolean(isAdmin));
-          setToken(tokenApi);
-          setCookie("token", tokenApi, {
+          setToken(token);
+          setValidAt(validAt);
+          setCookie("token", token, {
             path: "/",
-            maxAge: 3660,
+            maxAge: 3600,
             secure: true,
             sameSite: "none",
           });
@@ -58,7 +61,13 @@ const LoginForm = () => {
           });
           setCookie("isAdmin", Boolean(isAdmin), {
             path: "/",
-            maxAge: 3660,
+            maxAge: 3600,
+            secure: true,
+            sameSite: "none",
+          });
+          setCookie("validAt", validAt, {
+            path: "/",
+            maxAge: 3600,
             secure: true,
             sameSite: "none",
           });

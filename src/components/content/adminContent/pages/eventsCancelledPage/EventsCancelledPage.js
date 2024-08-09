@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
+import { useCookies } from "react-cookie";
 import BemCssModules from "bem-css-modules";
 import { StoreContext } from "../../../../../StoreProvider";
 import { AdminStoreContext } from "../../AdminStoreProvider";
@@ -12,11 +13,13 @@ import { default as UsersStyles } from "./EventsCancelledPage.module.scss";
 const style = BemCssModules(UsersStyles);
 
 const EventsCancelledPage = () => {
-  const { token } = useContext(StoreContext);
+  const { token, setToken, setIsLogged, setIsAdmin, setIsValid } =
+    useContext(StoreContext);
   const { userId } = useContext(AdminStoreContext);
   const [events, setEvents] = useState([]);
   const [error, setError] = useState(false);
   const [message, setMessage] = useState("");
+  const [, , removeCookie] = useCookies(["token"]);
 
   useEffect(() => {
     (async () => {
@@ -34,6 +37,16 @@ const EventsCancelledPage = () => {
         return res.json();
       })
       .then((data) => {
+        if (data.code === 401) {
+          setIsLogged(false);
+          setIsAdmin(false);
+          setToken("");
+          setIsValid("");
+          removeCookie("isLogged", { path: "/" });
+          removeCookie("isAdmin", { path: "/" });
+          removeCookie("token", { path: "/" });
+          removeCookie("isValid", { path: "/" });
+        }
         if (data.code === 200) {
           setEvents(data.response);
           setError(false);

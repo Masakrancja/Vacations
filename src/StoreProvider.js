@@ -9,9 +9,13 @@ const StoreProvider = ({ children }) => {
   const cookieToken = cookies.token || "";
   const cookieIsLogged = Boolean(cookies.isLogged);
   const cookieIsAdmin = Boolean(cookies.isAdmin);
+  const cookieValidAt = cookies.validAt;
   const [isLogged, setIsLogged] = useState(cookieIsLogged);
   const [isAdmin, setIsAdmin] = useState(cookieIsAdmin);
   const [token, setToken] = useState(cookieToken);
+  const [validAt, setValidAt] = useState(cookieValidAt);
+
+  console.log("storeProvider");
 
   return (
     <StoreContext.Provider
@@ -22,6 +26,8 @@ const StoreProvider = ({ children }) => {
         setIsAdmin,
         token,
         setToken,
+        validAt,
+        setValidAt,
       }}
     >
       {children}
