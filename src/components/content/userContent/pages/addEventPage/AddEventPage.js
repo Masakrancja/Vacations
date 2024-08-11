@@ -16,31 +16,30 @@ import { default as AddEventStyles } from "./AddEventPage.module.scss";
 const style = BemCssModules(AddEventStyles);
 
 const AddEventPage = () => {
+  const today = new Date().toISOString().substring(0, 10);
   const { token, setToken, setIsLogged, setIsAdmin, setIsValid } =
     useContext(StoreContext);
-  const {
-    reasonId,
-    setReasonId,
-    dateFrom,
-    setDateFrom,
-    dateTo,
-    setDateTo,
-    notice,
-    setNotice,
-  } = useContext(UserStoreContext);
-
+  const { event, setEvent } = useContext(UserStoreContext);
+  const [reasonId, setReasonId] = useState(null);
+  const [dateFrom, setDateFrom] = useState(today);
+  const [dateTo, setDateTo] = useState(today);
+  const [notice, setNotice] = useState("");
   const [error, setError] = useState(false);
   const [message, setMessage] = useState("");
   const [, , removeCookie] = useCookies(["token"]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const today = new Date().toISOString().substring(0, 10);
-    setReasonId(null);
-    setDateFrom(today);
-    setDateTo(today);
-    setNotice("");
-  }, []);
+    setMessage("");
+    setEvent({
+      reasonId,
+      dateFrom,
+      dateTo,
+      notice,
+    });
+  }, [reasonId, dateFrom, dateTo, notice]);
+
+  console.log(event);
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
@@ -48,12 +47,7 @@ const AddEventPage = () => {
       const options = {
         method: "POST",
         headers: { Authorization: "Bearer " + token },
-        body: JSON.stringify({
-          reasonId,
-          dateFrom,
-          dateTo,
-          notice,
-        }),
+        body: JSON.stringify(event),
       };
       return fetch(URI + "/events", options);
     })()
@@ -89,9 +83,14 @@ const AddEventPage = () => {
     <section className={style()}>
       <h2>Dodaj urlop</h2>
       <form method="POST" onSubmit={handleOnSubmit}>
-        <SelectReason />
-        <SelectData />
-        <Notice />
+        <SelectReason id={reasonId} setReasonId={setReasonId} />
+        <SelectData
+          dateFrom={dateFrom}
+          dateTo={dateTo}
+          setDateFrom={setDateFrom}
+          setDateTo={setDateTo}
+        />
+        <Notice notice={notice} setNotice={setNotice} />
         <button type="submit">Dodaj</button>
       </form>
       {error ? <Error message={message} /> : <Success message={message} />}

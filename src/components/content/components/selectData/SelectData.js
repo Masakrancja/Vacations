@@ -1,15 +1,11 @@
-import React, { useContext } from "react";
+import React from "react";
 import BemCssModules from "bem-css-modules";
 
-import { UserStoreContext } from "../../userContent/UserStoreProvider";
 import { default as SelectDataStyle } from "./SelectData.module.scss";
 
 const style = BemCssModules(SelectDataStyle);
 
-const SelectData = () => {
-  const { dateFrom, setDateFrom, dateTo, setDateTo } =
-    useContext(UserStoreContext);
-
+const SelectData = ({ dateFrom, dateTo, setDateFrom, setDateTo }) => {
   const handleDateFromChange = (e) => {
     setDateFrom(e.target.value);
   };

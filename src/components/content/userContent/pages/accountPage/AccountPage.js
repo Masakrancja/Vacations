@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
 import BemCssModules from "bem-css-modules";
 import { StoreContext } from "../../../../../StoreProvider";
 import { URI } from "../../../../../config";
@@ -17,6 +18,7 @@ const AccountPage = () => {
   const [error, setError] = useState(false);
   const [message, setMessage] = useState("");
   const [, , removeCookie] = useCookies(["token"]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
@@ -39,6 +41,7 @@ const AccountPage = () => {
           removeCookie("isAdmin", { path: "/" });
           removeCookie("token", { path: "/" });
           removeCookie("isValid", { path: "/" });
+          navigate("/");
         }
         if (data.code === 200) {
           setAccount(data.response);

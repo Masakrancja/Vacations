@@ -1,14 +1,11 @@
-import React, { useContext } from "react";
+import React from "react";
 import BemCssModules from "bem-css-modules";
-import { UserStoreContext } from "../../userContent/UserStoreProvider";
 
 import { default as NoticeStyle } from "./Notice.module.scss";
 
 const style = BemCssModules(NoticeStyle);
 
-const Notice = () => {
-  const { notice, setNotice } = useContext(UserStoreContext);
-
+const Notice = ({ notice, setNotice }) => {
   const handleNoticeChange = (e) => {
     setNotice(e.target.value);
   };

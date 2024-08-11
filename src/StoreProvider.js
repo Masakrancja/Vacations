@@ -15,8 +15,6 @@ const StoreProvider = ({ children }) => {
   const [token, setToken] = useState(cookieToken);
   const [validAt, setValidAt] = useState(cookieValidAt);
 
-  console.log("storeProvider");
-
   return (
     <StoreContext.Provider
       value={{

@@ -1,50 +1,45 @@
 import React, { useContext, useEffect, useState } from "react";
 import BemCssModules from "bem-css-modules";
-import { StoreContext } from "../../../../StoreProvider";
-import EventChangeStatus from "../eventChangeStatus/EventChangeStatus";
+import { UserStoreContext } from "../../userContent/UserStoreProvider";
+
+import EventShow from "./eventShow/EventShow";
 
 import { default as EventStyle } from "./Event.module.scss";
+import EventEdit from "./eventEdit/EventEdit";
 
 const style = BemCssModules(EventStyle);
 
-const Event = ({
-  id,
-  dateFrom,
-  dateTo,
-  days,
-  notice,
-  reasonName,
-  status,
-  wantCancel,
-}) => {
-  const { isAdmin } = useContext(StoreContext);
-  const [statusName, setStatusName] = useState(null);
+const Event = ({ event, index }) => {
+  const [isEdit, setIsEdit] = useState(false);
+  const [btnName, setBtnName] = useState("Edytuj");
+  const { events } = useContext(UserStoreContext);
 
-  useEffect(() => {
-    setStatusName(
-      status === "pending"
-        ? "Oczekuje na zatwierdzenie"
-        : status === "cancelled"
-        ? "Anulowany"
-        : "Zatwierdzony"
-    );
-  }, []);
+  const toogleEdit = () => {
+    setIsEdit((prev) => {
+      if (prev) {
+        setBtnName("Edytuj");
+      } else {
+        setBtnName("Powrót");
+      }
+      return !prev;
+    });
+  };
+
+  const handleDelete = () => {
+    console.log("trzeba zaimplementować");
+  };
 
   return (
     <div className={style()}>
-      <p>Data od: {dateFrom}</p>
-      <p>Data do: {dateTo}</p>
-      <p>Ilość dni: {days}</p>
-      <p>Powód urlopu: {reasonName}</p>
-      <p>Status urlopu: {statusName}</p>
-      {isAdmin ? (
-        <EventChangeStatus
-          id={id}
-          status={status}
-          setStatusName={setStatusName}
-        />
+      {isEdit ? (
+        <EventEdit event={event} index={index} />
+      ) : (
+        <EventShow event={event} index={index} />
+      )}
+      <button onClick={toogleEdit}>{btnName}</button>
+      {event.status === "pending" ? (
+        <button onClick={handleDelete}>Usuń</button>
       ) : null}
-      {notice ? <p>{notice}</p> : null}
     </div>
   );
 };

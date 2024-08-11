@@ -40,7 +40,6 @@ const LoginForm = () => {
     })()
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.code === 201) {
           const { isAdmin, token, validAt } = data.response;
           setIsLogged(true);

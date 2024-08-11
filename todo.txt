@@ -18,3 +18,5 @@ Backend
 Generowac tokeny wazne prze okreslony czas i nimi sie poslugowac do logowania
 
 Sprawdzanie czy user lub admin zalogowany. Jezeli nie to przekierowac do strony logowania
+
+podczas edychi urlopu sprawdzac czy daty juz nie sa wykorzystane

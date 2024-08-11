@@ -1,20 +1,23 @@
 import React, { useContext, useState, useEffect } from "react";
+import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
 import BemCssModules from "bem-css-modules";
 
 import { StoreContext } from "../../../../StoreProvider";
-import { UserStoreContext } from "../../userContent/UserStoreProvider";
 import { URI } from "../../../../config";
 import Error from "../error/Error";
 import { default as SelectReasonStyle } from "./SelectReason.module.scss";
 
 const style = BemCssModules(SelectReasonStyle);
 
-const SelectReason = () => {
-  const { token } = useContext(StoreContext);
-  const { reasonId, setReasonId } = useContext(UserStoreContext);
+const SelectReason = ({ id, setReasonId }) => {
+  const { token, setToken, setIsLogged, setIsAdmin, setIsValid } =
+    useContext(StoreContext);
   const [reasons, setReasons] = useState([]);
   const [error, setError] = useState(false);
   const [message, setMessage] = useState("");
+  const [, , removeCookie] = useCookies(["token"]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
@@ -28,13 +31,23 @@ const SelectReason = () => {
         return res.json();
       })
       .then((data) => {
+        if (data.code === 401) {
+          setIsLogged(false);
+          setIsAdmin(false);
+          setToken("");
+          setIsValid("");
+          removeCookie("isLogged", { path: "/" });
+          removeCookie("isAdmin", { path: "/" });
+          removeCookie("token", { path: "/" });
+          removeCookie("isValid", { path: "/" });
+          navigate("/");
+        }
         if (data.code === 200) {
+          const reasonId = id || data.response[0].id;
+          setReasonId(reasonId);
           setError(false);
           setMessage("");
           setReasons(data.response);
-          if (reasonId === null) {
-            setReasonId(data.response[0].id);
-          }
         } else {
           setError(true);
           setMessage(`Błąd: ${data.code} ${data.messsage}`);
@@ -44,7 +57,7 @@ const SelectReason = () => {
         setError(true);
         setMessage(`Błąd: ${err.message}`);
       });
-  }, [token, reasonId, setReasonId]);
+  }, []);
 
   const reasonsItems = reasons.map((reason) => (
     <option key={reason.id} value={reason.id}>
@@ -53,7 +66,8 @@ const SelectReason = () => {
   ));
 
   const handleReasonChange = (e) => {
-    setReasonId(e.target.value);
+    const reasonId = Number(e.target.value);
+    setReasonId(reasonId);
   };
 
   return (
@@ -63,7 +77,7 @@ const SelectReason = () => {
       ) : (
         <>
           <span>Wybierz powód</span>
-          <select onChange={handleReasonChange} value={Number(reasonId)}>
+          <select onChange={handleReasonChange} value={Number(id)}>
             {reasonsItems}
           </select>
         </>

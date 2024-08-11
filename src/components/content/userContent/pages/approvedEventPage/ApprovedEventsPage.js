@@ -1,7 +1,9 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
 import BemCssModules from "bem-css-modules";
 import { StoreContext } from "../../../../../StoreProvider";
+import { UserStoreContext } from "../../UserStoreProvider";
 import { URI } from "../../../../../config";
 import Event from "../../../components/event/Event";
 import Error from "../../../components/error/Error";
@@ -13,10 +15,11 @@ const style = BemCssModules(ApprovedEventsStyles);
 const ApprovedEventsPage = () => {
   const { token, setToken, setIsLogged, setIsAdmin, setIsValid } =
     useContext(StoreContext);
-  const [events, setEvents] = useState([]);
+  const { events, setEvents } = useContext(UserStoreContext);
   const [error, setError] = useState(false);
   const [message, setMessage] = useState("");
   const [, , removeCookie] = useCookies(["token"]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
@@ -39,6 +42,7 @@ const ApprovedEventsPage = () => {
           removeCookie("isAdmin", { path: "/" });
           removeCookie("token", { path: "/" });
           removeCookie("isValid", { path: "/" });
+          navigate("/");
         }
         if (data.code === 200) {
           setEvents(data.response);
@@ -57,9 +61,9 @@ const ApprovedEventsPage = () => {
 
   const eventsContent = events
     .filter((event) => event.status === "approved")
-    .map((event) => (
-      <div key={event.id}>
-        <Event {...event} />
+    .map((event, index) => (
+      <div key={index}>
+        <Event event={event} index={index} />
       </div>
     ));
 

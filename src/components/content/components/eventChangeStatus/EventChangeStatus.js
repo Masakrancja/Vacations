@@ -1,8 +1,10 @@
 import React, { useContext, useState } from "react";
+import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
 import BemCssModule from "bem-css-modules";
 
 import { StoreContext } from "../../../../StoreProvider";
-
+import { UserStoreContext } from "../../userContent/UserStoreProvider";
 import { URI } from "../../../../config";
 import Error from "../error/Error";
 
@@ -10,10 +12,14 @@ import { default as EventChangeStatusStyle } from "./EventChangeStatus.module.sc
 
 const style = BemCssModule(EventChangeStatusStyle);
 
-const EventChangeStatus = ({ id, status, setStatusName }) => {
-  const { token } = useContext(StoreContext);
+const EventChangeStatus = ({ id, status }) => {
+  const { token, setToken, setIsLogged, setIsAdmin, setIsValid } =
+    useContext(StoreContext);
   const [error, setError] = useState(false);
   const [message, setMessage] = useState("");
+  const [, , removeCookie] = useCookies(["token"]);
+  const navigate = useNavigate();
+
   const handleChangeStatus = (e) => {
     (async () => {
       const options = {
@@ -31,18 +37,22 @@ const EventChangeStatus = ({ id, status, setStatusName }) => {
         return res.json();
       })
       .then((data) => {
+        if (data.code === 401) {
+          setIsLogged(false);
+          setIsAdmin(false);
+          setToken("");
+          setIsValid("");
+          removeCookie("isLogged", { path: "/" });
+          removeCookie("isAdmin", { path: "/" });
+          removeCookie("token", { path: "/" });
+          removeCookie("isValid", { path: "/" });
+          navigate("/");
+        }
         if (data.code === 200) {
           setError(false);
           setMessage("");
-          setStatusName(
-            e.target.value === "pending"
-              ? "Oczekuje na zatwierdzenie"
-              : e.target.value === "cancelled"
-              ? "Anulowany"
-              : "Zatwierdzony"
-          );
         } else {
-          setError(error);
+          setError(true);
           setMessage(data.message);
         }
       })
