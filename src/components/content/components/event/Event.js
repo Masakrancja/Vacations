@@ -1,18 +1,21 @@
-import React, { useContext, useEffect, useState } from "react";
-import BemCssModules from "bem-css-modules";
-import { UserStoreContext } from "../../userContent/UserStoreProvider";
+import React, { useContext, useState } from "react";
 
 import EventShow from "./eventShow/EventShow";
+import EventEdit from "./eventEdit/EventEdit";
+import Confirm from "../confirm/Confirm";
+import EventDelete from "./eventDelete/EventDelete";
+
+import BemCssModules from "bem-css-modules";
 
 import { default as EventStyle } from "./Event.module.scss";
-import EventEdit from "./eventEdit/EventEdit";
 
 const style = BemCssModules(EventStyle);
 
 const Event = ({ event, index }) => {
   const [isEdit, setIsEdit] = useState(false);
+  const [isConfirmed, setIsConfirmed] = useState(false);
+  const [show, setShow] = useState(false);
   const [btnName, setBtnName] = useState("Edytuj");
-  const { events } = useContext(UserStoreContext);
 
   const toogleEdit = () => {
     setIsEdit((prev) => {
@@ -26,11 +29,12 @@ const Event = ({ event, index }) => {
   };
 
   const handleDelete = () => {
-    console.log("trzeba zaimplementować");
+    setIsConfirmed(false);
+    setShow(true);
   };
 
   return (
-    <div className={style()}>
+    <div className={isConfirmed ? style("disable") : style()}>
       {isEdit ? (
         <EventEdit event={event} index={index} />
       ) : (
@@ -40,6 +44,10 @@ const Event = ({ event, index }) => {
       {event.status === "pending" ? (
         <button onClick={handleDelete}>Usuń</button>
       ) : null}
+      {show ? (
+        <Confirm setShow={setShow} setIsConfirmed={setIsConfirmed} />
+      ) : null}
+      {isConfirmed ? <EventDelete event={event} index={index} /> : null}
     </div>
   );
 };
