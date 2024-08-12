@@ -3,20 +3,13 @@ user urlopy zaakceptowane. Dodac metode do przycisku: Wyślij prośbę o anulowa
 
 User Moje konto - dodać informacje o danych adresowych usera i firmie w jakiej pracuje
 
-user - usuniecie urlopu
-
-user - modyfikacja urlopu
+Admin moje konto. Dodac info o danych adresowych admina i jego firmie. Dodac ile ma pracownikow
 
 Admin Pracownicy
 dodać pole status jak w eventach. Po zmianie statusu aby też był ten tekst zmieniany
 
 Admin zmiana statusow pracownikow i eventow - powinien znikac z zakładki
-Admin moje konto. Dodac info o danych adresowych admina i jego firmie. Dodac ile ma pracownikow
 
 
 Backend
-Generowac tokeny wazne prze okreslony czas i nimi sie poslugowac do logowania
-
-Sprawdzanie czy user lub admin zalogowany. Jezeli nie to przekierowac do strony logowania
-
 podczas edychi urlopu sprawdzac czy daty juz nie sa wykorzystane
