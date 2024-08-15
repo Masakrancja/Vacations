@@ -3,16 +3,14 @@ import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 
 import { StoreContext } from "../../../../../StoreProvider";
-import { UserStoreContext } from "../../../userContent/UserStoreProvider";
 import { URI } from "../../../../../config";
 import Error from "../../error/Error";
 import Success from "../../success/Success";
 import SelectReason from "../../selectReason/SelectReason";
 
 const EventEdit = ({ event, index }) => {
-  const { token, setToken, setIsLogged, setIsAdmin, setIsValid } =
+  const { token, setToken, setIsLogged, setIsAdmin, setIsValid, setEvents } =
     useContext(StoreContext);
-  const { setEvents } = useContext(UserStoreContext);
   const [dateFrom, setDateFrom] = useState(event.dateFrom);
   const [dateTo, setDateTo] = useState(event.dateTo);
   const [notice, setNotice] = useState(event.notice);

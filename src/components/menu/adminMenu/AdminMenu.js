@@ -41,7 +41,7 @@ const AdminMenu = () => {
           </NavLink>
         </li>
         <li>
-          <NavLink to="/events/pleases" exact="false">
+          <NavLink to="/events/petitions" exact="false">
             Prośby o anulowanie urlopu
           </NavLink>
         </li>

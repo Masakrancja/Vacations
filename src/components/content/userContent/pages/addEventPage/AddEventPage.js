@@ -3,7 +3,6 @@ import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import BemCssModules from "bem-css-modules";
 import { StoreContext } from "../../../../../StoreProvider";
-import { UserStoreContext } from "../../UserStoreProvider";
 import { URI } from "../../../../../config";
 import SelectReason from "../../../components/selectReason/SelectReason";
 import SelectData from "../../../components/selectData/SelectData";
@@ -17,9 +16,15 @@ const style = BemCssModules(AddEventStyles);
 
 const AddEventPage = () => {
   const today = new Date().toISOString().substring(0, 10);
-  const { token, setToken, setIsLogged, setIsAdmin, setIsValid } =
-    useContext(StoreContext);
-  const { event, setEvent } = useContext(UserStoreContext);
+  const {
+    token,
+    setToken,
+    setIsLogged,
+    setIsAdmin,
+    setIsValid,
+    event,
+    setEvent,
+  } = useContext(StoreContext);
   const [reasonId, setReasonId] = useState(null);
   const [dateFrom, setDateFrom] = useState(today);
   const [dateTo, setDateTo] = useState(today);

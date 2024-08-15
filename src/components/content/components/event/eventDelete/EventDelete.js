@@ -3,17 +3,22 @@ import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 
 import { StoreContext } from "../../../../../StoreProvider";
-import { UserStoreContext } from "../../../userContent/UserStoreProvider";
 
 import { URI } from "../../../../../config";
 import Error from "../../error/Error";
 
 const EventDelete = ({ event, index }) => {
-  const { token, setToken, setIsLogged, setIsAdmin, setIsValid } =
-    useContext(StoreContext);
+  const {
+    token,
+    setToken,
+    setIsLogged,
+    setIsAdmin,
+    setIsValid,
+    events,
+    setEvents,
+  } = useContext(StoreContext);
   const [error, setError] = useState(false);
   const [message, setMessage] = useState("");
-  const { events, setEvents } = useContext(UserStoreContext);
   const [, , removeCookie] = useCookies(["token"]);
   const navigate = useNavigate();
 

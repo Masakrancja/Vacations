@@ -3,15 +3,13 @@ import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 
 import { StoreContext } from "../../../../../StoreProvider";
-import { UserStoreContext } from "../../../userContent/UserStoreProvider";
 
 import { URI } from "../../../../../config";
 import Error from "../../error/Error";
 
 const EventCancelUser = ({ event, setEvent, index }) => {
-  const { token, setToken, setIsLogged, setIsAdmin, setIsValid } =
+  const { token, setToken, setIsLogged, setIsAdmin, setIsValid, setEvents } =
     useContext(StoreContext);
-  const { setEvents } = useContext(UserStoreContext);
   const [error, setError] = useState(false);
   const [message, setMessage] = useState("");
   const [, , removeCookie] = useCookies(["token"]);

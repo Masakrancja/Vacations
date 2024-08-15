@@ -1,7 +1,4 @@
 Front
-Admin dodac zakladke urlopy oczekujące na anulowanie
-
-dodac przysk "anuluj urlop" dla urlopów z prośbą o anulowanie
 
 User Moje konto - dodać informacje o danych adresowych usera i firmie w jakiej pracuje
 

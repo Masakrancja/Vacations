@@ -3,26 +3,31 @@ import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import BemCssModules from "bem-css-modules";
 import { StoreContext } from "../../../../../StoreProvider";
-import { AdminStoreContext } from "../../AdminStoreProvider";
 import { URI } from "../../../../../config";
 import SelectUser from "../../../components/selectUser/SelectUser";
 import Event from "../../../components/event/Event";
 import Error from "../../../components/error/Error";
 
-import { default as UsersStyles } from "./EventsPleasesPage.module.scss";
+import { default as UsersStyles } from "./EventsPetitionsPage.module.scss";
 
 const style = BemCssModules(UsersStyles);
 
-const EventsPleasesPage = () => {
-  const { token, setToken, setIsLogged, setIsAdmin, setIsValid } =
-    useContext(StoreContext);
-  const { userId, events, setEvents } = useContext(AdminStoreContext);
+const EventsPetitionsPage = () => {
+  const {
+    token,
+    setToken,
+    setIsLogged,
+    setIsAdmin,
+    setIsValid,
+    userId,
+    events,
+    setEvents,
+    isEventWasCanceled,
+  } = useContext(StoreContext);
   const [error, setError] = useState(false);
   const [message, setMessage] = useState("");
   const [, , removeCookie] = useCookies(["token"]);
   const navigate = useNavigate();
-
-  console.log(events);
 
   useEffect(() => {
     (async () => {
@@ -64,7 +69,7 @@ const EventsPleasesPage = () => {
         setError(true);
         setMessage(err.message);
       });
-  }, [token, userId]);
+  }, [token, userId, isEventWasCanceled]);
 
   const eventContent = events
     .filter((event) => event.wantCancel === "yes")
@@ -81,4 +86,4 @@ const EventsPleasesPage = () => {
     </section>
   );
 };
-export default EventsPleasesPage;
+export default EventsPetitionsPage;

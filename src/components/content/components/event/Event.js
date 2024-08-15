@@ -22,9 +22,6 @@ const Event = ({ event, index }) => {
   const [btnName, setBtnName] = useState("Edytuj");
   const [localEvent, setLocalEvent] = useState(event);
 
-  console.log(localEvent);
-  //console.log("wykonuje evenr");
-
   const { status, wantCancel } = localEvent;
 
   const toogleEdit = () => {
@@ -51,7 +48,13 @@ const Event = ({ event, index }) => {
           {status === "pending" ? (
             <EventChangeStatus event={event} index={index} />
           ) : null}
-          {wantCancel === "yes" ? <EventCancelAdmin event={event} /> : null}
+          {wantCancel === "yes" ? (
+            <EventCancelAdmin
+              event={localEvent}
+              setEvent={setLocalEvent}
+              index={index}
+            />
+          ) : null}
         </div>
       ) : (
         <div className={isConfirmed ? style("disable") : style()}>

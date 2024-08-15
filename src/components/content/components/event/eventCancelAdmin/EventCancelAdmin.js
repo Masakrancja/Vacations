@@ -3,23 +3,29 @@ import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 
 import { StoreContext } from "../../../../../StoreProvider";
-import { AdminStoreContext } from "../../../adminContent/AdminStoreProvider";
 
 import { URI } from "../../../../../config";
 import Error from "../../error/Error";
+import Success from "../../success/Success";
 
-const EventCancelAdmin = ({ event }) => {
-  const { token, setToken, setIsLogged, setIsAdmin, setIsValid } =
-    useContext(StoreContext);
+const EventCancelAdmin = ({ event, setEvent, index }) => {
+  const {
+    token,
+    setToken,
+    setIsLogged,
+    setIsAdmin,
+    setIsValid,
+    setEvents,
+    setIsEventWasCanceled,
+  } = useContext(StoreContext);
   const [error, setError] = useState(false);
   const [message, setMessage] = useState("");
-  const { id, wantCancel } = event;
   const [, , removeCookie] = useCookies(["token"]);
   const navigate = useNavigate();
 
-  const handleOnClik = () => {
-    console.log("click");
+  const { id, wantCancel } = event;
 
+  const handleOnClik = () => {
     (async () => {
       const options = {
         method: "PATCH",
@@ -33,7 +39,7 @@ const EventCancelAdmin = ({ event }) => {
       return await fetch(URI + "/events/" + id, options);
     })()
       .then((res) => {
-        res.json();
+        return res.json();
       })
       .then((data) => {
         if (data.code === 401) {
@@ -47,6 +53,36 @@ const EventCancelAdmin = ({ event }) => {
           removeCookie("isValid", { path: "/" });
           navigate("/");
         } else if (data.code === 200) {
+          setError(false);
+          setMessage("Urlop został anulowany");
+          setEvent((prevEvent) => ({
+            ...prevEvent,
+            wantCancel: "no",
+            status: "cancelled",
+          }));
+          setIsEventWasCanceled(true);
+
+          setEvents((prevEvents) =>
+            prevEvents.map((event, position) => {
+              if (position === index) {
+                event.status = "cancelled";
+                event.wantCancel = "no";
+              }
+              return event;
+            })
+          );
+
+          // setEvents((prevEvents) =>
+          //   prevEvents.map((event, position) => {
+          //     if (position === index) {
+          //       event.wantCancel = wantCancel;
+          //     }
+          //     return event;
+          //   })
+          // );
+        } else {
+          setError(true);
+          setMessage(data.message);
         }
       })
       .catch((err) => {
@@ -58,7 +94,8 @@ const EventCancelAdmin = ({ event }) => {
   return (
     <>
       <h6>Pracownik wysłał prośbę o anulowanie urlopu</h6>
-      {wantCancel ? <button onClick={handleOnClik}>Anuluj</button> : null}
+      {wantCancel ? <button onClick={handleOnClik}>Anuluj urlop</button> : null}
+      {error ? <Error message={message} /> : <Success message={message} />}
     </>
   );
 };

@@ -3,14 +3,19 @@ import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 
 import { StoreContext } from "../../../../../StoreProvider";
-import { AdminStoreContext } from "../../../adminContent/AdminStoreProvider";
 import { URI } from "../../../../../config";
 import Error from "../../error/Error";
 
 const EventChangeStatus = ({ event, index }) => {
-  const { token, setToken, setIsLogged, setIsAdmin, setIsValid } =
-    useContext(StoreContext);
-  const { events, setEvents } = useContext(AdminStoreContext);
+  const {
+    token,
+    setToken,
+    setIsLogged,
+    setIsAdmin,
+    setIsValid,
+    events,
+    setEvents,
+  } = useContext(StoreContext);
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [error, setError] = useState(false);
   const [message, setMessage] = useState("");

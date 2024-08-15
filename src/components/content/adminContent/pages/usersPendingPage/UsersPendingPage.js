@@ -3,7 +3,6 @@ import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import BemCssModules from "bem-css-modules";
 import { StoreContext } from "../../../../../StoreProvider";
-import { AdminStoreContext } from "../../AdminStoreProvider";
 import { URI } from "../../../../../config";
 import User from "../../../components/user/User";
 import Error from "../../../components/error/Error";
@@ -13,9 +12,15 @@ import { default as UsersPendingStyles } from "./UsersPendingPage.module.scss";
 const style = BemCssModules(UsersPendingStyles);
 
 const UsersPendingPage = () => {
-  const { token, setToken, setIsLogged, setIsAdmin, setIsValid } =
-    useContext(StoreContext);
-  const { users, setUsers } = useContext(AdminStoreContext);
+  const {
+    token,
+    setToken,
+    setIsLogged,
+    setIsAdmin,
+    setIsValid,
+    users,
+    setUsers,
+  } = useContext(StoreContext);
   const [error, setError] = useState(false);
   const [message, setMessage] = useState("");
   const [, , removeCookie] = useCookies(["token"]);

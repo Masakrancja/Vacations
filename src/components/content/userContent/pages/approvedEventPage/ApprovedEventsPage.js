@@ -3,7 +3,6 @@ import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import BemCssModules from "bem-css-modules";
 import { StoreContext } from "../../../../../StoreProvider";
-import { UserStoreContext } from "../../UserStoreProvider";
 import { URI } from "../../../../../config";
 import Event from "../../../components/event/Event";
 import Error from "../../../components/error/Error";
@@ -13,9 +12,15 @@ import { default as ApprovedEventsStyles } from "./ApprovedEventsPage.module.scs
 const style = BemCssModules(ApprovedEventsStyles);
 
 const ApprovedEventsPage = () => {
-  const { token, setToken, setIsLogged, setIsAdmin, setIsValid } =
-    useContext(StoreContext);
-  const { events, setEvents } = useContext(UserStoreContext);
+  const {
+    token,
+    setToken,
+    setIsLogged,
+    setIsAdmin,
+    setIsValid,
+    events,
+    setEvents,
+  } = useContext(StoreContext);
   const [error, setError] = useState(false);
   const [message, setMessage] = useState("");
   const [, , removeCookie] = useCookies(["token"]);

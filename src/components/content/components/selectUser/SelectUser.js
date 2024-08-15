@@ -2,16 +2,15 @@ import React, { useContext, useEffect, useState } from "react";
 import BemCssModule from "bem-css-modules";
 
 import { StoreContext } from "../../../../StoreProvider";
-import { AdminStoreContext } from "../../adminContent/AdminStoreProvider";
 import { URI } from "../../../../config";
+import Error from "../error/Error";
 
 import { default as SelectUserStyle } from "./SelectUser.module.scss";
 
 const style = BemCssModule(SelectUserStyle);
 
 const SelectUser = () => {
-  const { token } = useContext(StoreContext);
-  const { setUserId } = useContext(AdminStoreContext);
+  const { token, setUserId } = useContext(StoreContext);
   const [users, setUsers] = useState([]);
   const [error, setError] = useState(false);
   const [message, setMessage] = useState("");
@@ -64,6 +63,7 @@ const SelectUser = () => {
         <option>Wszyscy pracownicy</option>
         {usersContent}
       </select>
+      {error ? <Error message={message} /> : null}
     </section>
   );
 };

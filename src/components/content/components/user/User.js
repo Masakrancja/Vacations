@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import { StoreContext } from "../../../../StoreProvider";
-import { AdminStoreContext } from "../../adminContent/AdminStoreProvider";
 import { URI } from "../../../../config";
 import Error from "../error/Error";
 import Success from "../success/Success";
@@ -14,8 +13,7 @@ const style = BemCssModules(UserStyle);
 
 const User = ({ user, index }) => {
   const { id, isActive, createdAt, login } = user;
-  const { token } = useContext(StoreContext);
-  const { users, setUsers } = useContext(AdminStoreContext);
+  const { token, users, setUsers } = useContext(StoreContext);
   const [userData, setUserData] = useState([]);
   const [show, setShow] = useState(false);
   const [showTitle, setShowTitle] = useState("Szczegóły");
