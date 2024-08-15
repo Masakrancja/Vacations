@@ -39,8 +39,6 @@ const AddEventPage = () => {
     });
   }, [reasonId, dateFrom, dateTo, notice]);
 
-  console.log(event);
-
   const handleOnSubmit = (e) => {
     e.preventDefault();
     (async () => {
@@ -64,6 +62,7 @@ const AddEventPage = () => {
           removeCookie("isAdmin", { path: "/" });
           removeCookie("token", { path: "/" });
           removeCookie("isValid", { path: "/" });
+          navigate("/");
         }
         if (data.code === 201) {
           setError(false);

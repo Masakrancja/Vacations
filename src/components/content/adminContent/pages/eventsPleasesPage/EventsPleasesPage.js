@@ -9,11 +9,11 @@ import SelectUser from "../../../components/selectUser/SelectUser";
 import Event from "../../../components/event/Event";
 import Error from "../../../components/error/Error";
 
-import { default as UsersStyles } from "./EventsPendingPage.module.scss";
+import { default as UsersStyles } from "./EventsPleasesPage.module.scss";
 
 const style = BemCssModules(UsersStyles);
 
-const EventsPendingPage = () => {
+const EventsPleasesPage = () => {
   const { token, setToken, setIsLogged, setIsAdmin, setIsValid } =
     useContext(StoreContext);
   const { userId, events, setEvents } = useContext(AdminStoreContext);
@@ -21,6 +21,8 @@ const EventsPendingPage = () => {
   const [message, setMessage] = useState("");
   const [, , removeCookie] = useCookies(["token"]);
   const navigate = useNavigate();
+
+  console.log(events);
 
   useEffect(() => {
     (async () => {
@@ -65,7 +67,7 @@ const EventsPendingPage = () => {
   }, [token, userId]);
 
   const eventContent = events
-    .filter((event) => event.status === "pending")
+    .filter((event) => event.wantCancel === "yes")
     .map((event, index) => (
       <div key={index}>
         <Event event={event} index={index} />
@@ -79,4 +81,4 @@ const EventsPendingPage = () => {
     </section>
   );
 };
-export default EventsPendingPage;
+export default EventsPleasesPage;

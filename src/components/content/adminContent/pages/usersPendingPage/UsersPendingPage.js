@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
 import BemCssModules from "bem-css-modules";
 import { StoreContext } from "../../../../../StoreProvider";
 import { AdminStoreContext } from "../../AdminStoreProvider";
@@ -18,6 +19,7 @@ const UsersPendingPage = () => {
   const [error, setError] = useState(false);
   const [message, setMessage] = useState("");
   const [, , removeCookie] = useCookies(["token"]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
@@ -40,6 +42,7 @@ const UsersPendingPage = () => {
           removeCookie("isAdmin", { path: "/" });
           removeCookie("token", { path: "/" });
           removeCookie("isValid", { path: "/" });
+          navigate("/");
         }
         if (data.code === 200) {
           setUsers(data.response);
@@ -54,16 +57,16 @@ const UsersPendingPage = () => {
         setError(true);
         setMessage(err.message);
       });
-  }, [token, setUsers]);
+  }, []);
 
   const usersContent = users
     .filter(
       (user) =>
         Boolean(user.isAdmin) === false && Boolean(user.isActive) === false
     )
-    .map((user) => (
-      <div key={user.id}>
-        <User {...user} />
+    .map((user, index) => (
+      <div key={index}>
+        <User user={user} index={index} />
       </div>
     ));
 

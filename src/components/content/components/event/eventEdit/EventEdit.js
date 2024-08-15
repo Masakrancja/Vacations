@@ -7,11 +7,10 @@ import { UserStoreContext } from "../../../userContent/UserStoreProvider";
 import { URI } from "../../../../../config";
 import Error from "../../error/Error";
 import Success from "../../success/Success";
-import EventChangeStatus from "../../eventChangeStatus/EventChangeStatus";
 import SelectReason from "../../selectReason/SelectReason";
 
 const EventEdit = ({ event, index }) => {
-  const { token, isAdmin, setToken, setIsLogged, setIsAdmin, setIsValid } =
+  const { token, setToken, setIsLogged, setIsAdmin, setIsValid } =
     useContext(StoreContext);
   const { setEvents } = useContext(UserStoreContext);
   const [dateFrom, setDateFrom] = useState(event.dateFrom);
@@ -91,34 +90,25 @@ const EventEdit = ({ event, index }) => {
         setMessage(err.message);
       });
   };
-  const { id, status } = event;
   return (
     <>
-      {isAdmin ? (
-        <>
-          <EventChangeStatus id={id} status={status} />
-        </>
-      ) : (
-        <>
-          <form method="POST" onSubmit={handleSubmit}>
-            <SelectReason id={reasonId} setReasonId={setReasonId} />
-            <label>
-              Data od:
-              <input type="date" value={dateFrom} onChange={handleChangeFrom} />
-            </label>
-            <label>
-              Data do:
-              <input type="date" value={dateTo} onChange={handleChangeTo} />
-            </label>
-            <label>
-              Notatka:
-              <textarea value={notice} onChange={handleChangeNotice}></textarea>
-            </label>
-            <button type="submit">Zapisz</button>
-          </form>
-          {error ? <Error message={message} /> : <Success message={message} />}
-        </>
-      )}
+      <form method="POST" onSubmit={handleSubmit}>
+        <SelectReason id={reasonId} setReasonId={setReasonId} />
+        <label>
+          Data od:
+          <input type="date" value={dateFrom} onChange={handleChangeFrom} />
+        </label>
+        <label>
+          Data do:
+          <input type="date" value={dateTo} onChange={handleChangeTo} />
+        </label>
+        <label>
+          Notatka:
+          <textarea value={notice} onChange={handleChangeNotice}></textarea>
+        </label>
+        <button type="submit">Zapisz</button>
+      </form>
+      {error ? <Error message={message} /> : <Success message={message} />}
     </>
   );
 };

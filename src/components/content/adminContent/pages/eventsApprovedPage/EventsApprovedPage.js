@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
 import BemCssModules from "bem-css-modules";
 import { StoreContext } from "../../../../../StoreProvider";
 import { AdminStoreContext } from "../../AdminStoreProvider";
@@ -15,11 +16,11 @@ const style = BemCssModules(UsersStyles);
 const EventsApprovedPage = () => {
   const { token, setToken, setIsLogged, setIsAdmin, setIsValid } =
     useContext(StoreContext);
-  const { userId } = useContext(AdminStoreContext);
-  const [events, setEvents] = useState([]);
+  const { userId, events, setEvents } = useContext(AdminStoreContext);
   const [error, setError] = useState(false);
   const [message, setMessage] = useState("");
   const [, , removeCookie] = useCookies(["token"]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
@@ -46,6 +47,7 @@ const EventsApprovedPage = () => {
           removeCookie("isAdmin", { path: "/" });
           removeCookie("token", { path: "/" });
           removeCookie("isValid", { path: "/" });
+          navigate("/");
         }
         if (data.code === 200) {
           setEvents(data.response);
@@ -64,7 +66,11 @@ const EventsApprovedPage = () => {
 
   const eventContent = events
     .filter((event) => event.status === "approved")
-    .map((event) => <Event key={event.id} {...event} />);
+    .map((event, index) => (
+      <div key={index}>
+        <Event event={event} index={index} />
+      </div>
+    ));
 
   return (
     <section className={style()}>

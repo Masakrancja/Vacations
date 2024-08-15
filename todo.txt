@@ -1,9 +1,14 @@
 Front
-user urlopy zaakceptowane. Dodac metode do przycisku: Wyślij prośbę o anulowanie urlopu 
+Admin dodac zakladke urlopy oczekujące na anulowanie
+
+dodac przysk "anuluj urlop" dla urlopów z prośbą o anulowanie
 
 User Moje konto - dodać informacje o danych adresowych usera i firmie w jakiej pracuje
 
 Admin moje konto. Dodac info o danych adresowych admina i jego firmie. Dodac ile ma pracownikow
+
+
+
 
 Admin Pracownicy
 dodać pole status jak w eventach. Po zmianie statusu aby też był ten tekst zmieniany
@@ -13,3 +18,5 @@ Admin zmiana statusow pracownikow i eventow - powinien znikac z zakładki
 
 Backend
 podczas edychi urlopu sprawdzac czy daty juz nie sa wykorzystane
+do routy /users dodac imie + nazwisko
+

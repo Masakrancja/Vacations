@@ -5,6 +5,7 @@ export const AdminStoreContext = createContext(null);
 const AdminStoreProvider = ({ children }) => {
   const [users, setUsers] = useState([]);
   const [userId, setUserId] = useState(null);
+  const [events, setEvents] = useState([]);
   return (
     <AdminStoreContext.Provider
       value={{
@@ -12,6 +13,8 @@ const AdminStoreProvider = ({ children }) => {
         setUsers,
         userId,
         setUserId,
+        events,
+        setEvents,
       }}
     >
       {children}

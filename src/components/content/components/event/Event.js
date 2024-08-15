@@ -1,10 +1,13 @@
 import React, { useContext, useState } from "react";
 
+import { StoreContext } from "../../../../StoreProvider";
 import EventShow from "./eventShow/EventShow";
 import EventEdit from "./eventEdit/EventEdit";
 import Confirm from "../confirm/Confirm";
 import EventDelete from "./eventDelete/EventDelete";
-
+import EventCancelUser from "./eventCancelUser/EventCancelUser";
+import EventCancelAdmin from "./eventCancelAdmin/EventCancelAdmin";
+import EventChangeStatus from "./eventChangeStatus/eventChangeStatus";
 import BemCssModules from "bem-css-modules";
 
 import { default as EventStyle } from "./Event.module.scss";
@@ -12,10 +15,17 @@ import { default as EventStyle } from "./Event.module.scss";
 const style = BemCssModules(EventStyle);
 
 const Event = ({ event, index }) => {
+  const { isAdmin } = useContext(StoreContext);
   const [isEdit, setIsEdit] = useState(false);
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [show, setShow] = useState(false);
   const [btnName, setBtnName] = useState("Edytuj");
+  const [localEvent, setLocalEvent] = useState(event);
+
+  console.log(localEvent);
+  //console.log("wykonuje evenr");
+
+  const { status, wantCancel } = localEvent;
 
   const toogleEdit = () => {
     setIsEdit((prev) => {
@@ -34,21 +44,43 @@ const Event = ({ event, index }) => {
   };
 
   return (
-    <div className={isConfirmed ? style("disable") : style()}>
-      {isEdit ? (
-        <EventEdit event={event} index={index} />
+    <>
+      {isAdmin ? (
+        <div className={style()}>
+          <EventShow event={event} index={index} />
+          {status === "pending" ? (
+            <EventChangeStatus event={event} index={index} />
+          ) : null}
+          {wantCancel === "yes" ? <EventCancelAdmin event={event} /> : null}
+        </div>
       ) : (
-        <EventShow event={event} index={index} />
+        <div className={isConfirmed ? style("disable") : style()}>
+          {isEdit ? (
+            <EventEdit event={event} index={index} />
+          ) : (
+            <EventShow event={event} index={index} />
+          )}
+          <button onClick={toogleEdit}>{btnName}</button>
+          {status === "pending" ? (
+            <button onClick={handleDelete}>Usuń</button>
+          ) : null}
+          {status === "approved" ? (
+            <>
+              <EventCancelUser
+                event={localEvent}
+                setEvent={setLocalEvent}
+                index={index}
+              />
+              {wantCancel === "yes" ? "Oczekuje na akceptacje" : null}
+            </>
+          ) : null}
+          {show ? (
+            <Confirm setShow={setShow} setIsConfirmed={setIsConfirmed} />
+          ) : null}
+          {isConfirmed ? <EventDelete event={event} index={index} /> : null}
+        </div>
       )}
-      <button onClick={toogleEdit}>{btnName}</button>
-      {event.status === "pending" ? (
-        <button onClick={handleDelete}>Usuń</button>
-      ) : null}
-      {show ? (
-        <Confirm setShow={setShow} setIsConfirmed={setIsConfirmed} />
-      ) : null}
-      {isConfirmed ? <EventDelete event={event} index={index} /> : null}
-    </div>
+    </>
   );
 };
 export default Event;

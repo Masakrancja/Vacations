@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { StoreContext } from "../../../../StoreProvider";
+import { AdminStoreContext } from "../../adminContent/AdminStoreProvider";
 import { URI } from "../../../../config";
 import Error from "../error/Error";
 import Success from "../success/Success";
@@ -11,8 +12,10 @@ import { default as UserStyle } from "./User.module.scss";
 
 const style = BemCssModules(UserStyle);
 
-const User = ({ id, isActive, createdAt, login }) => {
+const User = ({ user, index }) => {
+  const { id, isActive, createdAt, login } = user;
   const { token } = useContext(StoreContext);
+  const { users, setUsers } = useContext(AdminStoreContext);
   const [userData, setUserData] = useState([]);
   const [show, setShow] = useState(false);
   const [showTitle, setShowTitle] = useState("Szczegóły");
@@ -75,6 +78,14 @@ const User = ({ id, isActive, createdAt, login }) => {
           setError(false);
           setMessage(data.message);
           setActive((prev) => !prev);
+          setUsers(
+            users.map((user, position) => {
+              if (position === index) {
+                user.active = !user.active;
+              }
+              return user;
+            })
+          );
         } else {
           setError(true);
           setMessage(data.message);

@@ -8,6 +8,7 @@ import EventsPage from "./pages/eventsPage/EventsPage";
 import EventsPendingPage from "./pages/eventsPendingPage/EventsPendingPage";
 import EventsApprovedPage from "./pages/eventsApprovedPage/EventsApprovedPage";
 import EventsCancelledPage from "./pages/eventsCancelledPage/EventsCancelledPage";
+import EventsPleasesPage from "./pages/eventsPleasesPage/EventsPleasesPage";
 import AccountPage from "./pages/accountPage/AccountPage";
 import ErrorPage from "../errorPage/ErrorPage";
 
@@ -23,6 +24,7 @@ const AdminContent = () => {
           <Route path="/events/pending" Component={EventsPendingPage} />
           <Route path="/events/approved" Component={EventsApprovedPage} />
           <Route path="/events/cancelled" Component={EventsCancelledPage} />
+          <Route path="/events/pleases" Component={EventsPleasesPage} />
           <Route path="/me" Component={AccountPage} />
           <Route path="*" Component={ErrorPage} />
         </Routes>
