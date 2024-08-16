@@ -2,10 +2,10 @@ import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import BemCssModules from "bem-css-modules";
 import StoreProvider from "./StoreProvider";
-import Header from "./components/header/Header";
-import Menu from "./components/menu/Menu";
-import Content from "./components/content/Content";
-import Footer from "./components/footer/Footer";
+import Header from "./header/Header";
+import Menu from "./menu/Menu";
+import Content from "./content/Content";
+import Footer from "./footer/Footer";
 
 import { default as AppStyles } from "./App.module.scss";
 
