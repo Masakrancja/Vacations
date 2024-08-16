@@ -8,8 +8,8 @@ import Error from "../../error/Error";
 import Success from "../../success/Success";
 import SelectReason from "../../selectReason/SelectReason";
 
-const EventEdit = ({ event, index }) => {
-  const { token, setToken, setIsLogged, setIsAdmin, setIsValid, setEvents } =
+const EventEdit = ({ event, setEvent }) => {
+  const { token, setToken, setIsLogged, setIsAdmin, setIsValid } =
     useContext(StoreContext);
   const [dateFrom, setDateFrom] = useState(event.dateFrom);
   const [dateTo, setDateTo] = useState(event.dateTo);
@@ -67,15 +67,7 @@ const EventEdit = ({ event, index }) => {
           navigate("/");
         }
         if (data.code === 200) {
-          setEvents((prevEvents) =>
-            prevEvents.map((prevEvent, prevIndex) => {
-              if (prevIndex === index) {
-                return data.response;
-              } else {
-                return prevEvent;
-              }
-            })
-          );
+          setEvent(data.response);
           setError(false);
           setMessage("Poprawnie zapisano urlop");
         } else {

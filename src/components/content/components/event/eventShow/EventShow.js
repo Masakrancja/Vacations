@@ -1,21 +1,10 @@
 import React, { useContext } from "react";
 import { StoreContext } from "../../../../../StoreProvider";
 
-const EventShow = ({ event, index }) => {
+const EventShow = ({ event }) => {
   const { isAdmin } = useContext(StoreContext);
 
-  const {
-    dateFrom,
-    dateTo,
-    days,
-    id,
-    notice,
-    reasonId,
-    reasonName,
-    status,
-    userId,
-    wantCancel,
-  } = event;
+  const { dateFrom, dateTo, days, notice, reasonName, status } = event;
 
   const statusName =
     status === "pending"

@@ -13,16 +13,9 @@ import { default as UsersStyles } from "./EventsPage.module.scss";
 const style = BemCssModules(UsersStyles);
 
 const EventsPage = () => {
-  const {
-    token,
-    setToken,
-    setIsLogged,
-    setIsAdmin,
-    setIsValid,
-    userId,
-    events,
-    setEvents,
-  } = useContext(StoreContext);
+  const { token, setToken, setIsLogged, setIsAdmin, setIsValid, userId } =
+    useContext(StoreContext);
+  const [events, setEvents] = useState([]);
   const [error, setError] = useState(false);
   const [message, setMessage] = useState("");
   const [, , removeCookie] = useCookies(["token"]);
@@ -68,11 +61,11 @@ const EventsPage = () => {
         setError(true);
         setMessage(err.message);
       });
-  }, [token, userId]);
+  }, [userId]);
 
-  const eventContent = events.map((event, index) => (
-    <div key={index}>
-      <Event event={event} index={index} />
+  const eventContent = events.map((event) => (
+    <div key={event.id}>
+      <Event event={event} />
     </div>
   ));
 

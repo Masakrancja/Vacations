@@ -20,10 +20,9 @@ const EventsPetitionsPage = () => {
     setIsAdmin,
     setIsValid,
     userId,
-    events,
-    setEvents,
     isEventWasCanceled,
   } = useContext(StoreContext);
+  const [events, setEvents] = useState([]);
   const [error, setError] = useState(false);
   const [message, setMessage] = useState("");
   const [, , removeCookie] = useCookies(["token"]);
@@ -69,13 +68,13 @@ const EventsPetitionsPage = () => {
         setError(true);
         setMessage(err.message);
       });
-  }, [token, userId, isEventWasCanceled]);
+  }, [userId, isEventWasCanceled]);
 
   const eventContent = events
     .filter((event) => event.wantCancel === "yes")
-    .map((event, index) => (
-      <div key={index}>
-        <Event event={event} index={index} />
+    .map((event) => (
+      <div key={event.id}>
+        <Event event={event} />
       </div>
     ));
 

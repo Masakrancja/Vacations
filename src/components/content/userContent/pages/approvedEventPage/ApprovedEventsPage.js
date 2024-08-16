@@ -12,15 +12,9 @@ import { default as ApprovedEventsStyles } from "./ApprovedEventsPage.module.scs
 const style = BemCssModules(ApprovedEventsStyles);
 
 const ApprovedEventsPage = () => {
-  const {
-    token,
-    setToken,
-    setIsLogged,
-    setIsAdmin,
-    setIsValid,
-    events,
-    setEvents,
-  } = useContext(StoreContext);
+  const { token, setToken, setIsLogged, setIsAdmin, setIsValid } =
+    useContext(StoreContext);
+  const [events, setEvents] = useState([]);
   const [error, setError] = useState(false);
   const [message, setMessage] = useState("");
   const [, , removeCookie] = useCookies(["token"]);
@@ -62,13 +56,13 @@ const ApprovedEventsPage = () => {
         setError(true);
         setMessage(err.message);
       });
-  }, [token]);
+  }, []);
 
   const eventsContent = events
     .filter((event) => event.status === "approved")
-    .map((event, index) => (
-      <div key={index}>
-        <Event event={event} index={index} />
+    .map((event) => (
+      <div key={event.id}>
+        <Event event={event} />
       </div>
     ));
 

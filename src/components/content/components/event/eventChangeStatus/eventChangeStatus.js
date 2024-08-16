@@ -6,21 +6,15 @@ import { StoreContext } from "../../../../../StoreProvider";
 import { URI } from "../../../../../config";
 import Error from "../../error/Error";
 
-const EventChangeStatus = ({ event, index }) => {
-  const {
-    token,
-    setToken,
-    setIsLogged,
-    setIsAdmin,
-    setIsValid,
-    events,
-    setEvents,
-  } = useContext(StoreContext);
+const EventChangeStatus = ({ event, setEvent }) => {
+  const { token, setToken, setIsLogged, setIsAdmin, setIsValid } =
+    useContext(StoreContext);
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [error, setError] = useState(false);
   const [message, setMessage] = useState("");
   const [, , removeCookie] = useCookies(["token"]);
   const navigate = useNavigate();
+
   const handleOnClick = (e) => {
     const { id } = event;
     const { status } = e.target.dataset;
@@ -56,14 +50,7 @@ const EventChangeStatus = ({ event, index }) => {
           setError(false);
           setMessage("");
           setIsConfirmed(true);
-          setEvents(
-            events.map((event, position) => {
-              if (position === index) {
-                event.statusus = status;
-              }
-              return event;
-            })
-          );
+          setEvent((prevEvent) => ({ ...prevEvent, status }));
         } else {
           setError(true);
           setMessage(data.message);

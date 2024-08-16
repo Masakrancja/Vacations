@@ -12,19 +12,13 @@ import { default as UsersPendingStyles } from "./UsersPendingPage.module.scss";
 const style = BemCssModules(UsersPendingStyles);
 
 const UsersPendingPage = () => {
-  const {
-    token,
-    setToken,
-    setIsLogged,
-    setIsAdmin,
-    setIsValid,
-    users,
-    setUsers,
-  } = useContext(StoreContext);
-  const [error, setError] = useState(false);
-  const [message, setMessage] = useState("");
   const [, , removeCookie] = useCookies(["token"]);
   const navigate = useNavigate();
+  const { token, setToken, setIsLogged, setIsAdmin, setIsValid } =
+    useContext(StoreContext);
+  const [users, setUsers] = useState([]);
+  const [error, setError] = useState(false);
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     (async () => {
@@ -69,9 +63,9 @@ const UsersPendingPage = () => {
       (user) =>
         Boolean(user.isAdmin) === false && Boolean(user.isActive) === false
     )
-    .map((user, index) => (
-      <div key={index}>
-        <User user={user} index={index} />
+    .map((user) => (
+      <div key={user.id}>
+        <User user={user} />
       </div>
     ));
 

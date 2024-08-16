@@ -1,4 +1,7 @@
 import React, { useContext, useState } from "react";
+import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
+
 import { StoreContext } from "../../../../StoreProvider";
 import { URI } from "../../../../config";
 import Error from "../error/Error";
@@ -11,15 +14,20 @@ import { default as UserStyle } from "./User.module.scss";
 
 const style = BemCssModules(UserStyle);
 
-const User = ({ user, index }) => {
-  const { id, isActive, createdAt, login } = user;
-  const { token, users, setUsers } = useContext(StoreContext);
+const User = ({ user }) => {
+  const [, , removeCookie] = useCookies(["token"]);
+  const navigate = useNavigate();
+  const { token, setToken, setIsLogged, setIsAdmin, setIsValid } =
+    useContext(StoreContext);
   const [userData, setUserData] = useState([]);
   const [show, setShow] = useState(false);
   const [showTitle, setShowTitle] = useState("Szczegóły");
   const [error, setError] = useState(false);
   const [message, setMessage] = useState("");
-  const [active, setActive] = useState(Boolean(isActive));
+  const [localUser, setLocalUser] = useState(user);
+
+  const { id, createdAt, fullName, login } = user;
+  const isActive = Boolean(localUser.isActive);
 
   const handleOnClick = () => {
     (async () => {
@@ -33,6 +41,17 @@ const User = ({ user, index }) => {
         return res.json();
       })
       .then((data) => {
+        if (data.code === 401) {
+          setIsLogged(false);
+          setIsAdmin(false);
+          setToken("");
+          setIsValid("");
+          removeCookie("isLogged", { path: "/" });
+          removeCookie("isAdmin", { path: "/" });
+          removeCookie("token", { path: "/" });
+          removeCookie("isValid", { path: "/" });
+          navigate("/");
+        }
         if (data.code === 200) {
           setUserData(data.response.userData);
           setError(false);
@@ -72,18 +91,21 @@ const User = ({ user, index }) => {
         return res.json();
       })
       .then((data) => {
+        if (data.code === 401) {
+          setIsLogged(false);
+          setIsAdmin(false);
+          setToken("");
+          setIsValid("");
+          removeCookie("isLogged", { path: "/" });
+          removeCookie("isAdmin", { path: "/" });
+          removeCookie("token", { path: "/" });
+          removeCookie("isValid", { path: "/" });
+          navigate("/");
+        }
         if (data.code === 200) {
           setError(false);
           setMessage(data.message);
-          setActive((prev) => !prev);
-          setUsers(
-            users.map((user, position) => {
-              if (position === index) {
-                user.active = !user.active;
-              }
-              return user;
-            })
-          );
+          setLocalUser((prevUser) => ({ ...prevUser, isActive: !isActive }));
         } else {
           setError(true);
           setMessage(data.message);
@@ -96,20 +118,24 @@ const User = ({ user, index }) => {
   };
 
   return (
-    <div className={style(active === true ? "active" : "inactive")}>
+    <div className={style(isActive === true ? "active" : "inactive")}>
       <div>
+        <p>
+          Imię i nazwisko: <span>{fullName}</span>
+        </p>
         <p>
           Login: <span>{login}</span>
         </p>
         <p>
           Zarejestrowany: <span>{createdAt.substr(0, 10)}</span>
         </p>
+        <p>Status: {isActive === true ? "Aktywny" : "Nieaktywny"}</p>
         <label>
           <input
             type="radio"
             value={true}
             name={`status${id}`}
-            defaultChecked={active}
+            defaultChecked={isActive}
             onChange={handleOnChange}
           />
           Aktywny
@@ -119,7 +145,7 @@ const User = ({ user, index }) => {
             type="radio"
             value={false}
             name={`status${id}`}
-            defaultChecked={!active}
+            defaultChecked={!isActive}
             onChange={handleOnChange}
           />
           Nieaktywny

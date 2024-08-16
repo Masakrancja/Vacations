@@ -13,16 +13,9 @@ import { default as UsersStyles } from "./EventsCancelledPage.module.scss";
 const style = BemCssModules(UsersStyles);
 
 const EventsCancelledPage = () => {
-  const {
-    token,
-    setToken,
-    setIsLogged,
-    setIsAdmin,
-    setIsValid,
-    userId,
-    events,
-    setEvents,
-  } = useContext(StoreContext);
+  const { token, setToken, setIsLogged, setIsAdmin, setIsValid, userId } =
+    useContext(StoreContext);
+  const [events, setEvents] = useState([]);
   const [error, setError] = useState(false);
   const [message, setMessage] = useState("");
   const [, , removeCookie] = useCookies(["token"]);
@@ -68,13 +61,13 @@ const EventsCancelledPage = () => {
         setError(true);
         setMessage(err.message);
       });
-  }, [token, userId]);
+  }, [userId]);
 
   const eventContent = events
     .filter((event) => event.status === "cancelled")
-    .map((event, index) => (
-      <div key={index}>
-        <Event event={event} index={index} />
+    .map((event) => (
+      <div key={event.id}>
+        <Event event={event} />
       </div>
     ));
 

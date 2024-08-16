@@ -1,21 +1,19 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 
 import { StoreContext } from "../../../../../StoreProvider";
-
 import { URI } from "../../../../../config";
 import Error from "../../error/Error";
 import Success from "../../success/Success";
 
-const EventCancelAdmin = ({ event, setEvent, index }) => {
+const EventCancelAdmin = ({ event, setEvent }) => {
   const {
     token,
     setToken,
     setIsLogged,
     setIsAdmin,
     setIsValid,
-    setEvents,
     setIsEventWasCanceled,
   } = useContext(StoreContext);
   const [error, setError] = useState(false);
@@ -61,25 +59,6 @@ const EventCancelAdmin = ({ event, setEvent, index }) => {
             status: "cancelled",
           }));
           setIsEventWasCanceled(true);
-
-          setEvents((prevEvents) =>
-            prevEvents.map((event, position) => {
-              if (position === index) {
-                event.status = "cancelled";
-                event.wantCancel = "no";
-              }
-              return event;
-            })
-          );
-
-          // setEvents((prevEvents) =>
-          //   prevEvents.map((event, position) => {
-          //     if (position === index) {
-          //       event.wantCancel = wantCancel;
-          //     }
-          //     return event;
-          //   })
-          // );
         } else {
           setError(true);
           setMessage(data.message);

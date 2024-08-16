@@ -56,7 +56,7 @@ const AccountPage = () => {
         setError(true);
         setMessage(err.message);
       });
-  }, [token]);
+  }, []);
 
   return (
     <section className={style()}>

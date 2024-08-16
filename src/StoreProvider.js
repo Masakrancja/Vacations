@@ -14,9 +14,7 @@ const StoreProvider = ({ children }) => {
   const [isAdmin, setIsAdmin] = useState(cookieIsAdmin);
   const [token, setToken] = useState(cookieToken);
   const [validAt, setValidAt] = useState(cookieValidAt);
-  const [users, setUsers] = useState([]);
   const [userId, setUserId] = useState(null);
-  const [events, setEvents] = useState([]);
   const [event, setEvent] = useState(null);
   const [isEventWasCanceled, setIsEventWasCanceled] = useState(false);
 
@@ -31,12 +29,8 @@ const StoreProvider = ({ children }) => {
         setToken,
         validAt,
         setValidAt,
-        users,
-        setUsers,
         userId,
         setUserId,
-        events,
-        setEvents,
         event,
         setEvent,
         isEventWasCanceled,

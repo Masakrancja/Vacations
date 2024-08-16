@@ -3,12 +3,11 @@ import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 
 import { StoreContext } from "../../../../../StoreProvider";
-
 import { URI } from "../../../../../config";
 import Error from "../../error/Error";
 
-const EventCancelUser = ({ event, setEvent, index }) => {
-  const { token, setToken, setIsLogged, setIsAdmin, setIsValid, setEvents } =
+const EventCancelUser = ({ event, setEvent }) => {
+  const { token, setToken, setIsLogged, setIsAdmin, setIsValid } =
     useContext(StoreContext);
   const [error, setError] = useState(false);
   const [message, setMessage] = useState("");
@@ -56,14 +55,6 @@ const EventCancelUser = ({ event, setEvent, index }) => {
           setMessage("");
           const wantCancel = event.wantCancel === "yes" ? "no" : "yes";
           setEvent((prevEvent) => ({ ...prevEvent, wantCancel }));
-          setEvents((prevEvents) =>
-            prevEvents.map((event, position) => {
-              if (position === index) {
-                event.wantCancel = wantCancel;
-              }
-              return event;
-            })
-          );
         } else {
           setError(true);
           setMessage(data.message);

@@ -7,16 +7,9 @@ import { StoreContext } from "../../../../../StoreProvider";
 import { URI } from "../../../../../config";
 import Error from "../../error/Error";
 
-const EventDelete = ({ event, index }) => {
-  const {
-    token,
-    setToken,
-    setIsLogged,
-    setIsAdmin,
-    setIsValid,
-    events,
-    setEvents,
-  } = useContext(StoreContext);
+const EventDelete = ({ event, setEvent }) => {
+  const { token, setToken, setIsLogged, setIsAdmin, setIsValid } =
+    useContext(StoreContext);
   const [error, setError] = useState(false);
   const [message, setMessage] = useState("");
   const [, , removeCookie] = useCookies(["token"]);
@@ -40,7 +33,7 @@ const EventDelete = ({ event, index }) => {
         if (data.code === 200) {
           setError(false);
           setMessage("Poprawnie usunięto urlop");
-          setEvents(events.filter((event, position) => position !== index));
+          setEvent(null);
         } else if (data.code === 401) {
           setIsLogged(false);
           setIsAdmin(false);

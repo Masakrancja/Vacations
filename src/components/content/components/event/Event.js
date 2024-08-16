@@ -14,7 +14,7 @@ import { default as EventStyle } from "./Event.module.scss";
 
 const style = BemCssModules(EventStyle);
 
-const Event = ({ event, index }) => {
+const Event = ({ event }) => {
   const { isAdmin } = useContext(StoreContext);
   const [isEdit, setIsEdit] = useState(false);
   const [isConfirmed, setIsConfirmed] = useState(false);
@@ -44,46 +44,94 @@ const Event = ({ event, index }) => {
     <>
       {isAdmin ? (
         <div className={style()}>
-          <EventShow event={event} index={index} />
-          {status === "pending" ? (
-            <EventChangeStatus event={event} index={index} />
-          ) : null}
-          {wantCancel === "yes" ? (
-            <EventCancelAdmin
-              event={localEvent}
-              setEvent={setLocalEvent}
-              index={index}
-            />
+          {event !== null ? (
+            <>
+              <EventShow event={localEvent} />
+              {status === "pending" ? (
+                <EventChangeStatus
+                  event={localEvent}
+                  setEvent={setLocalEvent}
+                />
+              ) : null}
+              {wantCancel === "yes" ? (
+                <EventCancelAdmin event={localEvent} setEvent={setLocalEvent} />
+              ) : null}
+            </>
           ) : null}
         </div>
       ) : (
-        <div className={isConfirmed ? style("disable") : style()}>
-          {isEdit ? (
-            <EventEdit event={event} index={index} />
-          ) : (
-            <EventShow event={event} index={index} />
-          )}
-          <button onClick={toogleEdit}>{btnName}</button>
-          {status === "pending" ? (
-            <button onClick={handleDelete}>Usuń</button>
-          ) : null}
-          {status === "approved" ? (
+        <div className={style()}>
+          {event !== null ? (
             <>
-              <EventCancelUser
-                event={localEvent}
-                setEvent={setLocalEvent}
-                index={index}
-              />
-              {wantCancel === "yes" ? "Oczekuje na akceptacje" : null}
+              {isEdit ? (
+                <EventEdit event={localEvent} setEvent={setLocalEvent} />
+              ) : (
+                <EventShow event={localEvent} />
+              )}
+              <button onClick={toogleEdit}>{btnName}</button>;
+              {status === "pending" ? (
+                <button onClick={handleDelete}>Usuń</button>
+              ) : null}
+              {status === "approved" ? (
+                <>
+                  <EventCancelUser
+                    event={localEvent}
+                    setEvent={setLocalEvent}
+                  />
+                  {wantCancel === "yes" ? "Oczekuje na akceptacje" : null}
+                </>
+              ) : null}
+              {show ? (
+                <Confirm setShow={setShow} setIsConfirmed={setIsConfirmed} />
+              ) : null}
+              {isConfirmed ? (
+                <EventDelete event={localEvent} setEvent={setLocalEvent} />
+              ) : null}
             </>
           ) : null}
-          {show ? (
-            <Confirm setShow={setShow} setIsConfirmed={setIsConfirmed} />
-          ) : null}
-          {isConfirmed ? <EventDelete event={event} index={index} /> : null}
         </div>
       )}
     </>
   );
+
+  // return (
+  //   <>
+  //     {isAdmin ? (
+  //       <div className={style()}>
+  //         <EventShow event={localEvent} />
+  //         {status === "pending" ? (
+  //           <EventChangeStatus event={localEvent} setEvent={setLocalEvent} />
+  //         ) : null}
+  //         {wantCancel === "yes" ? (
+  //           <EventCancelAdmin event={localEvent} setEvent={setLocalEvent} />
+  //         ) : null}
+  //       </div>
+  //     ) : (
+  //       <div className={isConfirmed ? style("disable") : style()}>
+  //         {isEdit ? (
+  //           <EventEdit event={localEvent} setEvent={setLocalEvent} />
+  //         ) : (
+  //           <EventShow event={localEvent} />
+  //         )}
+  //         <button onClick={toogleEdit}>{btnName}</button>
+  //         {status === "pending" ? (
+  //           <button onClick={handleDelete}>Usuń</button>
+  //         ) : null}
+  //         {status === "approved" ? (
+  //           <>
+  //             <EventCancelUser event={localEvent} setEvent={setLocalEvent} />
+  //             {wantCancel === "yes" ? "Oczekuje na akceptacje" : null}
+  //           </>
+  //         ) : null}
+  //         {show ? (
+  //           <Confirm setShow={setShow} setIsConfirmed={setIsConfirmed} />
+  //         ) : null}
+  //         {isConfirmed ? (
+  //           <EventDelete event={localEvent} setEvent={setLocalEvent} />
+  //         ) : null}
+  //       </div>
+  //     )}
+  //   </>
+  // );
 };
 export default Event;

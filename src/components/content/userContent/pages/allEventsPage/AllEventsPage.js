@@ -12,15 +12,9 @@ import { default as AllEventsStyles } from "./AllEventsPage.module.scss";
 const style = BemCssModules(AllEventsStyles);
 
 const AllEventsPage = () => {
-  const {
-    token,
-    setToken,
-    setIsLogged,
-    setIsAdmin,
-    setIsValid,
-    events,
-    setEvents,
-  } = useContext(StoreContext);
+  const { token, setToken, setIsLogged, setIsAdmin, setIsValid } =
+    useContext(StoreContext);
+  const [events, setEvents] = useState([]);
   const [error, setError] = useState(false);
   const [message, setMessage] = useState("");
   const [, , removeCookie] = useCookies(["token"]);
@@ -62,11 +56,11 @@ const AllEventsPage = () => {
         setError(true);
         setMessage(err.message);
       });
-  }, [token]);
+  }, []);
 
-  const eventsContent = events.map((event, index) => (
-    <div key={index}>
-      <Event event={event} index={index} />
+  const eventsContent = events.map((event) => (
+    <div key={event.id}>
+      <Event event={event} />
     </div>
   ));
 
