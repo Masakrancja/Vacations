@@ -6,6 +6,7 @@ import BemCssModules from "bem-css-modules";
 import { StoreContext } from "../../../StoreProvider";
 import { URI } from "../../../config";
 import Error from "../../../content/components/error/Error";
+import Loader from "../../../content/components/loader/Loader";
 
 import { default as LoginStyles } from "./LoginForm.module.scss";
 
@@ -18,6 +19,7 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [message, setMessage] = useState("");
 
@@ -28,19 +30,19 @@ const LoginForm = () => {
     e.preventDefault();
     setMessage("");
     setError(false);
+    setLoading(true);
     (async () => {
-      const options = {
-        method: "POST",
-        body: JSON.stringify({
-          login,
-          pass: password,
-        }),
-      };
-      return await fetch(URI + "/auth", options);
-    })()
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.code === 201) {
+      try {
+        const options = {
+          method: "POST",
+          body: JSON.stringify({
+            login,
+            pass: password,
+          }),
+        };
+        const response = await fetch(URI + "/auth", options);
+        const data = await response.json();
+        if (data.status === "OK") {
           const { isAdmin, token, validAt } = data.response;
           setIsLogged(true);
           setIsAdmin(Boolean(isAdmin));
@@ -75,12 +77,19 @@ const LoginForm = () => {
           setError(true);
           setMessage(data.message);
         }
-      })
-      .catch((err) => {
+      } catch (error) {
         setError(true);
-        setMessage(err.message);
-      });
+        setMessage(error.message);
+      } finally {
+        setLoading(false);
+      }
+    })();
   };
+
+  if (loading) {
+    return <Loader />;
+  }
+
   return (
     <div className={style()}>
       <form method="POST" onSubmit={handleOnSubmit}>

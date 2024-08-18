@@ -7,6 +7,7 @@ import { URI } from "../../../config";
 import Error from "../error/Error";
 import Success from "../success/Success";
 import UserInfo from "../userInfo/UserInfo";
+import Loader from "../loader/Loader";
 
 import BemCssModules from "bem-css-modules";
 
@@ -17,11 +18,12 @@ const style = BemCssModules(UserStyle);
 const User = ({ user }) => {
   const [, , removeCookie] = useCookies(["token"]);
   const navigate = useNavigate();
-  const { token, setToken, setIsLogged, setIsAdmin, setIsValid } =
+  const { token, setToken, setIsLogged, setIsAdmin, setValidAt } =
     useContext(StoreContext);
   const [userData, setUserData] = useState([]);
   const [show, setShow] = useState(false);
   const [showTitle, setShowTitle] = useState("Szczegóły");
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [message, setMessage] = useState("");
   const [localUser, setLocalUser] = useState(user);
@@ -30,42 +32,42 @@ const User = ({ user }) => {
   const isActive = Boolean(localUser.isActive);
 
   const handleOnClick = () => {
+    setLoading(true);
     (async () => {
-      const options = {
-        method: "GET",
-        headers: { Authorization: "Bearer " + token },
-      };
-      return await fetch(URI + "/users/" + id, options);
-    })()
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        if (data.code === 401) {
-          setIsLogged(false);
-          setIsAdmin(false);
-          setToken("");
-          setIsValid("");
-          removeCookie("isLogged", { path: "/" });
-          removeCookie("isAdmin", { path: "/" });
-          removeCookie("token", { path: "/" });
-          removeCookie("isValid", { path: "/" });
-          navigate("/");
-        }
-        if (data.code === 200) {
+      try {
+        const options = {
+          method: "GET",
+          headers: { Authorization: "Bearer " + token },
+        };
+        const response = await fetch(URI + "/users/" + id, options);
+        const data = await response.json();
+        if (data.status === "OK") {
           setUserData(data.response.userData);
           setError(false);
           setMessage("");
         } else {
-          setError(true);
-          setMessage(data.message);
+          if (data.code === 401) {
+            setIsLogged(false);
+            setIsAdmin(false);
+            setToken("");
+            setValidAt("");
+            removeCookie("isLogged", { path: "/" });
+            removeCookie("isAdmin", { path: "/" });
+            removeCookie("token", { path: "/" });
+            removeCookie("validAt", { path: "/" });
+            navigate("/");
+          } else {
+            setError(true);
+            setMessage(data.message);
+          }
         }
-      })
-      .catch((err) => {
+      } catch (error) {
         setError(true);
-        setMessage(err.message);
-      });
-
+        setMessage(error.message);
+      } finally {
+        setLoading(false);
+      }
+    })();
     if (showTitle !== "Szczegóły") {
       setShowTitle("Szczegóły");
     } else {
@@ -77,45 +79,50 @@ const User = ({ user }) => {
   const handleOnChange = (e) => {
     setError(false);
     setMessage("");
+    setLoading(true);
     (async () => {
-      const options = {
-        method: "PATCH",
-        headers: { Authorization: "Bearer " + token },
-        body: JSON.stringify({
-          isActive: e.target.value === "true",
-        }),
-      };
-      return await fetch(URI + "/users/" + id, options);
-    })()
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        if (data.code === 401) {
-          setIsLogged(false);
-          setIsAdmin(false);
-          setToken("");
-          setIsValid("");
-          removeCookie("isLogged", { path: "/" });
-          removeCookie("isAdmin", { path: "/" });
-          removeCookie("token", { path: "/" });
-          removeCookie("isValid", { path: "/" });
-          navigate("/");
-        }
-        if (data.code === 200) {
+      try {
+        const options = {
+          method: "PATCH",
+          headers: { Authorization: "Bearer " + token },
+          body: JSON.stringify({
+            isActive: e.target.value === "true",
+          }),
+        };
+        const response = await fetch(URI + "/users/" + id, options);
+        const data = await response.json();
+        if (data.status === "OK") {
           setError(false);
           setMessage(data.message);
           setLocalUser((prevUser) => ({ ...prevUser, isActive: !isActive }));
         } else {
-          setError(true);
-          setMessage(data.message);
+          if (data.code === 401) {
+            setIsLogged(false);
+            setIsAdmin(false);
+            setToken("");
+            setValidAt("");
+            removeCookie("isLogged", { path: "/" });
+            removeCookie("isAdmin", { path: "/" });
+            removeCookie("token", { path: "/" });
+            removeCookie("validAt", { path: "/" });
+            navigate("/");
+          } else {
+            setError(true);
+            setMessage(data.message);
+          }
         }
-      })
-      .catch((err) => {
+      } catch (error) {
         setError(true);
-        setMessage(err.message);
-      });
+        setMessage(error.message);
+      } finally {
+        setLoading(false);
+      }
+    })();
   };
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <div className={style(isActive === true ? "active" : "inactive")}>

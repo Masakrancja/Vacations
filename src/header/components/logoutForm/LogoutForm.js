@@ -24,7 +24,7 @@ const LogoutForm = () => {
     removeCookie("isLogged", { path: "/" });
     removeCookie("isAdmin", { path: "/" });
     removeCookie("token", { path: "/" });
-    removeCookie("isValid", { path: "/" });
+    removeCookie("validAt", { path: "/" });
     navigate("/");
   };
 

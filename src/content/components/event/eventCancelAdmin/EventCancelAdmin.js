@@ -6,6 +6,7 @@ import { StoreContext } from "../../../../StoreProvider";
 import { URI } from "../../../../config";
 import Error from "../../error/Error";
 import Success from "../../success/Success";
+import Loader from "../../loader/Loader";
 
 const EventCancelAdmin = ({ event, setEvent }) => {
   const {
@@ -13,9 +14,10 @@ const EventCancelAdmin = ({ event, setEvent }) => {
     setToken,
     setIsLogged,
     setIsAdmin,
-    setIsValid,
+    setValidAt,
     setIsEventWasCanceled,
   } = useContext(StoreContext);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [message, setMessage] = useState("");
   const [, , removeCookie] = useCookies(["token"]);
@@ -24,33 +26,21 @@ const EventCancelAdmin = ({ event, setEvent }) => {
   const { id, wantCancel } = event;
 
   const handleOnClik = () => {
+    setLoading(true);
     (async () => {
-      const options = {
-        method: "PATCH",
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-        body: JSON.stringify({
-          status: "cancelled",
-        }),
-      };
-      return await fetch(URI + "/events/" + id, options);
-    })()
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        if (data.code === 401) {
-          setIsLogged(false);
-          setIsAdmin(false);
-          setToken("");
-          setIsValid("");
-          removeCookie("isLogged", { path: "/" });
-          removeCookie("isAdmin", { path: "/" });
-          removeCookie("token", { path: "/" });
-          removeCookie("isValid", { path: "/" });
-          navigate("/");
-        } else if (data.code === 200) {
+      try {
+        const options = {
+          method: "PATCH",
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+          body: JSON.stringify({
+            status: "cancelled",
+          }),
+        };
+        const response = await fetch(URI + "/events/" + id, options);
+        const data = await response.json();
+        if (data.status === "OK") {
           setError(false);
           setMessage("Urlop został anulowany");
           setEvent((prevEvent) => ({
@@ -60,15 +50,33 @@ const EventCancelAdmin = ({ event, setEvent }) => {
           }));
           setIsEventWasCanceled(true);
         } else {
-          setError(true);
-          setMessage(data.message);
+          if (data.code === 401) {
+            setIsLogged(false);
+            setIsAdmin(false);
+            setToken("");
+            setValidAt("");
+            removeCookie("isLogged", { path: "/" });
+            removeCookie("isAdmin", { path: "/" });
+            removeCookie("token", { path: "/" });
+            removeCookie("validAt", { path: "/" });
+            navigate("/");
+          } else {
+            setError(true);
+            setMessage(data.message);
+          }
         }
-      })
-      .catch((err) => {
+      } catch (error) {
         setError(true);
-        setMessage(err.message);
-      });
+        setMessage(error.message);
+      } finally {
+        setLoading(false);
+      }
+    })();
   };
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <>

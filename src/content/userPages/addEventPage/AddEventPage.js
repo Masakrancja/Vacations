@@ -9,6 +9,7 @@ import SelectData from "../../components/selectData/SelectData";
 import Notice from "../../components/notice/Notice";
 import Error from "../../components/error/Error";
 import Success from "../../components/success/Success";
+import Loader from "../../components/loader/Loader";
 
 import { default as AddEventStyles } from "./AddEventPage.module.scss";
 
@@ -21,7 +22,7 @@ const AddEventPage = () => {
     setToken,
     setIsLogged,
     setIsAdmin,
-    setIsValid,
+    setValidAt,
     event,
     setEvent,
   } = useContext(StoreContext);
@@ -29,6 +30,7 @@ const AddEventPage = () => {
   const [dateFrom, setDateFrom] = useState(today);
   const [dateTo, setDateTo] = useState(today);
   const [notice, setNotice] = useState("");
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [message, setMessage] = useState("");
   const [, , removeCookie] = useCookies(["token"]);
@@ -45,43 +47,48 @@ const AddEventPage = () => {
   }, [reasonId, dateFrom, dateTo, notice]);
 
   const handleOnSubmit = (e) => {
+    setLoading(true);
     e.preventDefault();
     (async () => {
-      const options = {
-        method: "POST",
-        headers: { Authorization: "Bearer " + token },
-        body: JSON.stringify(event),
-      };
-      return fetch(URI + "/events", options);
-    })()
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        if (data.code === 401) {
-          setIsLogged(false);
-          setIsAdmin(false);
-          setToken("");
-          setIsValid("");
-          removeCookie("isLogged", { path: "/" });
-          removeCookie("isAdmin", { path: "/" });
-          removeCookie("token", { path: "/" });
-          removeCookie("isValid", { path: "/" });
-          navigate("/");
-        }
-        if (data.code === 201) {
+      try {
+        const options = {
+          method: "POST",
+          headers: { Authorization: "Bearer " + token },
+          body: JSON.stringify(event),
+        };
+        const response = await fetch(URI + "/events", options);
+        const data = await response.json();
+        if (data.status === "OK") {
           setError(false);
           navigate("/events/pending");
         } else {
-          setError(true);
-          setMessage(data.message);
+          if (data.code === 401) {
+            setIsLogged(false);
+            setIsAdmin(false);
+            setToken("");
+            setValidAt("");
+            removeCookie("isLogged", { path: "/" });
+            removeCookie("isAdmin", { path: "/" });
+            removeCookie("token", { path: "/" });
+            removeCookie("validAt", { path: "/" });
+            navigate("/");
+          } else {
+            setError(true);
+            setMessage(data.message);
+          }
         }
-      })
-      .catch((err) => {
+      } catch (error) {
         setError(true);
-        setMessage(err.message);
-      });
+        setMessage(error.message);
+      } finally {
+        setLoading(false);
+      }
+    })();
   };
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <section className={style()}>

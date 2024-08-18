@@ -1,45 +1,64 @@
 import React, { useContext, useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
 import BemCssModule from "bem-css-modules";
 
 import { StoreContext } from "../../../StoreProvider";
 import { URI } from "../../../config";
 import Error from "../error/Error";
+import Loader from "../loader/Loader";
 
 import { default as SelectUserStyle } from "./SelectUser.module.scss";
 
 const style = BemCssModule(SelectUserStyle);
 
 const SelectUser = () => {
-  const { token, setUserId } = useContext(StoreContext);
+  const { token, setUserId, setToken, setIsLogged, setIsAdmin, setValidAt } =
+    useContext(StoreContext);
   const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [message, setMessage] = useState("");
+  const [, , removeCookie] = useCookies(["token"]);
+  const navigate = useNavigate();
+
   useEffect(() => {
     (async () => {
-      const options = {
-        method: "GET",
-        headers: { Authorization: "Bearer " + token },
-      };
-      return await fetch(URI + "/users", options);
-    })()
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        if (data.code === 200) {
+      try {
+        const options = {
+          method: "GET",
+          headers: { Authorization: "Bearer " + token },
+        };
+        const response = await fetch(URI + "/users", options);
+        const data = await response.json();
+        if (data.status === "OK") {
           setUsers(data.response);
           setError(false);
           setMessage("");
         } else {
-          setError(true);
-          setMessage(data.message);
+          if (data.code === 401) {
+            setIsLogged(false);
+            setIsAdmin(false);
+            setToken("");
+            setValidAt("");
+            removeCookie("isLogged", { path: "/" });
+            removeCookie("isAdmin", { path: "/" });
+            removeCookie("token", { path: "/" });
+            removeCookie("validAt", { path: "/" });
+            navigate("/");
+          } else {
+            setError(true);
+            setMessage(data.message);
+          }
         }
-      })
-      .catch((err) => {
+      } catch (error) {
         setError(true);
-        setMessage(err.message);
-      });
-  }, [token]);
+        setMessage(error.message);
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, []);
 
   const usersContent = users
     .filter(
@@ -55,6 +74,10 @@ const SelectUser = () => {
   const handleOnChange = (e) => {
     setUserId(Number(e.target.value));
   };
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <section className={style()}>

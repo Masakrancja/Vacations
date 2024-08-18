@@ -6,6 +6,7 @@ import { StoreContext } from "../../../StoreProvider";
 import { URI } from "../../../config";
 import User from "../../components/user/User";
 import Error from "../../components/error/Error";
+import Loader from "../../components/loader/Loader";
 
 import { default as UsersPendingStyles } from "./UsersPendingPage.module.scss";
 
@@ -14,48 +15,47 @@ const style = BemCssModules(UsersPendingStyles);
 const UsersPendingPage = () => {
   const [, , removeCookie] = useCookies(["token"]);
   const navigate = useNavigate();
-  const { token, setToken, setIsLogged, setIsAdmin, setIsValid } =
+  const { token, setToken, setIsLogged, setIsAdmin, setValidAt } =
     useContext(StoreContext);
   const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [message, setMessage] = useState("");
 
   useEffect(() => {
     (async () => {
-      const options = {
-        method: "GET",
-        headers: { Authorization: "Bearer " + token },
-      };
-      return await fetch(URI + "/users", options);
-    })()
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        if (data.code === 401) {
-          setIsLogged(false);
-          setIsAdmin(false);
-          setToken("");
-          setIsValid("");
-          removeCookie("isLogged", { path: "/" });
-          removeCookie("isAdmin", { path: "/" });
-          removeCookie("token", { path: "/" });
-          removeCookie("isValid", { path: "/" });
-          navigate("/");
-        }
-        if (data.code === 200) {
+      try {
+        const options = {
+          method: "GET",
+          headers: { Authorization: "Bearer " + token },
+        };
+        const response = await fetch(URI + "/users", options);
+        const data = await response.json();
+        if (data.status === "OK") {
           setUsers(data.response);
-          setError(false);
-          setMessage("");
         } else {
-          setError(true);
-          setMessage(data.message);
+          if (data.code === 401) {
+            setIsLogged(false);
+            setIsAdmin(false);
+            setToken("");
+            setValidAt("");
+            removeCookie("isLogged", { path: "/" });
+            removeCookie("isAdmin", { path: "/" });
+            removeCookie("token", { path: "/" });
+            removeCookie("validAt", { path: "/" });
+            navigate("/");
+          } else {
+            setError(true);
+            setMessage(data.message);
+          }
         }
-      })
-      .catch((err) => {
+      } catch (error) {
         setError(true);
-        setMessage(err.message);
-      });
+        setMessage(error.message);
+      } finally {
+        setLoading(false);
+      }
+    })();
   }, []);
 
   const usersContent = users
@@ -68,6 +68,10 @@ const UsersPendingPage = () => {
         <User user={user} />
       </div>
     ));
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <section className={style()}>

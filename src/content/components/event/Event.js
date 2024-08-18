@@ -93,45 +93,5 @@ const Event = ({ event }) => {
       )}
     </>
   );
-
-  // return (
-  //   <>
-  //     {isAdmin ? (
-  //       <div className={style()}>
-  //         <EventShow event={localEvent} />
-  //         {status === "pending" ? (
-  //           <EventChangeStatus event={localEvent} setEvent={setLocalEvent} />
-  //         ) : null}
-  //         {wantCancel === "yes" ? (
-  //           <EventCancelAdmin event={localEvent} setEvent={setLocalEvent} />
-  //         ) : null}
-  //       </div>
-  //     ) : (
-  //       <div className={isConfirmed ? style("disable") : style()}>
-  //         {isEdit ? (
-  //           <EventEdit event={localEvent} setEvent={setLocalEvent} />
-  //         ) : (
-  //           <EventShow event={localEvent} />
-  //         )}
-  //         <button onClick={toogleEdit}>{btnName}</button>
-  //         {status === "pending" ? (
-  //           <button onClick={handleDelete}>Usuń</button>
-  //         ) : null}
-  //         {status === "approved" ? (
-  //           <>
-  //             <EventCancelUser event={localEvent} setEvent={setLocalEvent} />
-  //             {wantCancel === "yes" ? "Oczekuje na akceptacje" : null}
-  //           </>
-  //         ) : null}
-  //         {show ? (
-  //           <Confirm setShow={setShow} setIsConfirmed={setIsConfirmed} />
-  //         ) : null}
-  //         {isConfirmed ? (
-  //           <EventDelete event={localEvent} setEvent={setLocalEvent} />
-  //         ) : null}
-  //       </div>
-  //     )}
-  //   </>
-  // );
 };
 export default Event;

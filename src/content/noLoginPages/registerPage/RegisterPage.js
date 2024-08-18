@@ -11,6 +11,7 @@ import SelectGroupForm from "./components/SelectGroupForm";
 import GroupDataForm from "./components/GroupDataForm";
 import Error from "../../components/error/Error";
 import Success from "../../components/success/Success";
+import Loader from "../../components/loader/Loader";
 
 const style = BemCssModules(RegisterPageStyles);
 
@@ -23,7 +24,6 @@ const RegisterPage = () => {
     pass2,
     setPass2,
     groupId,
-    setGroupId,
     firstName,
     setFirstName,
     lastName,
@@ -51,12 +51,14 @@ const RegisterPage = () => {
     userType,
     setUserType,
   } = useContext(NoLoginStoreContext);
+  const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [error, setError] = useState(false);
 
   const handleOnSubmit = (e) => {
     setMessage("");
     setError(false);
+    setLoading(true);
     e.preventDefault();
     if (!equalPasswords()) {
       setError(true);
@@ -89,17 +91,14 @@ const RegisterPage = () => {
     };
 
     (async () => {
-      const options = {
-        method: "POST",
-        body: JSON.stringify(body),
-      };
-      return await fetch(URI + "/users", options);
-    })()
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        if (data.code === 201) {
+      try {
+        const options = {
+          method: "POST",
+          body: JSON.stringify(body),
+        };
+        const response = await fetch(URI + "/users", options);
+        const data = await response.json();
+        if (data.status === "OK") {
           setError(false);
           setLogin("");
           setPass("");
@@ -126,16 +125,22 @@ const RegisterPage = () => {
           setError(true);
           setMessage(data.message);
         }
-      })
-      .catch((err) => {
+      } catch (error) {
         setError(true);
-        setMessage(`Błąd: ${err.message}`);
-      });
+        setMessage(error.message);
+      } finally {
+        setLoading(false);
+      }
+    })();
   };
 
   const equalPasswords = () => {
     return pass === pass2;
   };
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <div className={style()}>

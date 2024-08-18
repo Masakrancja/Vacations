@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import BemCssModules from "bem-css-modules";
 import { URI } from "../../../config";
 import Error from "../../components/error/Error";
+import Loader from "../../components/loader/Loader";
 
 import { default as GroupsPageStyles } from "./GroupsPage.module.scss";
 
@@ -9,31 +10,31 @@ const style = BemCssModules(GroupsPageStyles);
 
 const GroupsPage = () => {
   const [groups, setGroups] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [message, setMessage] = useState("");
 
   useEffect(() => {
     (async () => {
-      const options = {
-        method: "GET",
-      };
-      return await fetch(URI + "/groups", options);
-    })()
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        if (data.code === 200) {
+      try {
+        const options = {
+          method: "GET",
+        };
+        const response = await fetch(URI + "/groups", options);
+        const data = await response.json();
+        if (data.status === "OK") {
           setGroups(data.response);
         } else {
           setError(true);
-          setMessage(`Błąd: ${data.code} ${data.message}`);
+          setMessage(data.message);
         }
-      })
-      .catch((err) => {
+      } catch (error) {
         setError(true);
-        setMessage(`Błąd: ${err.message}`);
-      });
+        setMessage(error.message);
+      } finally {
+        setLoading(false);
+      }
+    })();
   }, []);
 
   const groupView = error ? (
@@ -41,6 +42,10 @@ const GroupsPage = () => {
   ) : (
     groups.map((group) => <li key={group.id}>{group.name}</li>)
   );
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return <div className={style()}>{groupView}</div>;
 };

@@ -6,10 +6,12 @@ import { StoreContext } from "../../../../StoreProvider";
 
 import { URI } from "../../../../config";
 import Error from "../../error/Error";
+import Loader from "../../loader/Loader";
 
 const EventDelete = ({ event, setEvent }) => {
-  const { token, setToken, setIsLogged, setIsAdmin, setIsValid } =
+  const { token, setToken, setIsLogged, setIsAdmin, setValidAt } =
     useContext(StoreContext);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [message, setMessage] = useState("");
   const [, , removeCookie] = useCookies(["token"]);
@@ -18,42 +20,47 @@ const EventDelete = ({ event, setEvent }) => {
   const { id } = event;
   useEffect(() => {
     (async () => {
-      const options = {
-        method: "DELETE",
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      };
-      return await fetch(URI + "/events/" + id, options);
-    })()
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        if (data.code === 200) {
+      try {
+        const options = {
+          method: "DELETE",
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        };
+        const response = await fetch(URI + "/events/" + id, options);
+        const data = await response.json();
+        if (data.status === "OK") {
           setError(false);
           setMessage("Poprawnie usunięto urlop");
           setEvent(null);
-        } else if (data.code === 401) {
-          setIsLogged(false);
-          setIsAdmin(false);
-          setToken("");
-          setIsValid("");
-          removeCookie("isLogged", { path: "/" });
-          removeCookie("isAdmin", { path: "/" });
-          removeCookie("token", { path: "/" });
-          removeCookie("isValid", { path: "/" });
-          navigate("/");
         } else {
-          setError(true);
-          setMessage(data.message);
+          if (data.code === 401) {
+            setIsLogged(false);
+            setIsAdmin(false);
+            setToken("");
+            setValidAt("");
+            removeCookie("isLogged", { path: "/" });
+            removeCookie("isAdmin", { path: "/" });
+            removeCookie("token", { path: "/" });
+            removeCookie("validAt", { path: "/" });
+            navigate("/");
+          } else {
+            setError(true);
+            setMessage(data.message);
+          }
         }
-      })
-      .catch((err) => {
+      } catch (error) {
         setError(true);
-        setMessage(err.messaage);
-      });
+        setMessage(error.message);
+      } finally {
+        setLoading(false);
+      }
+    })();
   }, []);
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return <>{error ? <Error message={message} /> : null}</>;
 };

@@ -6,143 +6,116 @@ import { StoreContext } from "../../../StoreProvider";
 import { URI } from "../../../config";
 import Account from "../../components/account/Account";
 import Error from "../../components/error/Error";
+import Loader from "../../components/loader/Loader";
 
 import { default as AccountStyles } from "./AccountPage.module.scss";
 
 const style = BemCssModules(AccountStyles);
 
 const AccountPage = () => {
-  const { token, setToken, setIsLogged, setIsAdmin, setIsValid } =
+  const { token, setToken, setIsLogged, setIsAdmin, setValidAt } =
     useContext(StoreContext);
   const [account, setAccount] = useState(null);
   const [user, setUser] = useState(null);
   const [group, setGroup] = useState(null);
   const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState("");
   const [, , removeCookie] = useCookies(["token"]);
   const navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
-      const options = {
-        method: "GET",
-        headers: { Authorization: "Bearer " + token },
-      };
-      return await fetch(URI + "/auth", options);
-    })()
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        if (data.code === 401) {
-          setIsLogged(false);
-          setIsAdmin(false);
-          setToken("");
-          setIsValid("");
-          removeCookie("isLogged", { path: "/" });
-          removeCookie("isAdmin", { path: "/" });
-          removeCookie("token", { path: "/" });
-          removeCookie("isValid", { path: "/" });
-          navigate("/");
-        }
-        if (data.code === 200) {
-          console.log(data.response);
+      try {
+        const options = {
+          method: "GET",
+          headers: { Authorization: "Bearer " + token },
+        };
+        let response = await fetch(URI + "/auth", options);
+        let data = await response.json();
+        if (data.status === "OK") {
           setAccount(data.response);
-          setError(false);
-          setMessage("");
-
-          //Pobranie danych usera
-          (async () => {
-            const { id } = data.response;
-            const options = {
-              method: "GET",
-              headers: { Authorization: "Bearer " + token },
-            };
-            return await fetch(URI + "/users/" + id, options);
-          })()
-            .then((res) => {
-              return res.json();
-            })
-            .then((data) => {
-              if (data.code === 401) {
-                setIsLogged(false);
-                setIsAdmin(false);
-                setToken("");
-                setIsValid("");
-                removeCookie("isLogged", { path: "/" });
-                removeCookie("isAdmin", { path: "/" });
-                removeCookie("token", { path: "/" });
-                removeCookie("isValid", { path: "/" });
-                navigate("/");
-              }
-              if (data.code === 200) {
-                console.log(data.response);
-                setUser(data.response);
-                setError(false);
-                setMessage("");
-              } else {
-                setError(true);
-                setMessage(data.message);
-              }
-            })
-            .catch((err) => {
-              setError(true);
-              setMessage(err.message);
-            });
-
-          //Pobranie danych grupy
-          (async () => {
-            const { groupId } = data.response;
-            const options = {
-              method: "GET",
-              headers: { Authorization: "Bearer " + token },
-            };
-            return await fetch(URI + "/groups/" + groupId, options);
-          })()
-            .then((res) => {
-              return res.json();
-            })
-            .then((data) => {
-              if (data.code === 401) {
-                setIsLogged(false);
-                setIsAdmin(false);
-                setToken("");
-                setIsValid("");
-                removeCookie("isLogged", { path: "/" });
-                removeCookie("isAdmin", { path: "/" });
-                removeCookie("token", { path: "/" });
-                removeCookie("isValid", { path: "/" });
-                navigate("/");
-              }
-              if (data.code === 200) {
-                console.log(data.response);
-                setGroup(data.response);
-                setError(false);
-                setMessage("");
-              } else {
-                setError(true);
-                setMessage(data.message);
-              }
-            })
-            .catch((err) => {
-              setError(true);
-              setMessage(err.message);
-            });
         } else {
-          setError(true);
-          setMessage(data.message);
+          if (data.code === 401) {
+            setIsLogged(false);
+            setIsAdmin(false);
+            setToken("");
+            setValidAt("");
+            removeCookie("isLogged", { path: "/" });
+            removeCookie("isAdmin", { path: "/" });
+            removeCookie("token", { path: "/" });
+            removeCookie("validAt", { path: "/" });
+            navigate("/");
+          } else {
+            setError(true);
+            setMessage(data.message);
+          }
         }
-      })
-      .catch((err) => {
+
+        const { id, groupId } = data.response;
+
+        response = await fetch(URI + "/users/" + id, options);
+        data = await response.json();
+        if (data.status === "OK") {
+          setUser(data.response);
+        } else {
+          if (data.code === 401) {
+            setIsLogged(false);
+            setIsAdmin(false);
+            setToken("");
+            setValidAt("");
+            removeCookie("isLogged", { path: "/" });
+            removeCookie("isAdmin", { path: "/" });
+            removeCookie("token", { path: "/" });
+            removeCookie("validAt", { path: "/" });
+            navigate("/");
+          } else {
+            setError(true);
+            setMessage(data.message);
+          }
+        }
+
+        response = await fetch(URI + "/groups/" + groupId, options);
+        data = await response.json();
+        if (data.status === "OK") {
+          setGroup(data.response);
+        } else {
+          if (data.code === 401) {
+            setIsLogged(false);
+            setIsAdmin(false);
+            setToken("");
+            setValidAt("");
+            removeCookie("isLogged", { path: "/" });
+            removeCookie("isAdmin", { path: "/" });
+            removeCookie("token", { path: "/" });
+            removeCookie("validAt", { path: "/" });
+            navigate("/");
+          } else {
+            setError(true);
+            setMessage(data.message);
+          }
+        }
+      } catch (error) {
         setError(true);
-        setMessage(err.message);
-      });
+        setMessage(error.message);
+      } finally {
+        setLoading(false);
+      }
+    })();
   }, []);
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <section className={style()}>
       <h2>Moje konto</h2>
-      {error ? <Error message={message} /> : <Account {...account} />}
+      {error ? (
+        <Error message={message} />
+      ) : (
+        <Account account={account} user={user} group={group} />
+      )}
     </section>
   );
 };

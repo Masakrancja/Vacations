@@ -6,15 +6,17 @@ import { StoreContext } from "../../../StoreProvider";
 import { URI } from "../../../config";
 import Event from "../../components/event/Event";
 import Error from "../../components/error/Error";
+import Loader from "../../components/loader/Loader";
 
 import { default as CancelledEventsStyles } from "./CancelledEventsPage.module.scss";
 
 const style = BemCssModules(CancelledEventsStyles);
 
 const CancelledEventsPage = () => {
-  const { token, setToken, setIsLogged, setIsAdmin, setIsValid } =
+  const { token, setToken, setIsLogged, setIsAdmin, setValidAt } =
     useContext(StoreContext);
   const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [message, setMessage] = useState("");
   const [, , removeCookie] = useCookies(["token"]);
@@ -22,41 +24,41 @@ const CancelledEventsPage = () => {
 
   useEffect(() => {
     (async () => {
-      const options = {
-        method: "GET",
-        headers: { Authorization: "Bearer " + token },
-      };
-      return await fetch(URI + "/events", options);
-    })()
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        if (data.code === 401) {
-          setIsLogged(false);
-          setIsAdmin(false);
-          setToken("");
-          setIsValid("");
-          removeCookie("isLogged", { path: "/" });
-          removeCookie("isAdmin", { path: "/" });
-          removeCookie("token", { path: "/" });
-          removeCookie("isValid", { path: "/" });
-          navigate("/");
-        }
-        if (data.code === 200) {
+      try {
+        const options = {
+          method: "GET",
+          headers: { Authorization: "Bearer " + token },
+        };
+        const response = await fetch(URI + "/events", options);
+        const data = await response.json();
+        if (data.status === "OK") {
           setEvents(data.response);
           setError(false);
           setMessage("");
         } else {
-          setError(true);
-          setMessage(data.message);
+          if (data.code === 401) {
+            setIsLogged(false);
+            setIsAdmin(false);
+            setToken("");
+            setValidAt("");
+            removeCookie("isLogged", { path: "/" });
+            removeCookie("isAdmin", { path: "/" });
+            removeCookie("token", { path: "/" });
+            removeCookie("validAt", { path: "/" });
+            navigate("/");
+          } else {
+            setError(true);
+            setMessage(data.message);
+          }
         }
-      })
-      .catch((err) => {
+      } catch (error) {
         setError(true);
-        setMessage(err.message);
-      });
-  }, [token]);
+        setMessage(error.message);
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, []);
 
   const eventsContent = events
     .filter((event) => event.status === "cancelled")
@@ -65,6 +67,10 @@ const CancelledEventsPage = () => {
         <Event event={event} />
       </div>
     ));
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <section className={style()}>
