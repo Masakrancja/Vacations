@@ -1,16 +1,17 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
-import BemCssModule from "bem-css-modules";
+import BemCssModules from "bem-css-modules";
 
 import { StoreContext } from "../../../StoreProvider";
 import { URI } from "../../../config";
 import Error from "../error/Error";
-import Loader from "../loader/Loader";
 
 import { default as SelectUserStyle } from "./SelectUser.module.scss";
+import { default as LoaderStyles } from "../../../Loader.module.scss";
 
-const style = BemCssModule(SelectUserStyle);
+const style = BemCssModules(SelectUserStyle);
+const styleLoader = BemCssModules(LoaderStyles);
 
 const SelectUser = () => {
   const { token, setUserId, setToken, setIsLogged, setIsAdmin, setValidAt } =
@@ -75,19 +76,18 @@ const SelectUser = () => {
     setUserId(Number(e.target.value));
   };
 
-  if (loading) {
-    return <Loader />;
-  }
-
   return (
-    <section className={style()}>
-      <h3>Wybierz pracownika z listy</h3>
-      <select onChange={handleOnChange}>
-        <option>Wszyscy pracownicy</option>
-        {usersContent}
-      </select>
-      {error ? <Error message={message} /> : null}
-    </section>
+    <>
+      {loading ? <div className={styleLoader()}></div> : null}
+      <section className={style()}>
+        <h3>Wybierz pracownika z listy</h3>
+        <select onChange={handleOnChange}>
+          <option>Wszyscy pracownicy</option>
+          {usersContent}
+        </select>
+        {error ? <Error message={message} /> : null}
+      </section>
+    </>
   );
 };
 export default SelectUser;

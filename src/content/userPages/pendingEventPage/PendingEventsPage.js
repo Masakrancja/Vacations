@@ -6,11 +6,12 @@ import { StoreContext } from "../../../StoreProvider";
 import { URI } from "../../../config";
 import Event from "../../components/event/Event";
 import Error from "../../components/error/Error";
-import Loader from "../../components/loader/Loader";
 
 import { default as PendingEventsStyles } from "./PendingEventsPage.module.scss";
+import { default as LoaderStyles } from "../../../Loader.module.scss";
 
 const style = BemCssModules(PendingEventsStyles);
+const styleLoader = BemCssModules(LoaderStyles);
 
 const PendingEventsPage = () => {
   const { token, setToken, setIsLogged, setIsAdmin, setValidAt } =
@@ -68,12 +69,9 @@ const PendingEventsPage = () => {
       </div>
     ));
 
-  if (loading) {
-    return <Loader />;
-  }
-
   return (
     <section className={style()}>
+      {loading ? <div className={styleLoader()}></div> : null}
       <h2>Urlopy oczekujące</h2>
       {error ? <Error message={message} /> : eventsContent}
     </section>

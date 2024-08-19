@@ -4,11 +4,12 @@ import BemCssModules from "bem-css-modules";
 import { NoLoginStoreContext } from "../../NoLoginStoreProvider";
 import { URI } from "../../../../config";
 import Error from "../../../components/error/Error";
-import Loader from "../../../components/loader/Loader";
 
 import { default as RegisterPageStyles } from "../RegisterPage.module.scss";
+import { default as LoaderStyles } from "../../../../Loader.module.scss";
 
 const style = BemCssModules(RegisterPageStyles);
+const styleLoader = BemCssModules(LoaderStyles);
 
 const SelectDataForm = () => {
   const { setGroupId } = useContext(NoLoginStoreContext);
@@ -55,14 +56,13 @@ const SelectDataForm = () => {
     setGroupId(Number(e.target.value));
   };
 
-  if (loading) {
-    return <Loader />;
-  }
-
   return (
-    <div className={style()}>
-      <select onChange={handleOnChange}>{groupView}</select>
-    </div>
+    <>
+      {loading ? <div className={styleLoader()}></div> : null}
+      <div className={style()}>
+        <select onChange={handleOnChange}>{groupView}</select>
+      </div>
+    </>
   );
 };
 export default SelectDataForm;

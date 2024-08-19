@@ -6,11 +6,12 @@ import { StoreContext } from "../../../StoreProvider";
 import { URI } from "../../../config";
 import Account from "../../components/account/Account";
 import Error from "../../components/error/Error";
-import Loader from "../../components/loader/Loader";
 
 import { default as AccountStyles } from "./AccountPage.module.scss";
+import { default as LoaderStyles } from "../../../Loader.module.scss";
 
 const style = BemCssModules(AccountStyles);
+const styleLoader = BemCssModules(LoaderStyles);
 
 const AccountPage = () => {
   const { token, setToken, setIsLogged, setIsAdmin, setValidAt } =
@@ -104,12 +105,9 @@ const AccountPage = () => {
     })();
   }, []);
 
-  if (loading) {
-    return <Loader />;
-  }
-
   return (
     <section className={style()}>
+      {loading ? <div className={styleLoader()}></div> : null}
       <h2>Moje konto</h2>
       {error ? (
         <Error message={message} />

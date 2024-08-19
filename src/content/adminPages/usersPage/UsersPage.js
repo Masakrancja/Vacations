@@ -6,11 +6,12 @@ import { StoreContext } from "../../../StoreProvider";
 import { URI } from "../../../config";
 import User from "../../components/user/User";
 import Error from "../../components/error/Error";
-import Loader from "../../components/loader/Loader";
 
 import { default as UsersStyles } from "./UsersPage.module.scss";
+import { default as LoaderStyles } from "../../../Loader.module.scss";
 
 const style = BemCssModules(UsersStyles);
+const styleLoader = BemCssModules(LoaderStyles);
 
 const UsersPage = () => {
   const [, , removeCookie] = useCookies(["token"]);
@@ -66,12 +67,9 @@ const UsersPage = () => {
       </div>
     ));
 
-  if (loading) {
-    return <Loader />;
-  }
-
   return (
     <section className={style()}>
+      {loading ? <div className={styleLoader()}></div> : null}
       <h2>Moi pracownicy</h2>
       {error ? <Error message={message} /> : usersContent}
     </section>

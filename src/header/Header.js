@@ -6,6 +6,7 @@ import LoginForm from "./components/loginForm/LoginForm";
 import LogoutForm from "./components/logoutForm/LogoutForm";
 
 import { default as HeaderStyles } from "./Header.module.scss";
+import logo from "./logo_vacations.png";
 
 const style = BemCssModules(HeaderStyles);
 
@@ -16,7 +17,9 @@ const Header = () => {
 
   return (
     <header className={style()}>
-      <div className={style("logo-box")} />
+      <div className={style("logo-box")}>
+        <img className={style("logo-img")} src={logo} alt="logo" />
+      </div>
       <h1 className={style("title-box")}>Urlopy</h1>
       <div className={style("auth-box")}>{toggleLoginLogoutForm}</div>
     </header>

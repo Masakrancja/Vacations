@@ -6,11 +6,12 @@ import BemCssModules from "bem-css-modules";
 import { StoreContext } from "../../../StoreProvider";
 import { URI } from "../../../config";
 import Error from "../error/Error";
-import Loader from "../loader/Loader";
 
 import { default as SelectReasonStyle } from "./SelectReason.module.scss";
+import { default as LoaderStyles } from "../../../Loader.module.scss";
 
 const style = BemCssModules(SelectReasonStyle);
+const styleLoader = BemCssModules(LoaderStyles);
 
 const SelectReason = ({ id, setReasonId }) => {
   const { token, setToken, setIsLogged, setIsAdmin, setValidAt } =
@@ -73,23 +74,22 @@ const SelectReason = ({ id, setReasonId }) => {
     setReasonId(reasonId);
   };
 
-  if (loading) {
-    return <Loader />;
-  }
-
   return (
-    <div className={style()}>
-      {error ? (
-        <Error message={message} />
-      ) : (
-        <>
-          <span>Wybierz powód</span>
-          <select onChange={handleReasonChange} value={Number(id)}>
-            {reasonsItems}
-          </select>
-        </>
-      )}
-    </div>
+    <>
+      {loading ? <div className={styleLoader()}></div> : null}
+      <div className={style()}>
+        {error ? (
+          <Error message={message} />
+        ) : (
+          <>
+            <span>Wybierz powód</span>
+            <select onChange={handleReasonChange} value={Number(id)}>
+              {reasonsItems}
+            </select>
+          </>
+        )}
+      </div>
+    </>
   );
 };
 export default SelectReason;

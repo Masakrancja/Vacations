@@ -6,11 +6,12 @@ import { StoreContext } from "../../../StoreProvider";
 import { URI } from "../../../config";
 import User from "../../components/user/User";
 import Error from "../../components/error/Error";
-import Loader from "../../components/loader/Loader";
 
 import { default as UsersPendingStyles } from "./UsersPendingPage.module.scss";
+import { default as LoaderStyles } from "../../../Loader.module.scss";
 
 const style = BemCssModules(UsersPendingStyles);
+const styleLoader = BemCssModules(LoaderStyles);
 
 const UsersPendingPage = () => {
   const [, , removeCookie] = useCookies(["token"]);
@@ -69,12 +70,9 @@ const UsersPendingPage = () => {
       </div>
     ));
 
-  if (loading) {
-    return <Loader />;
-  }
-
   return (
     <section className={style()}>
+      {loading ? <div className={styleLoader()}></div> : null}
       <h2>Pracownicy oczekujący za zatwierdzenie</h2>
       {error ? <Error message={message} /> : usersContent}
     </section>

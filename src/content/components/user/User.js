@@ -7,13 +7,14 @@ import { URI } from "../../../config";
 import Error from "../error/Error";
 import Success from "../success/Success";
 import UserInfo from "../userInfo/UserInfo";
-import Loader from "../loader/Loader";
 
 import BemCssModules from "bem-css-modules";
 
 import { default as UserStyle } from "./User.module.scss";
+import { default as LoaderStyles } from "../../../Loader.module.scss";
 
 const style = BemCssModules(UserStyle);
+const styleLoader = BemCssModules(LoaderStyles);
 
 const User = ({ user }) => {
   const [, , removeCookie] = useCookies(["token"]);
@@ -120,48 +121,47 @@ const User = ({ user }) => {
     })();
   };
 
-  if (loading) {
-    return <Loader />;
-  }
-
   return (
-    <div className={style(isActive === true ? "active" : "inactive")}>
-      <div>
-        <p>
-          Imię i nazwisko: <span>{fullName}</span>
-        </p>
-        <p>
-          Login: <span>{login}</span>
-        </p>
-        <p>
-          Zarejestrowany: <span>{createdAt.substr(0, 10)}</span>
-        </p>
-        <p>Status: {isActive === true ? "Aktywny" : "Nieaktywny"}</p>
-        <label>
-          <input
-            type="radio"
-            value={true}
-            name={`status${id}`}
-            defaultChecked={isActive}
-            onChange={handleOnChange}
-          />
-          Aktywny
-        </label>
-        <label>
-          <input
-            type="radio"
-            value={false}
-            name={`status${id}`}
-            defaultChecked={!isActive}
-            onChange={handleOnChange}
-          />
-          Nieaktywny
-        </label>
-        {show ? <UserInfo {...userData} /> : null}
-        <button onClick={handleOnClick}>{showTitle}</button>
-        {error ? <Error message={message} /> : <Success message={message} />}
+    <>
+      {loading ? <div className={styleLoader()}></div> : null}
+      <div className={style(isActive === true ? "active" : "inactive")}>
+        <div>
+          <p>
+            Imię i nazwisko: <span>{fullName}</span>
+          </p>
+          <p>
+            Login: <span>{login}</span>
+          </p>
+          <p>
+            Zarejestrowany: <span>{createdAt.substr(0, 10)}</span>
+          </p>
+          <p>Status: {isActive === true ? "Aktywny" : "Nieaktywny"}</p>
+          <label>
+            <input
+              type="radio"
+              value={true}
+              name={`status${id}`}
+              defaultChecked={isActive}
+              onChange={handleOnChange}
+            />
+            Aktywny
+          </label>
+          <label>
+            <input
+              type="radio"
+              value={false}
+              name={`status${id}`}
+              defaultChecked={!isActive}
+              onChange={handleOnChange}
+            />
+            Nieaktywny
+          </label>
+          {show ? <UserInfo {...userData} /> : null}
+          <button onClick={handleOnClick}>{showTitle}</button>
+          {error ? <Error message={message} /> : <Success message={message} />}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 export default User;

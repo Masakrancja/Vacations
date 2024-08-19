@@ -1,11 +1,14 @@
 import React, { useContext, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
+import BemCssModules from "bem-css-modules";
 
 import { StoreContext } from "../../../../StoreProvider";
 import { URI } from "../../../../config";
 import Error from "../../error/Error";
-import Loader from "../../loader/Loader";
+
+import { default as LoaderStyles } from "../../../../Loader.module.scss";
+const styleLoader = BemCssModules(LoaderStyles);
 
 const EventChangeStatus = ({ event, setEvent }) => {
   const { token, setToken, setIsLogged, setIsAdmin, setValidAt } =
@@ -64,12 +67,9 @@ const EventChangeStatus = ({ event, setEvent }) => {
     })();
   };
 
-  if (loading) {
-    return <Loader />;
-  }
-
   return (
     <>
+      {loading ? <div className={styleLoader()}></div> : null}
       {isConfirmed === false ? (
         <>
           <div>

@@ -7,11 +7,12 @@ import { URI } from "../../../config";
 import SelectUser from "../../components/selectUser/SelectUser";
 import Event from "../../components/event/Event";
 import Error from "../../components/error/Error";
-import Loader from "../../components/loader/Loader";
 
 import { default as UsersStyles } from "./EventsApprovedPage.module.scss";
+import { default as LoaderStyles } from "../../../Loader.module.scss";
 
 const style = BemCssModules(UsersStyles);
+const styleLoader = BemCssModules(LoaderStyles);
 
 const EventsApprovedPage = () => {
   const { token, setToken, setIsLogged, setIsAdmin, setValidAt, userId } =
@@ -72,12 +73,9 @@ const EventsApprovedPage = () => {
       </div>
     ));
 
-  if (loading) {
-    return <Loader />;
-  }
-
   return (
     <section className={style()}>
+      {loading ? <div className={styleLoader()}></div> : null}
       <SelectUser />
       {error ? <Error message={message} /> : eventContent}
     </section>

@@ -1,13 +1,16 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
+import BemCssModules from "bem-css-modules";
 
 import { StoreContext } from "../../../../StoreProvider";
 import { URI } from "../../../../config";
 import Error from "../../error/Error";
 import Success from "../../success/Success";
 import SelectReason from "../../selectReason/SelectReason";
-import Loader from "../../loader/Loader";
+
+import { default as LoaderStyles } from "../../../../Loader.module.scss";
+const styleLoader = BemCssModules(LoaderStyles);
 
 const EventEdit = ({ event, setEvent }) => {
   const { token, setToken, setIsLogged, setIsAdmin, setValidAt } =
@@ -83,12 +86,9 @@ const EventEdit = ({ event, setEvent }) => {
     })();
   };
 
-  if (loading) {
-    return <Loader />;
-  }
-
   return (
     <>
+      {loading ? <div className={styleLoader()}></div> : null}
       <form method="POST" onSubmit={handleSubmit}>
         <SelectReason id={reasonId} setReasonId={setReasonId} />
         <label>

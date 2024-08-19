@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import BemCssModules from "bem-css-modules";
 
 import { StoreContext } from "../../../StoreProvider";
 import EventShow from "./eventShow/EventShow";
@@ -8,7 +9,6 @@ import EventDelete from "./eventDelete/EventDelete";
 import EventCancelUser from "./eventCancelUser/EventCancelUser";
 import EventCancelAdmin from "./eventCancelAdmin/EventCancelAdmin";
 import EventChangeStatus from "./eventChangeStatus/eventChangeStatus";
-import BemCssModules from "bem-css-modules";
 
 import { default as EventStyle } from "./Event.module.scss";
 
@@ -21,7 +21,6 @@ const Event = ({ event }) => {
   const [show, setShow] = useState(false);
   const [btnName, setBtnName] = useState("Edytuj");
   const [localEvent, setLocalEvent] = useState(event);
-
   const { status, wantCancel } = localEvent;
 
   const toogleEdit = () => {

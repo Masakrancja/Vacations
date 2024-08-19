@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import BemCssModules from "bem-css-modules";
+
 import { StoreContext } from "../../../StoreProvider";
 import { URI } from "../../../config";
 import SelectReason from "../../components/selectReason/SelectReason";
@@ -9,11 +10,12 @@ import SelectData from "../../components/selectData/SelectData";
 import Notice from "../../components/notice/Notice";
 import Error from "../../components/error/Error";
 import Success from "../../components/success/Success";
-import Loader from "../../components/loader/Loader";
 
 import { default as AddEventStyles } from "./AddEventPage.module.scss";
+import { default as LoaderStyles } from "../../../Loader.module.scss";
 
 const style = BemCssModules(AddEventStyles);
+const styleLoader = BemCssModules(LoaderStyles);
 
 const AddEventPage = () => {
   const today = new Date().toISOString().substring(0, 10);
@@ -86,12 +88,9 @@ const AddEventPage = () => {
     })();
   };
 
-  if (loading) {
-    return <Loader />;
-  }
-
   return (
     <section className={style()}>
+      {loading ? <div className={styleLoader()}></div> : null}
       <h2>Dodaj urlop</h2>
       <form method="POST" onSubmit={handleOnSubmit}>
         <SelectReason id={reasonId} setReasonId={setReasonId} />

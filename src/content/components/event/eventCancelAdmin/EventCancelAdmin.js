@@ -1,12 +1,16 @@
 import React, { useContext, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
+import BemCssModules from "bem-css-modules";
 
 import { StoreContext } from "../../../../StoreProvider";
 import { URI } from "../../../../config";
 import Error from "../../error/Error";
 import Success from "../../success/Success";
-import Loader from "../../loader/Loader";
+
+import { default as LoaderStyles } from "../../../../Loader.module.scss";
+
+const styleLoader = BemCssModules(LoaderStyles);
 
 const EventCancelAdmin = ({ event, setEvent }) => {
   const {
@@ -74,12 +78,9 @@ const EventCancelAdmin = ({ event, setEvent }) => {
     })();
   };
 
-  if (loading) {
-    return <Loader />;
-  }
-
   return (
     <>
+      {loading ? <div className={styleLoader()}></div> : null}
       <h6>Pracownik wysłał prośbę o anulowanie urlopu</h6>
       {wantCancel ? <button onClick={handleOnClik}>Anuluj urlop</button> : null}
       {error ? <Error message={message} /> : <Success message={message} />}

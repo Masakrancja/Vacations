@@ -1,0 +1,47 @@
+.logout {
+
+  &__div-wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+  }
+
+  &__div-content {
+    width: 200px;
+    padding: 2px;
+    font-size: 0.8em;
+  }
+
+  &__div-btn {
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__btn {
+    width: 60px;
+    height: 30px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  &__div-fullname {
+    font-weight: bold;
+  }
+
+  &__active {
+    color: green;
+    font-weight: bold;
+  }
+
+  &__inactive {
+    color: red;
+    font-weight: bold;
+  }
+
+  &__bold {
+    font-weight: bold;
+  }
+
+
+}

@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import BemCssModules from "bem-css-modules";
 import { URI } from "../../../config";
 import Error from "../../components/error/Error";
-import Loader from "../../components/loader/Loader";
 
 import { default as GroupsPageStyles } from "./GroupsPage.module.scss";
+import { default as LoaderStyles } from "../../../Loader.module.scss";
 
 const style = BemCssModules(GroupsPageStyles);
+const styleLoader = BemCssModules(LoaderStyles);
 
 const GroupsPage = () => {
   const [groups, setGroups] = useState([]);
@@ -43,10 +44,11 @@ const GroupsPage = () => {
     groups.map((group) => <li key={group.id}>{group.name}</li>)
   );
 
-  if (loading) {
-    return <Loader />;
-  }
-
-  return <div className={style()}>{groupView}</div>;
+  return (
+    <>
+      {loading ? <div className={styleLoader()}></div> : null}
+      <div className={style()}>{groupView}</div>
+    </>
+  );
 };
 export default GroupsPage;
