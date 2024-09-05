@@ -1,52 +1,127 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import BemCssModules from "bem-css-modules";
-
-import { default as AdminMenuStyles } from "./AdminMenu.module.scss";
-
-const style = BemCssModules(AdminMenuStyles);
 
 const AdminMenu = () => {
   return (
-    <nav className={style()}>
-      <ul>
-        <li>
-          <NavLink to="/users" exact="false">
+    <nav>
+      <ul className="list-group">
+        <li className="list-group-item">
+          <NavLink
+            to="/users/all"
+            exact="false"
+            className={({ isActive }) =>
+              [
+                isActive
+                  ? "fw-bold text-decoration-none"
+                  : "text-decoration-none",
+              ].join(" ")
+            }
+          >
             Moi pracownicy
           </NavLink>
         </li>
-        <li>
-          <NavLink to="/users/pending" exact="false">
+        <li className="list-group-item">
+          <NavLink
+            to="/users/pending"
+            exact="false"
+            className={({ isActive }) =>
+              [
+                isActive
+                  ? "fw-bold text-decoration-none"
+                  : "text-decoration-none",
+              ].join(" ")
+            }
+          >
             Pracownicy oczekujący
           </NavLink>
         </li>
-        <li>
-          <NavLink to="/events" exact="false">
+        <li className="list-group-item">
+          <NavLink
+            to="/events/all"
+            exact="false"
+            className={({ isActive }) =>
+              [
+                isActive
+                  ? "fw-bold text-decoration-none"
+                  : "text-decoration-none",
+              ].join(" ")
+            }
+          >
             Urlopy pracowników
           </NavLink>
         </li>
-        <li>
-          <NavLink to="/events/pending" exact="true">
+        <li className="list-group-item">
+          <NavLink
+            to="/events/pending"
+            exact="true"
+            className={({ isActive }) =>
+              [
+                isActive
+                  ? "fw-bold text-decoration-none"
+                  : "text-decoration-none",
+              ].join(" ")
+            }
+          >
             Urlopy oczekujące
           </NavLink>
         </li>
-        <li>
-          <NavLink to="/events/approved" exact="false">
+        <li className="list-group-item">
+          <NavLink
+            to="/events/approved"
+            exact="false"
+            className={({ isActive }) =>
+              [
+                isActive
+                  ? "fw-bold text-decoration-none"
+                  : "text-decoration-none",
+              ].join(" ")
+            }
+          >
             Urlopy zatwierdzone
           </NavLink>
         </li>
-        <li>
-          <NavLink to="/events/cancelled" exact="false">
+        <li className="list-group-item">
+          <NavLink
+            to="/events/cancelled"
+            exact="false"
+            className={({ isActive }) =>
+              [
+                isActive
+                  ? "fw-bold text-decoration-none"
+                  : "text-decoration-none",
+              ].join(" ")
+            }
+          >
             Urlopy odrzucone
           </NavLink>
         </li>
-        <li>
-          <NavLink to="/events/petitions" exact="false">
+        <li className="list-group-item">
+          <NavLink
+            to="/events/petitions"
+            exact="false"
+            className={({ isActive }) =>
+              [
+                isActive
+                  ? "fw-bold text-decoration-none"
+                  : "text-decoration-none",
+              ].join(" ")
+            }
+          >
             Prośby o anulowanie urlopu
           </NavLink>
         </li>
-        <li>
-          <NavLink to="/me" exact="false">
+        <li className="list-group-item">
+          <NavLink
+            to="/me"
+            exact="false"
+            className={({ isActive }) =>
+              [
+                isActive
+                  ? "fw-bold text-decoration-none"
+                  : "text-decoration-none",
+              ].join(" ")
+            }
+          >
             Moje konto
           </NavLink>
         </li>

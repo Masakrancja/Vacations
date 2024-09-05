@@ -2,11 +2,10 @@ import React, { useEffect, useState } from "react";
 import BemCssModules from "bem-css-modules";
 import { URI } from "../../../config";
 import Error from "../../components/error/Error";
+import Group from "../../components/group/Group";
 
-import { default as GroupsPageStyles } from "./GroupsPage.module.scss";
 import { default as LoaderStyles } from "../../../Loader.module.scss";
 
-const style = BemCssModules(GroupsPageStyles);
 const styleLoader = BemCssModules(LoaderStyles);
 
 const GroupsPage = () => {
@@ -21,14 +20,16 @@ const GroupsPage = () => {
         const options = {
           method: "GET",
         };
-        const response = await fetch(URI + "/groups", options);
-        const data = await response.json();
+        let response = await fetch(URI + "/groups", options);
+        let data = await response.json();
         if (data.status === "OK") {
           setGroups(data.response);
         } else {
           setError(true);
           setMessage(data.message);
         }
+
+        console.log(data.response);
       } catch (error) {
         setError(true);
         setMessage(error.message);
@@ -41,13 +42,19 @@ const GroupsPage = () => {
   const groupView = error ? (
     <Error message={message} />
   ) : (
-    groups.map((group) => <li key={group.id}>{group.name}</li>)
+    groups.map((group) => (
+      <div key={group.id}>
+        <Group {...group} />
+      </div>
+    ))
   );
 
   return (
     <>
       {loading ? <div className={styleLoader()}></div> : null}
-      <div className={style()}>{groupView}</div>
+      <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4">
+        {groupView}
+      </div>
     </>
   );
 };

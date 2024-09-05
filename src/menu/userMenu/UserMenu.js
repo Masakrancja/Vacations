@@ -1,47 +1,91 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import BemCssModules from "bem-css-modules";
-
-import { default as UserMenuStyles } from "./UserMenu.module.scss";
-
-const style = BemCssModules(UserMenuStyles);
 
 const UserMenu = () => {
   return (
-    <nav className={style()}>
-      <ul>
-        <li>
-          <NavLink to="/" exact="false">
-            Moje urlopy
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/events/add" exact="false">
+    <nav>
+      <ul className="list-group">
+        <li className="list-group-item">
+          <NavLink
+            to="/events/add"
+            className={({ isActive }) =>
+              [
+                isActive
+                  ? "fw-bold text-decoration-none"
+                  : "text-decoration-none",
+              ].join(" ")
+            }
+          >
             Dodaj urlop
           </NavLink>
         </li>
-        <li>
-          <NavLink to="/events" exact="true">
+        <li className="list-group-item">
+          <NavLink
+            to="/events/all"
+            className={({ isActive }) =>
+              [
+                isActive
+                  ? "fw-bold text-decoration-none"
+                  : "text-decoration-none",
+              ].join(" ")
+            }
+          >
             Moje urlopy
           </NavLink>
         </li>
-        <li>
-          <NavLink to="/events/pending" exact="false">
+        <li className="list-group-item">
+          <NavLink
+            to="/events/pending"
+            className={({ isActive }) =>
+              [
+                isActive
+                  ? "fw-bold text-decoration-none"
+                  : "text-decoration-none",
+              ].join(" ")
+            }
+          >
             Urlopy oczekujące
           </NavLink>
         </li>
-        <li>
-          <NavLink to="/events/approved" exact="false">
+        <li className="list-group-item">
+          <NavLink
+            to="/events/approved"
+            className={({ isActive }) =>
+              [
+                isActive
+                  ? "fw-bold text-decoration-none"
+                  : "text-decoration-none",
+              ].join(" ")
+            }
+          >
             Urlopy zatwierdzone
           </NavLink>
         </li>
-        <li>
-          <NavLink to="/events/cancelled" exact="false">
+        <li className="list-group-item">
+          <NavLink
+            to="/events/cancelled"
+            className={({ isActive }) =>
+              [
+                isActive
+                  ? "fw-bold text-decoration-none"
+                  : "text-decoration-none",
+              ].join(" ")
+            }
+          >
             Urlopy anulowane
           </NavLink>
         </li>
-        <li>
-          <NavLink to="/me" exact="false">
+        <li className="list-group-item">
+          <NavLink
+            to="/me"
+            className={({ isActive }) =>
+              [
+                isActive
+                  ? "fw-bold text-decoration-none"
+                  : "text-decoration-none",
+              ].join(" ")
+            }
+          >
             Moje konto
           </NavLink>
         </li>

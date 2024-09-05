@@ -5,10 +5,8 @@ import { NoLoginStoreContext } from "../../NoLoginStoreProvider";
 import { URI } from "../../../../config";
 import Error from "../../../components/error/Error";
 
-import { default as RegisterPageStyles } from "../RegisterPage.module.scss";
 import { default as LoaderStyles } from "../../../../Loader.module.scss";
 
-const style = BemCssModules(RegisterPageStyles);
 const styleLoader = BemCssModules(LoaderStyles);
 
 const SelectDataForm = () => {
@@ -59,8 +57,21 @@ const SelectDataForm = () => {
   return (
     <>
       {loading ? <div className={styleLoader()}></div> : null}
-      <div className={style()}>
-        <select onChange={handleOnChange}>{groupView}</select>
+      <div>
+        <div className="row mt-4">
+          <div className="col-1"></div>
+          <div className="col-2">Wybierz firmę</div>
+          <div className="col-6">
+            <select
+              className="form-select"
+              aria-label="wybierz firmę"
+              onChange={handleOnChange}
+            >
+              {groupView}
+            </select>
+          </div>
+          <div className="col"></div>
+        </div>
       </div>
     </>
   );

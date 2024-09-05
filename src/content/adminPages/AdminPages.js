@@ -9,24 +9,20 @@ import EventsApprovedPage from "./eventsApprovedPage/EventsApprovedPage";
 import EventsCancelledPage from "./eventsCancelledPage/EventsCancelledPage";
 import EventsPetitionsPage from "./eventsPetitionsPage/EventsPetitionsPage";
 import AccountPage from "../sharedPages/accountPage/AccountPage";
-import ErrorPage from "../sharedPages/errorPage/ErrorPage";
 
 const AdminPages = () => {
   return (
-    <section>
-      <Routes>
-        <Route path="/" Component={UsersPage} />
-        <Route path="/users" Component={UsersPage} />
-        <Route path="/users/pending" Component={UsersPendingPage} />
-        <Route path="/events" Component={EventsPage} />
-        <Route path="/events/pending" Component={EventsPendingPage} />
-        <Route path="/events/approved" Component={EventsApprovedPage} />
-        <Route path="/events/cancelled" Component={EventsCancelledPage} />
-        <Route path="/events/petitions" Component={EventsPetitionsPage} />
-        <Route path="/me" Component={AccountPage} />
-        <Route path="*" Component={ErrorPage} />
-      </Routes>
-    </section>
+    <Routes>
+      <Route path="/users/all" Component={UsersPage} />
+      <Route path="/users/pending" Component={UsersPendingPage} />
+      <Route path="/events/all" Component={EventsPage} />
+      <Route path="/events/pending" Component={EventsPendingPage} />
+      <Route path="/events/approved" Component={EventsApprovedPage} />
+      <Route path="/events/cancelled" Component={EventsCancelledPage} />
+      <Route path="/events/petitions" Component={EventsPetitionsPage} />
+      <Route path="/me" Component={AccountPage} />
+      <Route path="*" Component={UsersPage} />
+    </Routes>
   );
 };
 export default AdminPages;

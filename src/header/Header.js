@@ -1,14 +1,10 @@
 import React, { useContext } from "react";
-import BemCssModules from "bem-css-modules";
 
 import { StoreContext } from "../StoreProvider";
 import LoginForm from "./components/loginForm/LoginForm";
 import LogoutForm from "./components/logoutForm/LogoutForm";
 
-import { default as HeaderStyles } from "./Header.module.scss";
 import logo from "./logo_vacations.png";
-
-const style = BemCssModules(HeaderStyles);
 
 const Header = () => {
   const { isLogged } = useContext(StoreContext);
@@ -16,12 +12,21 @@ const Header = () => {
   const toggleLoginLogoutForm = isLogged ? <LogoutForm /> : <LoginForm />;
 
   return (
-    <header className={style()}>
-      <div className={style("logo-box")}>
-        <img className={style("logo-img")} src={logo} alt="logo" />
+    <header
+      style={{ height: "100px" }}
+      className="w-100 sticky-top bg-primary-subtle"
+    >
+      <div className="row h-100">
+        <div className="col-1"></div>
+        <div className="col-2 h-100 d-flex justify-content-center align-items-center">
+          <img src={logo} style={{ height: "90px" }} alt="logo" />
+        </div>
+        <div className="col-1"></div>
+        <div className="col-4 h-100 d-flex justify-content-center align-items-center">
+          <h1>Urlopy</h1>
+        </div>
+        <div className="col-4 h-100">{toggleLoginLogoutForm}</div>
       </div>
-      <h1 className={style("title-box")}>Urlopy</h1>
-      <div className={style("auth-box")}>{toggleLoginLogoutForm}</div>
     </header>
   );
 };

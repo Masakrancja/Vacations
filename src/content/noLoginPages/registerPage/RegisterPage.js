@@ -11,10 +11,8 @@ import GroupDataForm from "./components/GroupDataForm";
 import Error from "../../components/error/Error";
 import Success from "../../components/success/Success";
 
-import { default as RegisterPageStyles } from "./RegisterPage.module.scss";
 import { default as LoaderStyle } from "../../../Loader.module.scss";
 
-const style = BemCssModules(RegisterPageStyles);
 const styleLoader = BemCssModules(LoaderStyle);
 
 const RegisterPage = () => {
@@ -140,27 +138,37 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className={style()}>
+    <>
       {loading ? <div className={styleLoader()}></div> : null}
-      <h2>Rejestracja</h2>
+      <h2 className="py-2">Rejestracja</h2>
+      {error ? <Error message={message} /> : <Success message={message} />}
       <form method="POST" onSubmit={handleOnSubmit}>
-        <AuthDataForm />
-        <UserDataForm />
         <UserOrAdminDataForm />
         {userType === "user" ? (
           <>
             <SelectGroupForm />
           </>
         ) : null}
+
+        <AuthDataForm />
+        <UserDataForm />
         {userType === "admin" ? (
           <>
             <GroupDataForm />
           </>
         ) : null}
-        <button type="submit">Zarejestruj</button>
+
+        <div className="row my-4">
+          <div className="col"></div>
+          <div className="col text-center">
+            <button type="submit" className="btn btn-primary btn-lg">
+              Zarejestruj
+            </button>
+          </div>
+          <div className="col"></div>
+        </div>
       </form>
-      {error ? <Error message={message} /> : <Success message={message} />}
-    </div>
+    </>
   );
 };
 export default RegisterPage;

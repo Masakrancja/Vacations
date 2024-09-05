@@ -18,6 +18,6 @@ const Content = () => {
     <NoLoginPages />
   );
 
-  return <section>{contentForm}</section>;
+  return <div className="col-10 p-2">{contentForm}</div>;
 };
 export default Content;

@@ -1,11 +1,6 @@
 import React, { useContext } from "react";
-import BemCssModules from "bem-css-modules";
 
 import { NoLoginStoreContext } from "../../NoLoginStoreProvider";
-
-import { default as RegisterPageStyles } from "../RegisterPage.module.scss";
-
-const style = BemCssModules(RegisterPageStyles);
 
 const UserOrAdminDataForm = () => {
   const { userType, setUserType } = useContext(NoLoginStoreContext);
@@ -14,24 +9,40 @@ const UserOrAdminDataForm = () => {
   const checkedAdmin = userType === "admin" ? "checked" : null;
 
   return (
-    <section className={style()}>
-      <label htmlFor="user">Jestem pracownikiem</label>
-      <input
-        type="radio"
-        name="client"
-        id="user"
-        onChange={handleChange}
-        defaultChecked={checkedUser}
-      />
-      <label htmlFor="admin">Jestem pracodawcą</label>
-      <input
-        type="radio"
-        name="client"
-        id="admin"
-        onChange={handleChange}
-        defaultChecked={checkedAdmin}
-      />
-    </section>
+    <div className="row mt-4">
+      <div className="col-1"></div>
+      <div className="col-2">
+        <div className="form-check">
+          <input
+            className="form-check-input"
+            type="radio"
+            name="client"
+            id="user"
+            onChange={handleChange}
+            defaultChecked={checkedUser}
+          />
+          <label className="form-check-label" for="user">
+            Jestem pracownikiem
+          </label>
+        </div>
+      </div>
+      <div className="col-2">
+        <div className="form-check">
+          <input
+            className="form-check-input"
+            type="radio"
+            name="client"
+            id="admin"
+            onChange={handleChange}
+            defaultChecked={checkedAdmin}
+          />
+          <label className="form-check-label" for="admin">
+            Jestem pracodawcą
+          </label>
+        </div>
+      </div>
+      <div className=""></div>
+    </div>
   );
 };
 export default UserOrAdminDataForm;

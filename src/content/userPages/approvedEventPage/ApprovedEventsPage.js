@@ -7,10 +7,8 @@ import { URI } from "../../../config";
 import Event from "../../components/event/Event";
 import Error from "../../components/error/Error";
 
-import { default as ApprovedEventsStyles } from "./ApprovedEventsPage.module.scss";
 import { default as LoaderStyles } from "../../../Loader.module.scss";
 
-const style = BemCssModules(ApprovedEventsStyles);
 const styleLoader = BemCssModules(LoaderStyles);
 
 const ApprovedEventsPage = () => {
@@ -70,12 +68,12 @@ const ApprovedEventsPage = () => {
     ));
 
   return (
-    <section className={style()}>
+    <>
       {loading ? <div className={styleLoader()}></div> : null}
       <h2>Urlopy zatwierdzone</h2>
 
       {error ? <Error message={message} /> : eventsContent}
-    </section>
+    </>
   );
 };
 export default ApprovedEventsPage;

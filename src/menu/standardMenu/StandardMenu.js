@@ -1,27 +1,37 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import BemCssModules from "bem-css-modules";
-
-import { default as StandardMenuStyles } from "./StandardMenu.module.scss";
-
-const style = BemCssModules(StandardMenuStyles);
 
 const StandardMenu = () => {
   return (
-    <nav className={style()}>
-      <ul>
-        <li>
-          <NavLink to="/" exact="false">
-            Dostępne firmy
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/register" exact="false">
+    <nav>
+      <ul className="list-group">
+        <li className="list-group-item">
+          <NavLink
+            to="/register"
+            exact="false"
+            className={({ isActive }) =>
+              [
+                isActive
+                  ? "fw-bold text-decoration-none"
+                  : "text-decoration-none",
+              ].join(" ")
+            }
+          >
             Rejestracja
           </NavLink>
         </li>
-        <li>
-          <NavLink to="/groups" exact="true">
+        <li className="list-group-item">
+          <NavLink
+            to="/groups"
+            exact="true"
+            className={({ isActive }) =>
+              [
+                isActive
+                  ? "fw-bold text-decoration-none"
+                  : "text-decoration-none",
+              ].join(" ")
+            }
+          >
             Dostępne firmy
           </NavLink>
         </li>

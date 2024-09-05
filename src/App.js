@@ -1,23 +1,21 @@
 import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
-import BemCssModules from "bem-css-modules";
 import StoreProvider from "./StoreProvider";
 import Header from "./header/Header";
 import Menu from "./menu/Menu";
 import Content from "./content/Content";
 import Footer from "./footer/Footer";
 
-import { default as AppStyles } from "./App.module.scss";
-
-const style = BemCssModules(AppStyles);
-
 function App() {
   return (
     <Router>
       <StoreProvider>
-        <div className={style()}>
+        <div className="container-fluid p-0 m-0">
           <Header />
-          <main className={style("main")}>
+          <main
+            className="row mx-2"
+            style={{ minHeight: "calc(100vh - 160px)" }}
+          >
             <Menu />
             <Content />
           </main>

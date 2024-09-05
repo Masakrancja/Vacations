@@ -7,10 +7,8 @@ import { StoreContext } from "../../../StoreProvider";
 import { URI } from "../../../config";
 import Error from "../../../content/components/error/Error";
 
-import { default as LoginStyles } from "./LoginForm.module.scss";
 import { default as LoaderStyles } from "../../../Loader.module.scss";
 
-const style = BemCssModules(LoginStyles);
 const styleLoader = BemCssModules(LoaderStyles);
 
 const LoginForm = () => {
@@ -88,35 +86,39 @@ const LoginForm = () => {
   };
 
   return (
-    <div className={style()}>
+    <>
       {loading ? <div className={styleLoader()}></div> : null}
-      <form method="POST" onSubmit={handleOnSubmit}>
-        <div className={style("div-wrapper")}>
-          <div className={style("div-input")}>
-            <input
-              className={style("input")}
-              type="text"
-              value={login}
-              onChange={handleLoginChange}
-              placeholder="Podaj login"
-            />
-            <input
-              className={style("input")}
-              type="password"
-              value={password}
-              onChange={handlePasswordChange}
-              placeholder="Podaj hasło"
-            />
+      <form className="h-100" method="POST" onSubmit={handleOnSubmit}>
+        <div className="row h-100">
+          <div className="col-3"></div>
+          <div className="col-6 h-100 d-flex align-items-center">
+            <div>
+              <input
+                className="form-control"
+                type="text"
+                value={login}
+                onChange={handleLoginChange}
+                placeholder="Podaj login"
+              />
+              <input
+                className="form-control mt-1"
+                type="password"
+                value={password}
+                onChange={handlePasswordChange}
+                placeholder="Podaj hasło"
+              />
+            </div>
           </div>
-          <div className={style("div-button")}>
-            <button className={style("btn")} type="submit">
+
+          <div className="col-3 h-100 d-flex align-items-center">
+            <button className="btn btn-primary" type="submit">
               Zaloguj
             </button>
           </div>
         </div>
       </form>
       {error ? <Error message={message} /> : null}
-    </div>
+    </>
   );
 };
 export default LoginForm;

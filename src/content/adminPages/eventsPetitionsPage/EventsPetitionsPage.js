@@ -8,10 +8,8 @@ import SelectUser from "../../components/selectUser/SelectUser";
 import Event from "../../components/event/Event";
 import Error from "../../components/error/Error";
 
-import { default as UsersStyles } from "./EventsPetitionsPage.module.scss";
 import { default as LoaderStyles } from "../../../Loader.module.scss";
 
-const style = BemCssModules(UsersStyles);
 const styleLoader = BemCssModules(LoaderStyles);
 
 const EventsPetitionsPage = () => {
@@ -81,11 +79,11 @@ const EventsPetitionsPage = () => {
     ));
 
   return (
-    <section className={style()}>
+    <>
       {loading ? <div className={styleLoader()}></div> : null}
       <SelectUser />
       {error ? <Error message={message} /> : eventContent}
-    </section>
+    </>
   );
 };
 export default EventsPetitionsPage;

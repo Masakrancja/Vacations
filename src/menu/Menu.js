@@ -18,6 +18,6 @@ const Menu = () => {
     <StandardMenu />
   );
 
-  return <>{menuContent}</>;
+  return <div className="col-2 p-2">{menuContent}</div>;
 };
 export default Menu;

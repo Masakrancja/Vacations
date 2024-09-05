@@ -1,11 +1,6 @@
 import React, { useContext } from "react";
-import BemCssModules from "bem-css-modules";
 
 import { NoLoginStoreContext } from "../../NoLoginStoreProvider";
-
-import { default as RegisterPageStyles } from "../RegisterPage.module.scss";
-
-const style = BemCssModules(RegisterPageStyles);
 
 const GroupDataForm = () => {
   const {
@@ -38,38 +33,77 @@ const GroupDataForm = () => {
   };
 
   return (
-    <section className={style()}>
-      <input
-        type="text"
-        value={groupName}
-        onChange={handleGroupName}
-        placeholder="Podaj nazwę firmy"
-      />
-      <input
-        type="text"
-        value={groupAddress}
-        onChange={handleGroupAddress}
-        placeholder="Podaj adres firmy"
-      />
-      <input
-        type="text"
-        value={groupPostalCode}
-        onChange={handleGroupPostalCode}
-        placeholder="Podaj kod pocztowy firmy"
-      />
-      <input
-        type="text"
-        value={groupCity}
-        onChange={handleGroupCity}
-        placeholder="Podaj miasto firmy"
-      />
-      <input
-        type="text"
-        value={groupNip}
-        onChange={handleGroupNip}
-        placeholder="Podaj NIP firmy"
-      />
-    </section>
+    <>
+      <div className="row mt-4">
+        <div className="col-1"></div>
+        <div className="col-2">Nazwa</div>
+        <div className="col-2">
+          <input
+            type="text"
+            value={groupName}
+            onChange={handleGroupName}
+            placeholder="Podaj nazwę firmy"
+          />
+        </div>
+        <div className="col"></div>
+      </div>
+
+      <div className="row mt-1">
+        <div className="col-1"></div>
+        <div className="col-2">Adres</div>
+        <div className="col-2">
+          <input
+            type="text"
+            value={groupAddress}
+            onChange={handleGroupAddress}
+            placeholder="Podaj adres firmy"
+          />
+        </div>
+        <div className="col"></div>
+      </div>
+
+      <div className="row mt-1">
+        <div className="col-1"></div>
+        <div className="col-2">Kod pocztowy</div>
+        <div className="col-2">
+          <input
+            type="text"
+            value={groupPostalCode}
+            onChange={handleGroupPostalCode}
+            placeholder="Podaj kod pocztowy firmy"
+          />
+        </div>
+        <div className="col"></div>
+      </div>
+
+      <div className="row mt-1">
+        <div className="col-1"></div>
+        <div className="col-2">Miasto</div>
+        <div className="col-2">
+          <input
+            type="text"
+            value={groupCity}
+            onChange={handleGroupCity}
+            placeholder="Podaj miasto firmy"
+          />
+        </div>
+        <div className="col"></div>
+      </div>
+
+      <div className="row mt-1">
+        <div className="col-1"></div>
+        <div className="col-2">NIP</div>
+        <div className="col-2">
+          <input
+            type="text"
+            value={groupNip}
+            onChange={handleGroupNip}
+            placeholder="Podaj NIP firmy"
+          />
+        </div>
+        <div className="col"></div>
+      </div>
+    </>
   );
 };
 export default GroupDataForm;

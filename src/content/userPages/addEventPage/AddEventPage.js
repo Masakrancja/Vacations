@@ -11,10 +11,8 @@ import Notice from "../../components/notice/Notice";
 import Error from "../../components/error/Error";
 import Success from "../../components/success/Success";
 
-import { default as AddEventStyles } from "./AddEventPage.module.scss";
 import { default as LoaderStyles } from "../../../Loader.module.scss";
 
-const style = BemCssModules(AddEventStyles);
 const styleLoader = BemCssModules(LoaderStyles);
 
 const AddEventPage = () => {
@@ -89,7 +87,7 @@ const AddEventPage = () => {
   };
 
   return (
-    <section className={style()}>
+    <>
       {loading ? <div className={styleLoader()}></div> : null}
       <h2>Dodaj urlop</h2>
       <form method="POST" onSubmit={handleOnSubmit}>
@@ -104,7 +102,7 @@ const AddEventPage = () => {
         <button type="submit">Dodaj</button>
       </form>
       {error ? <Error message={message} /> : <Success message={message} />}
-    </section>
+    </>
   );
 };
 export default AddEventPage;

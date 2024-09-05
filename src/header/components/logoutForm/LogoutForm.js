@@ -6,10 +6,8 @@ import BemCssModules from "bem-css-modules";
 import { StoreContext } from "../../../StoreProvider";
 import { URI } from "../../../config";
 
-import { default as LogoutStyles } from "./LogoutForm.module.scss";
 import { default as LoaderStyles } from "../../../Loader.module.scss";
 
-const style = BemCssModules(LogoutStyles);
 const styleLoader = BemCssModules(LoaderStyles);
 
 const LogoutForm = () => {
@@ -34,7 +32,6 @@ const LogoutForm = () => {
         let data = await response.json();
 
         if (data.status === "OK") {
-          console.log(data.response);
           setIsActive(data.response.isActive);
         } else {
           setError(true);
@@ -46,7 +43,6 @@ const LogoutForm = () => {
         data = await response.json();
 
         if (data.status === "OK") {
-          console.log(data.response);
           const { firstName, lastName } = data.response.userData;
           setFullName(`${firstName} ${lastName}`);
         } else {
@@ -76,10 +72,41 @@ const LogoutForm = () => {
   };
 
   return (
-    <div className={style()}>
+    <>
       {loading ? <div className={styleLoader()}></div> : null}
-      <form method="POST" onSubmit={handleOnSubmit}>
-        <div className={style("div-wrapper")}>
+      <form className="h-100" method="POST" onSubmit={handleOnSubmit}>
+        <div className="row h-100">
+          <div className="col-9 h-100 d-flex align-items-center">
+            <div>
+              <div>
+                Witaj, <span className="fw-bold">{fullName}</span>
+              </div>
+              <div>
+                Typ konta:{" "}
+                <span className="fw-bold">
+                  {isAdmin ? "Właściciel" : "Pracownik"}
+                </span>
+              </div>
+              <div>
+                Status konta:{" "}
+                <span
+                  className={
+                    isActive ? "text-success fw-bold" : "text-danger fw-bold"
+                  }
+                >
+                  {isActive ? "Aktywne" : "Nieaktywne"}
+                </span>
+              </div>
+            </div>
+          </div>
+          <div className="col-3 h-100 d-flex align-items-center">
+            <button className="btn btn-primary" type="submit">
+              Wyloguj
+            </button>
+          </div>
+        </div>
+
+        {/* <div className={style("div-wrapper")}>
           <div className={style("div-content")}>
             <div className={"div-fullname"}>
               Witaj, <span className={style("bold")}>{fullName}</span>
@@ -102,9 +129,9 @@ const LogoutForm = () => {
               Wyloguj
             </button>
           </div>
-        </div>
+        </div> */}
       </form>
-    </div>
+    </>
   );
 };
 export default LogoutForm;

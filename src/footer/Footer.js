@@ -1,14 +1,12 @@
 import React from "react";
-import BemCssModules from "bem-css-modules";
-
-import { default as FooterStyles } from "./Footer.module.scss";
-
-const style = BemCssModules(FooterStyles);
 
 const Footer = () => {
   return (
-    <footer className={style()}>
-      <h3 className={style("title")}>Projekt zaliczeniowy PAW</h3>
+    <footer
+      style={{ height: "60px" }}
+      className="w-100 sticky-bottom bg-dark d-flex justify-content-center align-items-center"
+    >
+      <h3 className="text-white fw-bold">Projekt zaliczeniowy PAW</h3>
     </footer>
   );
 };
