@@ -21,7 +21,7 @@ const UserOrAdminDataForm = () => {
             onChange={handleChange}
             defaultChecked={checkedUser}
           />
-          <label className="form-check-label" for="user">
+          <label className="form-check-label" htmlFor="user">
             Jestem pracownikiem
           </label>
         </div>
@@ -36,7 +36,7 @@ const UserOrAdminDataForm = () => {
             onChange={handleChange}
             defaultChecked={checkedAdmin}
           />
-          <label className="form-check-label" for="admin">
+          <label className="form-check-label" htmlFor="admin">
             Jestem pracodawcą
           </label>
         </div>

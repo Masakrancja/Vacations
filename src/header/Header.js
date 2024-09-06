@@ -17,15 +17,15 @@ const Header = () => {
       className="w-100 sticky-top bg-primary-subtle"
     >
       <div className="row h-100">
-        <div className="col-1"></div>
-        <div className="col-2 h-100 d-flex justify-content-center align-items-center">
+        <div className="col-xl-1 d-none d-xl-block"></div>
+        <div className="col-xl-2 d-none d-xl-block h-100 d-flex justify-content-center align-items-center">
           <img src={logo} style={{ height: "90px" }} alt="logo" />
         </div>
-        <div className="col-1"></div>
-        <div className="col-4 h-100 d-flex justify-content-center align-items-center">
+        <div className="col-xl-1 d-none d-xl-block"></div>
+        <div className="col-xl-4 d-none d-xl-block h-100 d-flex justify-content-center align-items-center">
           <h1>Urlopy</h1>
         </div>
-        <div className="col-4 h-100">{toggleLoginLogoutForm}</div>
+        <div className="col-xl-4 col-md-12 h-100">{toggleLoginLogoutForm}</div>
       </div>
     </header>
   );

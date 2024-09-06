@@ -69,7 +69,13 @@ const UsersPage = () => {
     <>
       {loading ? <div className={styleLoader()}></div> : null}
       <h2>Moi pracownicy</h2>
-      {error ? <Error message={message} /> : usersContent}
+      {error ? (
+        <Error message={message} />
+      ) : (
+        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4">
+          {usersContent}
+        </div>
+      )}
     </>
   );
 };

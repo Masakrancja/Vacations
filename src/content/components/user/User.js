@@ -23,7 +23,7 @@ const User = ({ user }) => {
     useContext(StoreContext);
   const [userData, setUserData] = useState([]);
   const [show, setShow] = useState(false);
-  const [showTitle, setShowTitle] = useState("Szczegóły");
+  const [showTitle, setShowTitle] = useState("Pokaż więcej");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [message, setMessage] = useState("");
@@ -69,8 +69,8 @@ const User = ({ user }) => {
         setLoading(false);
       }
     })();
-    if (showTitle !== "Szczegóły") {
-      setShowTitle("Szczegóły");
+    if (showTitle !== "Pokaż więcej") {
+      setShowTitle("Pokaż więcej");
     } else {
       setShowTitle("Pokaż mniej");
     }
@@ -122,46 +122,121 @@ const User = ({ user }) => {
   };
 
   return (
-    <>
+    <div className="col">
       {loading ? <div className={styleLoader()}></div> : null}
-      <div className={style(isActive === true ? "active" : "inactive")}>
-        <div>
-          <p>
-            Imię i nazwisko: <span>{fullName}</span>
-          </p>
-          <p>
+      <div
+        className={`card ${
+          isActive === true ? "border-success" : "border-danger"
+        }`}
+        style={{ maxWidth: "18rem" }}
+      >
+        <div className="card-header">
+          Imię i nazwisko: <span>{fullName}</span>
+        </div>
+        <div className="card-body">
+          <h5 className="card-title">
             Login: <span>{login}</span>
-          </p>
-          <p>
+          </h5>
+          <p className="card-text">
             Zarejestrowany: <span>{createdAt.substr(0, 10)}</span>
           </p>
-          <p>Status: {isActive === true ? "Aktywny" : "Nieaktywny"}</p>
-          <label>
-            <input
-              type="radio"
-              value={true}
-              name={`status${id}`}
-              defaultChecked={isActive}
-              onChange={handleOnChange}
-            />
-            Aktywny
-          </label>
-          <label>
-            <input
-              type="radio"
-              value={false}
-              name={`status${id}`}
-              defaultChecked={!isActive}
-              onChange={handleOnChange}
-            />
-            Nieaktywny
-          </label>
+          <p className="card-text">
+            Status: {isActive === true ? "Aktywny" : "Nieaktywny"}
+          </p>
+          <div className="row">
+            <div className="col">
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  value={true}
+                  name={`status${id}`}
+                  id={`status${id}_active`}
+                  defaultChecked={isActive}
+                  onChange={handleOnChange}
+                />
+                <label
+                  className="form-check-label"
+                  htmlFor={`status${id}_active`}
+                >
+                  Aktywny
+                </label>
+              </div>
+            </div>
+            <div className="col">
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  value={false}
+                  name={`status${id}`}
+                  id={`status${id}_inactive`}
+                  defaultChecked={!isActive}
+                  onChange={handleOnChange}
+                />
+                <label
+                  className="form-check-label"
+                  htmlFor={`status${id}_inactive`}
+                >
+                  Nieaktywny
+                </label>
+              </div>
+            </div>
+          </div>
           {show ? <UserInfo {...userData} /> : null}
-          <button onClick={handleOnClick}>{showTitle}</button>
+          <button
+            type="button"
+            className="btn btn-primary text-center"
+            onClick={handleOnClick}
+          >
+            {showTitle}
+          </button>
+
           {error ? <Error message={message} /> : <Success message={message} />}
         </div>
       </div>
-    </>
+    </div>
+
+    // <>
+    //   {loading ? <div className={styleLoader()}></div> : null}
+    //   <div className={style(isActive === true ? "active" : "inactive")}>
+    //     <div>
+    //       <p>
+    //         Imię i nazwisko: <span>{fullName}</span>
+    //       </p>
+    //       <p>
+    //         Login: <span>{login}</span>
+    //       </p>
+    //       <p>
+    //         Zarejestrowany: <span>{createdAt.substr(0, 10)}</span>
+    //       </p>
+    //       <p>Status: {isActive === true ? "Aktywny" : "Nieaktywny"}</p>
+    //       <label>
+    //         <input
+    //           type="radio"
+    //           value={true}
+    //           name={`status${id}`}
+    //           defaultChecked={isActive}
+    //           onChange={handleOnChange}
+    //         />
+    //         Aktywny
+    //       </label>
+    //       <label>
+    //         <input
+    //           type="radio"
+    //           value={false}
+    //           name={`status${id}`}
+    //           defaultChecked={!isActive}
+    //           onChange={handleOnChange}
+    //         />
+    //         Nieaktywny
+    //       </label>
+    //       {show ? <UserInfo {...userData} /> : null}
+    //       <button onClick={handleOnClick}>{showTitle}</button>
+    //       {error ? <Error message={message} /> : <Success message={message} />}
+    //     </div>
+    //   </div>
+    // </>
   );
 };
 export default User;

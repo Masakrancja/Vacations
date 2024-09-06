@@ -28,8 +28,6 @@ const GroupsPage = () => {
           setError(true);
           setMessage(data.message);
         }
-
-        console.log(data.response);
       } catch (error) {
         setError(true);
         setMessage(error.message);

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import BemCssModules from "bem-css-modules";
 
 import { NoLoginStoreContext } from "../NoLoginStoreProvider";
@@ -59,89 +59,80 @@ const RegisterPage = () => {
     setMessage("");
     setError(false);
     e.preventDefault();
-    if (!equalPasswords()) {
-      setError(true);
-      setMessage("Wprowadzone hasła różnią się. Wprowadź ponownie hasło");
-    } else {
-      setLoading(true);
-      const body = {
-        login,
-        pass,
-        pass2,
-        isAdmin: userType === "admin" ? true : false,
-        groupId,
-        userData: {
-          firstName,
-          lastName,
-          address,
-          postalCode,
-          city,
-          phone,
-          email,
-        },
-        group: {
-          name: groupName,
-          address: groupAddress,
-          postalCode: groupPostalCode,
-          city: groupCity,
-          nip: groupNip,
-        },
-      };
+    setLoading(true);
+    const body = {
+      login,
+      pass,
+      pass2,
+      isAdmin: userType === "admin" ? true : false,
+      groupId,
+      userData: {
+        firstName,
+        lastName,
+        address,
+        postalCode,
+        city,
+        phone,
+        email,
+      },
+      group: {
+        name: groupName,
+        address: groupAddress,
+        postalCode: groupPostalCode,
+        city: groupCity,
+        nip: groupNip,
+      },
+    };
 
-      (async () => {
-        try {
-          const options = {
-            method: "POST",
-            body: JSON.stringify(body),
-          };
-          const response = await fetch(URI + "/users", options);
-          const data = await response.json();
-          if (data.status === "OK") {
-            setError(false);
-            setLogin("");
-            setPass("");
-            setPass2("");
-            setFirstName("");
-            setLastName("");
-            setAddress("");
-            setPostalCode("");
-            setCity("");
-            setPhone("");
-            setEmail("");
-            setGroupName("");
-            setGroupAddress("");
-            setGroupPostalCode("");
-            setGroupCity("");
-            setGroupNip("");
-            setUserType("user");
-            const msg =
-              userType === "user"
-                ? `Poprawnie dodano konto pracownicze dla użytkownika: ${login}. Konto jest jeszcze nie aktywne. Poczekaj na akceptacje przez właściciela`
-                : `Poprawnie dodano konto właściciela dla użytkownika: ${login}`;
-            setMessage(msg);
-          } else {
-            setError(true);
-            setMessage(data.message);
-          }
-        } catch (error) {
+    (async () => {
+      try {
+        const options = {
+          method: "POST",
+          body: JSON.stringify(body),
+        };
+
+        const response = await fetch(URI + "/users", options);
+        const data = await response.json();
+        if (data.status === "OK") {
+          setError(false);
+          setLogin("");
+          setPass("");
+          setPass2("");
+          setFirstName("");
+          setLastName("");
+          setAddress("");
+          setPostalCode("");
+          setCity("");
+          setPhone("");
+          setEmail("");
+          setGroupName("");
+          setGroupAddress("");
+          setGroupPostalCode("");
+          setGroupCity("");
+          setGroupNip("");
+          setUserType("user");
+          const msg =
+            userType === "user"
+              ? `Poprawnie dodano konto pracownicze dla użytkownika: ${login}. Konto jest jeszcze nie aktywne. Poczekaj na akceptacje przez właściciela`
+              : `Poprawnie dodano konto właściciela dla użytkownika: ${login}`;
+          setMessage(msg);
+        } else {
           setError(true);
-          setMessage(error.message);
-        } finally {
-          setLoading(false);
+          setMessage(data.message);
         }
-      })();
-    }
-  };
-
-  const equalPasswords = () => {
-    return pass === pass2;
+      } catch (error) {
+        setError(true);
+        setMessage(error.message);
+      } finally {
+        setLoading(false);
+      }
+    })();
   };
 
   return (
     <>
       {loading ? <div className={styleLoader()}></div> : null}
       <h2 className="py-2">Rejestracja</h2>
-      {error ? <Error message={message} /> : <Success message={message} />}
       <form method="POST" onSubmit={handleOnSubmit}>
         <UserOrAdminDataForm />
         {userType === "user" ? (
@@ -149,7 +140,6 @@ const RegisterPage = () => {
             <SelectGroupForm />
           </>
         ) : null}
-
         <AuthDataForm />
         <UserDataForm />
         {userType === "admin" ? (
@@ -157,7 +147,6 @@ const RegisterPage = () => {
             <GroupDataForm />
           </>
         ) : null}
-
         <div className="row my-4">
           <div className="col"></div>
           <div className="col text-center">
@@ -168,6 +157,11 @@ const RegisterPage = () => {
           <div className="col"></div>
         </div>
       </form>
+      {message !== "" ? (
+        <>
+          {error ? <Error message={message} /> : <Success message={message} />}
+        </>
+      ) : null}
     </>
   );
 };

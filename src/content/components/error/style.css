@@ -1,0 +1,15 @@
+.error-show {
+  animation: myAnimErrorShow 1s ease 0s 1 normal forwards;
+}
+
+
+@keyframes myAnimErrorShow {
+  0% {
+    transform: scale(0);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
