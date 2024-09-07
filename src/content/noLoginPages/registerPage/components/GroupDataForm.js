@@ -34,18 +34,17 @@ const GroupDataForm = () => {
 
   return (
     <>
-      <div className="row mt-4">
-        <div className="col-1"></div>
-        <div className="col-2">Nazwa</div>
-        <div className="col-2">
+      <div className="row mt-3">
+        <div className="col-3">Nazwa</div>
+        <div className="col-9">
           <input
             type="text"
+            className="form-control"
             value={groupName}
             onChange={handleGroupName}
             placeholder="Podaj nazwę firmy"
           />
         </div>
-        <div className="col"></div>
       </div>
 
       <div className="row mt-1">

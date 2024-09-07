@@ -90,18 +90,28 @@ const AddEventPage = () => {
     <>
       {loading ? <div className={styleLoader()}></div> : null}
       <h2>Dodaj urlop</h2>
-      <form method="POST" onSubmit={handleOnSubmit}>
-        <SelectReason id={reasonId} setReasonId={setReasonId} />
-        <SelectData
-          dateFrom={dateFrom}
-          dateTo={dateTo}
-          setDateFrom={setDateFrom}
-          setDateTo={setDateTo}
-        />
-        <Notice notice={notice} setNotice={setNotice} />
-        <button type="submit">Dodaj</button>
-      </form>
-      {error ? <Error message={message} /> : <Success message={message} />}
+      <div className="card border-primary mb-3">
+        {/* <div className="card-header">Header</div> */}
+
+        <div className="card-body">
+          <form method="POST" onSubmit={handleOnSubmit}>
+            <SelectReason id={reasonId} setReasonId={setReasonId} />
+            <SelectData
+              dateFrom={dateFrom}
+              dateTo={dateTo}
+              setDateFrom={setDateFrom}
+              setDateTo={setDateTo}
+            />
+            <Notice notice={notice} setNotice={setNotice} />
+            <div className="text-center pt-3">
+              <button className="btn btn-primary" type="submit">
+                Dodaj
+              </button>
+            </div>
+          </form>
+          {error ? <Error message={message} /> : <Success message={message} />}
+        </div>
+      </div>
     </>
   );
 };

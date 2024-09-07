@@ -77,7 +77,7 @@ const LogoutForm = () => {
       <form className="h-100" method="POST" onSubmit={handleOnSubmit}>
         <div className="row h-100">
           <div className="col-9 h-100 d-flex align-items-center">
-            <div>
+            <div className="p-2">
               <div>
                 Witaj, <span className="fw-bold">{fullName}</span>
               </div>

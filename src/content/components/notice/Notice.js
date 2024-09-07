@@ -1,9 +1,4 @@
 import React from "react";
-import BemCssModules from "bem-css-modules";
-
-import { default as NoticeStyle } from "./Notice.module.scss";
-
-const style = BemCssModules(NoticeStyle);
 
 const Notice = ({ notice, setNotice }) => {
   const handleNoticeChange = (e) => {
@@ -11,8 +6,15 @@ const Notice = ({ notice, setNotice }) => {
   };
 
   return (
-    <div className={style()}>
-      <textarea value={notice} onChange={handleNoticeChange}>
+    <div className="mt-2">
+      <label htmlFor="notice">Notatka</label>
+      <textarea
+        className="form-control"
+        placeholder="Wpisz notatkę"
+        id="notice"
+        value={notice}
+        onChange={handleNoticeChange}
+      >
         {notice}
       </textarea>
     </div>

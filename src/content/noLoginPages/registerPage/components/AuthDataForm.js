@@ -20,25 +20,24 @@ const AuthDataForm = () => {
 
   return (
     <>
-      <div className="row mt-4">
-        <div className="col-1"></div>
-        <div className="col-2">Login</div>
-        <div className="col-2">
+      <div className="row mt-3">
+        <div className="col-3">Login</div>
+        <div className="col-9">
           <input
             type="text"
+            className="form-control"
             value={login}
             onChange={handleLoginChange}
             placeholder="Podaj login"
           />
         </div>
-        <div className="col"></div>
       </div>
       <div className="row mt-1">
-        <div className="col-1"></div>
-        <div className="col-2">Hasło</div>
-        <div className="col-2">
+        <div className="col-3">Hasło</div>
+        <div className="col-9">
           <input
             type="password"
+            className="form-control"
             value={pass}
             onChange={handlePassChange}
             placeholder="Podaj hasło"
@@ -47,17 +46,16 @@ const AuthDataForm = () => {
         <div className="col"></div>
       </div>
       <div className="row mt-1">
-        <div className="col-1"></div>
-        <div className="col-2">Hasło ponownie</div>
-        <div className="col-2">
+        <div className="col-3">Hasło ponownie</div>
+        <div className="col-9">
           <input
             type="password"
+            className="form-control"
             value={pass2}
             onChange={handlePass2Change}
             placeholder="Powtórz hasło"
           />
         </div>
-        <div className="col"></div>
       </div>
     </>
   );

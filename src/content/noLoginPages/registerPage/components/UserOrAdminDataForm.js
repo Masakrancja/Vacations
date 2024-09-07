@@ -10,8 +10,7 @@ const UserOrAdminDataForm = () => {
 
   return (
     <div className="row mt-4">
-      <div className="col-1"></div>
-      <div className="col-2">
+      <div className="col-6">
         <div className="form-check">
           <input
             className="form-check-input"
@@ -26,7 +25,7 @@ const UserOrAdminDataForm = () => {
           </label>
         </div>
       </div>
-      <div className="col-2">
+      <div className="col-6">
         <div className="form-check">
           <input
             className="form-check-input"
@@ -41,7 +40,6 @@ const UserOrAdminDataForm = () => {
           </label>
         </div>
       </div>
-      <div className=""></div>
     </div>
   );
 };

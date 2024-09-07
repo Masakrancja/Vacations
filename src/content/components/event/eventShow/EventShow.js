@@ -1,8 +1,9 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { StoreContext } from "../../../../StoreProvider";
 
 const EventShow = ({ event }) => {
   const { isAdmin } = useContext(StoreContext);
+  const [displayCaption, setDisplayCaption] = useState("Pokaż notatkę");
 
   const { dateFrom, dateTo, days, notice, reasonName, status } = event;
 
@@ -13,17 +14,29 @@ const EventShow = ({ event }) => {
       ? "Anulowany"
       : "Zatwierdzony";
 
+  const handleOnClick = (e) => {
+    const open = e.currentTarget.attributes.open?.value;
+    if (open === undefined) {
+      setDisplayCaption("Ukryj notatkę");
+    } else {
+      setDisplayCaption("Pokaż notatkę");
+    }
+  };
+
   return (
     <>
       <div className="card-header">Urlop {statusName}</div>
       <div className="card-body">
         <h5 className="card-title">Ilość dni: {days}</h5>
-        <p className="card-text">Data od: {dateFrom}</p>
-        <p className="card-text">Data do: {dateTo}</p>
-        <p className="card-text">Powód urlopu: {reasonName}</p>
+        <div className="card-text">Data od: {dateFrom}</div>
+        <div className="card-text">Data do: {dateTo}</div>
+        <div className="card-text">Powód urlopu: {reasonName}</div>
         {!isAdmin ? (
           notice ? (
-            <p className="card-text fst-italic">{notice}</p>
+            <details className="card-text" onClick={handleOnClick}>
+              <summary>{displayCaption}</summary>
+              <div className="fst-italic">{notice}</div>
+            </details>
           ) : null
         ) : null}
       </div>

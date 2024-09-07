@@ -12,15 +12,25 @@ const Confirm = ({ setShow, setIsConfirmed }) => {
   };
 
   return (
-    <div>
-      <h4>Na pewno?</h4>
-      <button className="btn btn-danger" onClick={handleYes}>
-        Tak
-      </button>
-      <button className="btn btn-success" onClick={handleNo}>
-        Nie
-      </button>
-    </div>
+    <>
+      <div className="row mt-1">
+        <div className="col text-center">
+          <h4>Na pewno?</h4>
+        </div>
+      </div>
+      <div className="row mt-1">
+        <div className="col p-2 text-center">
+          <button className="btn btn-danger" onClick={handleYes}>
+            Tak
+          </button>
+        </div>
+        <div className="col p-2 text-center">
+          <button className="btn btn-success" onClick={handleNo}>
+            Nie
+          </button>
+        </div>
+      </div>
+    </>
   );
 };
 export default Confirm;

@@ -59,9 +59,8 @@ const SelectDataForm = () => {
       {loading ? <div className={styleLoader()}></div> : null}
       <div>
         <div className="row mt-4">
-          <div className="col-1"></div>
-          <div className="col-2">Wybierz firmę</div>
-          <div className="col-6">
+          <div className="col-3">Wybierz firmę</div>
+          <div className="col-9">
             <select
               className="form-select"
               aria-label="wybierz firmę"
@@ -70,7 +69,6 @@ const SelectDataForm = () => {
               {groupView}
             </select>
           </div>
-          <div className="col"></div>
         </div>
       </div>
     </>

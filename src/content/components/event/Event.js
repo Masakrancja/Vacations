@@ -73,21 +73,57 @@ const Event = ({ event }) => {
             <>
               <div
                 className="card border-primary mb-3"
-                style={{ maxWidth: "18rem" }}
+                style={{ maxWidth: "18rem", minHeight: "18rem" }}
               >
                 {isEdit ? (
                   <EventEdit event={localEvent} setEvent={setLocalEvent} />
                 ) : (
                   <EventShow event={localEvent} />
                 )}
-                <button className="btn btn-primary" onClick={toogleEdit}>
-                  {btnName}
-                </button>
-                {status === "pending" ? (
-                  <button className="btn btn-primary" onClick={handleDelete}>
-                    Usuń
-                  </button>
-                ) : null}
+                <div className="row">
+                  {status === "pending" ? (
+                    <>
+                      <div className="col p-2 text-center">
+                        <button
+                          className="btn btn-primary"
+                          onClick={toogleEdit}
+                        >
+                          {btnName}
+                        </button>
+                      </div>
+                      <div className="col p-2 text-center">
+                        <button
+                          className="btn btn-primary"
+                          onClick={handleDelete}
+                        >
+                          Usuń
+                        </button>
+                      </div>
+                    </>
+                  ) : (
+                    <div className="col p-2 text-center">
+                      <button className="btn btn-primary" onClick={toogleEdit}>
+                        {btnName}
+                      </button>
+                    </div>
+                  )}
+
+                  {/* <div className="col p-2 text-center">
+                    <button className="btn btn-primary" onClick={toogleEdit}>
+                      {btnName}
+                    </button>
+                  </div>
+                  <div className="col p-2 text-center">
+                    {status === "pending" ? (
+                      <button
+                        className="btn btn-primary"
+                        onClick={handleDelete}
+                      >
+                        Usuń
+                      </button>
+                    ) : null}
+                  </div> */}
+                </div>
                 {status === "approved" ? (
                   <>
                     <EventCancelUser
