@@ -15,12 +15,18 @@ const EventShow = ({ event }) => {
 
   return (
     <>
-      <p>Data od: {dateFrom}</p>
-      <p>Data do: {dateTo}</p>
-      <p>Ilość dni: {days}</p>
-      <p>Powód urlopu: {reasonName}</p>
-      <p>Status urlopu: {statusName}</p>
-      {!isAdmin ? notice ? <p>{notice}</p> : null : null}
+      <div className="card-header">Urlop {statusName}</div>
+      <div className="card-body">
+        <h5 className="card-title">Ilość dni: {days}</h5>
+        <p className="card-text">Data od: {dateFrom}</p>
+        <p className="card-text">Data do: {dateTo}</p>
+        <p className="card-text">Powód urlopu: {reasonName}</p>
+        {!isAdmin ? (
+          notice ? (
+            <p className="card-text fst-italic">{notice}</p>
+          ) : null
+        ) : null}
+      </div>
     </>
   );
 };

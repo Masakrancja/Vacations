@@ -77,7 +77,9 @@ const EventCancelUser = ({ event, setEvent }) => {
     <>
       {loading ? <div className={styleLoader()}></div> : null}
       <div>
-        <button onClick={handleOnClick}>{btnName}</button>
+        <button className="btn btn-primary" onClick={handleOnClick}>
+          {btnName}
+        </button>
       </div>
       {error ? <Error message={message} /> : null}
     </>

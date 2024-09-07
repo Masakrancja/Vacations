@@ -73,8 +73,16 @@ const EventsPage = () => {
   return (
     <>
       {loading ? <div className={styleLoader()}></div> : null}
+
       <SelectUser />
-      {error ? <Error message={message} /> : eventContent}
+
+      {error ? (
+        <Error message={message} />
+      ) : (
+        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4">
+          {eventContent}
+        </div>
+      )}
     </>
   );
 };

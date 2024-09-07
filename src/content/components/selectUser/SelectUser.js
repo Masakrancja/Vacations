@@ -7,15 +7,20 @@ import { StoreContext } from "../../../StoreProvider";
 import { URI } from "../../../config";
 import Error from "../error/Error";
 
-import { default as SelectUserStyle } from "./SelectUser.module.scss";
 import { default as LoaderStyles } from "../../../Loader.module.scss";
 
-const style = BemCssModules(SelectUserStyle);
 const styleLoader = BemCssModules(LoaderStyles);
 
 const SelectUser = () => {
-  const { token, setUserId, setToken, setIsLogged, setIsAdmin, setValidAt } =
-    useContext(StoreContext);
+  const {
+    token,
+    setUserId,
+    setUserFullName,
+    setToken,
+    setIsLogged,
+    setIsAdmin,
+    setValidAt,
+  } = useContext(StoreContext);
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -68,26 +73,28 @@ const SelectUser = () => {
     )
     .map((user) => (
       <option key={user.id} value={user.id}>
-        {user.login}
+        {`${user.login} - ${user.fullName}`}
       </option>
     ));
 
   const handleOnChange = (e) => {
-    setUserId(Number(e.target.value));
+    const userId = Number(e.target.value);
+    setUserId(userId);
+    setUserFullName(users.filter((user) => user.id === userId)[0]?.fullName);
   };
 
   return (
-    <>
+    <div className="mt-2 w-50">
       {loading ? <div className={styleLoader()}></div> : null}
-      <section className={style()}>
-        <h3>Wybierz pracownika z listy</h3>
-        <select onChange={handleOnChange}>
+      <section>
+        <h2>Wybierz pracownika z listy</h2>
+        <select className="form-select" onChange={handleOnChange}>
           <option>Wszyscy pracownicy</option>
           {usersContent}
         </select>
         {error ? <Error message={message} /> : null}
       </section>
-    </>
+    </div>
   );
 };
 export default SelectUser;

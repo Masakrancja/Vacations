@@ -1,9 +1,4 @@
 import React from "react";
-import BemCssModules from "bem-css-modules";
-
-import { default as ConfirmStyle } from "./Confirm.module.scss";
-
-const style = BemCssModules(ConfirmStyle);
 
 const Confirm = ({ setShow, setIsConfirmed }) => {
   const handleYes = () => {
@@ -17,10 +12,14 @@ const Confirm = ({ setShow, setIsConfirmed }) => {
   };
 
   return (
-    <div className={style()}>
+    <div>
       <h4>Na pewno?</h4>
-      <button onClick={handleYes}>Tak</button>
-      <button onClick={handleNo}>Nie</button>
+      <button className="btn btn-danger" onClick={handleYes}>
+        Tak
+      </button>
+      <button className="btn btn-success" onClick={handleNo}>
+        Nie
+      </button>
     </div>
   );
 };

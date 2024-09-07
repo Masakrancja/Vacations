@@ -7,10 +7,8 @@ import { StoreContext } from "../../../StoreProvider";
 import { URI } from "../../../config";
 import Error from "../error/Error";
 
-import { default as SelectReasonStyle } from "./SelectReason.module.scss";
 import { default as LoaderStyles } from "../../../Loader.module.scss";
 
-const style = BemCssModules(SelectReasonStyle);
 const styleLoader = BemCssModules(LoaderStyles);
 
 const SelectReason = ({ id, setReasonId }) => {
@@ -77,13 +75,17 @@ const SelectReason = ({ id, setReasonId }) => {
   return (
     <>
       {loading ? <div className={styleLoader()}></div> : null}
-      <div className={style()}>
+      <div>
         {error ? (
           <Error message={message} />
         ) : (
           <>
-            <span>Wybierz powód</span>
-            <select onChange={handleReasonChange} value={Number(id)}>
+            <div className="text-center p-1">Wybierz powód</div>
+            <select
+              className="form-select form-select"
+              onChange={handleReasonChange}
+              value={Number(id)}
+            >
               {reasonsItems}
             </select>
           </>

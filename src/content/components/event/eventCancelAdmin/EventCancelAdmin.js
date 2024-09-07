@@ -82,7 +82,11 @@ const EventCancelAdmin = ({ event, setEvent }) => {
     <>
       {loading ? <div className={styleLoader()}></div> : null}
       <h6>Pracownik wysłał prośbę o anulowanie urlopu</h6>
-      {wantCancel ? <button onClick={handleOnClik}>Anuluj urlop</button> : null}
+      {wantCancel ? (
+        <button className="btn btn-primary" onClick={handleOnClik}>
+          Anuluj urlop
+        </button>
+      ) : null}
       {error ? <Error message={message} /> : <Success message={message} />}
     </>
   );

@@ -10,10 +10,8 @@ import UserInfo from "../userInfo/UserInfo";
 
 import BemCssModules from "bem-css-modules";
 
-import { default as UserStyle } from "./User.module.scss";
 import { default as LoaderStyles } from "../../../Loader.module.scss";
 
-const style = BemCssModules(UserStyle);
 const styleLoader = BemCssModules(LoaderStyles);
 
 const User = ({ user }) => {

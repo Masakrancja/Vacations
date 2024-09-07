@@ -73,10 +73,18 @@ const EventChangeStatus = ({ event, setEvent }) => {
       {isConfirmed === false ? (
         <>
           <div>
-            <button data-status="approved" onClick={handleOnClick}>
+            <button
+              className="btn btn-success"
+              data-status="approved"
+              onClick={handleOnClick}
+            >
               Zatwierdź
             </button>
-            <button data-status="canceled" onClick={handleOnClick}>
+            <button
+              className="btn btn-danger"
+              data-status="canceled"
+              onClick={handleOnClick}
+            >
               Odrzuć
             </button>
           </div>

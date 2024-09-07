@@ -15,6 +15,7 @@ const StoreProvider = ({ children }) => {
   const [token, setToken] = useState(cookieToken);
   const [validAt, setValidAt] = useState(cookieValidAt);
   const [userId, setUserId] = useState(null);
+  const [userFullName, setUserFullName] = useState(null);
   const [event, setEvent] = useState(null);
   const [isEventWasCanceled, setIsEventWasCanceled] = useState(false);
 
@@ -31,6 +32,8 @@ const StoreProvider = ({ children }) => {
         setValidAt,
         userId,
         setUserId,
+        userFullName,
+        setUserFullName,
         event,
         setEvent,
         isEventWasCanceled,

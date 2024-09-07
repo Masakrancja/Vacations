@@ -51,6 +51,8 @@ const AccountPage = () => {
           }
         }
 
+        console.log(data.response);
+
         const { id, groupId } = data.response;
 
         response = await fetch(URI + "/users/" + id, options);
@@ -110,7 +112,11 @@ const AccountPage = () => {
       {error ? (
         <Error message={message} />
       ) : (
-        <Account account={account} user={user} group={group} />
+        <>
+          {account && user && group ? (
+            <Account account={account} user={user} group={group} />
+          ) : null}
+        </>
       )}
     </>
   );

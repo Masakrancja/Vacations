@@ -4,128 +4,88 @@ import { NavLink } from "react-router-dom";
 const AdminMenu = () => {
   return (
     <nav>
-      <ul className="list-group">
-        <li className="list-group-item">
-          <NavLink
-            to="/users/all"
-            exact="false"
-            className={({ isActive }) =>
-              [
-                isActive
-                  ? "fw-bold text-decoration-none"
-                  : "text-decoration-none",
-              ].join(" ")
-            }
-          >
-            Moi pracownicy
-          </NavLink>
-        </li>
-        <li className="list-group-item">
-          <NavLink
-            to="/users/pending"
-            exact="false"
-            className={({ isActive }) =>
-              [
-                isActive
-                  ? "fw-bold text-decoration-none"
-                  : "text-decoration-none",
-              ].join(" ")
-            }
-          >
-            Pracownicy oczekujący
-          </NavLink>
-        </li>
-        <li className="list-group-item">
-          <NavLink
-            to="/events/all"
-            exact="false"
-            className={({ isActive }) =>
-              [
-                isActive
-                  ? "fw-bold text-decoration-none"
-                  : "text-decoration-none",
-              ].join(" ")
-            }
-          >
-            Urlopy pracowników
-          </NavLink>
-        </li>
-        <li className="list-group-item">
-          <NavLink
-            to="/events/pending"
-            exact="true"
-            className={({ isActive }) =>
-              [
-                isActive
-                  ? "fw-bold text-decoration-none"
-                  : "text-decoration-none",
-              ].join(" ")
-            }
-          >
-            Urlopy oczekujące
-          </NavLink>
-        </li>
-        <li className="list-group-item">
-          <NavLink
-            to="/events/approved"
-            exact="false"
-            className={({ isActive }) =>
-              [
-                isActive
-                  ? "fw-bold text-decoration-none"
-                  : "text-decoration-none",
-              ].join(" ")
-            }
-          >
-            Urlopy zatwierdzone
-          </NavLink>
-        </li>
-        <li className="list-group-item">
-          <NavLink
-            to="/events/cancelled"
-            exact="false"
-            className={({ isActive }) =>
-              [
-                isActive
-                  ? "fw-bold text-decoration-none"
-                  : "text-decoration-none",
-              ].join(" ")
-            }
-          >
-            Urlopy odrzucone
-          </NavLink>
-        </li>
-        <li className="list-group-item">
-          <NavLink
-            to="/events/petitions"
-            exact="false"
-            className={({ isActive }) =>
-              [
-                isActive
-                  ? "fw-bold text-decoration-none"
-                  : "text-decoration-none",
-              ].join(" ")
-            }
-          >
-            Prośby o anulowanie urlopu
-          </NavLink>
-        </li>
-        <li className="list-group-item">
-          <NavLink
-            to="/me"
-            exact="false"
-            className={({ isActive }) =>
-              [
-                isActive
-                  ? "fw-bold text-decoration-none"
-                  : "text-decoration-none",
-              ].join(" ")
-            }
-          >
-            Moje konto
-          </NavLink>
-        </li>
-      </ul>
+      <div className="list-group">
+        <NavLink
+          to="/users/all"
+          exact="false"
+          className={({ isActive }) =>
+            [isActive ? "fw-bold list-group-item-primary" : null].join(" ") +
+            " list-group-item list-group-item-action"
+          }
+        >
+          Moi pracownicy
+        </NavLink>
+        <NavLink
+          to="/users/pending"
+          exact="false"
+          className={({ isActive }) =>
+            [isActive ? "fw-bold list-group-item-primary" : null].join(" ") +
+            " list-group-item list-group-item-action"
+          }
+        >
+          Pracownicy oczekujący
+        </NavLink>
+        <NavLink
+          to="/events/all"
+          exact="false"
+          className={({ isActive }) =>
+            [isActive ? "fw-bold list-group-item-primary" : null].join(" ") +
+            " list-group-item list-group-item-action"
+          }
+        >
+          Urlopy pracowników
+        </NavLink>
+        <NavLink
+          to="/events/pending"
+          exact="true"
+          className={({ isActive }) =>
+            [isActive ? "fw-bold list-group-item-primary" : null].join(" ") +
+            " list-group-item list-group-item-action"
+          }
+        >
+          Urlopy oczekujące
+        </NavLink>
+        <NavLink
+          to="/events/approved"
+          exact="false"
+          className={({ isActive }) =>
+            [isActive ? "fw-bold list-group-item-primary" : null].join(" ") +
+            " list-group-item list-group-item-action"
+          }
+        >
+          Urlopy zatwierdzone
+        </NavLink>
+        <NavLink
+          to="/events/cancelled"
+          exact="false"
+          className={({ isActive }) =>
+            [isActive ? "fw-bold list-group-item-primary" : null].join(" ") +
+            " list-group-item list-group-item-action"
+          }
+        >
+          Urlopy odrzucone
+        </NavLink>
+        <NavLink
+          to="/events/petitions"
+          exact="false"
+          className={({ isActive }) =>
+            [isActive ? "fw-bold list-group-item-primary" : null].join(" ") +
+            " list-group-item list-group-item-action"
+          }
+        >
+          Prośby o anulowanie urlopu
+        </NavLink>
+        <NavLink
+          to="/me"
+          exact="false"
+          className={({ isActive }) =>
+            [isActive ? "fw-bold list-group-item-primary" : null].join(" ") +
+            " list-group-item list-group-item-action"
+          }
+        >
+          Moje konto
+        </NavLink>
+      </div>
     </nav>
   );
 };

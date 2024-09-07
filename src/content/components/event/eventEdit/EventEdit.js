@@ -87,26 +87,44 @@ const EventEdit = ({ event, setEvent }) => {
   };
 
   return (
-    <>
+    <div className="mb-2 p-2">
       {loading ? <div className={styleLoader()}></div> : null}
       <form method="POST" onSubmit={handleSubmit}>
         <SelectReason id={reasonId} setReasonId={setReasonId} />
-        <label>
+        <label className="mt-1">
           Data od:
-          <input type="date" value={dateFrom} onChange={handleChangeFrom} />
+          <input
+            className="form-control"
+            type="date"
+            value={dateFrom}
+            onChange={handleChangeFrom}
+          />
         </label>
-        <label>
+        <label className="mt-1">
           Data do:
-          <input type="date" value={dateTo} onChange={handleChangeTo} />
+          <input
+            className="form-control"
+            type="date"
+            value={dateTo}
+            onChange={handleChangeTo}
+          />
         </label>
-        <label>
+        <label className="mt-1">
           Notatka:
-          <textarea value={notice} onChange={handleChangeNotice}></textarea>
+          <textarea
+            className="form-control"
+            value={notice}
+            onChange={handleChangeNotice}
+          ></textarea>
         </label>
-        <button type="submit">Zapisz</button>
+        <div className="text-center">
+          <button className="btn btn-primary" type="submit">
+            Zapisz
+          </button>
+        </div>
       </form>
       {error ? <Error message={message} /> : <Success message={message} />}
-    </>
+    </div>
   );
 };
 export default EventEdit;

@@ -1,9 +1,4 @@
 import React from "react";
-import BemCssModules from "bem-css-modules";
-
-import { default as AccountStyle } from "./Account.module.scss";
-
-const style = BemCssModules(AccountStyle);
 
 const Account = ({ account, user, group }) => {
   const { isActive, isAdmin, login } = account;
@@ -11,17 +6,28 @@ const Account = ({ account, user, group }) => {
     user.userData;
 
   return (
-    <div className={style()}>
-      <p>Typ konta: {isAdmin ? "Pracodawca" : "Pracownik"}</p>
-      <p>Status konta: {isActive ? "Aktywne" : "Nieaktywne"}</p>
-      <p>Login: {login}</p>
-      <h4>Dane adresowe właściciela konta</h4>
-      <p>Imię i Nazwisko: {`${firstName} ${lastName}`}</p>
-      <p>Adres:</p>
-      <p>{address}</p>
-      <p>{`${postalCode} ${city}`}</p>
-      <p>Telefon: {phone}</p>
-      <p>Email: {email}</p>
+    <div className="card border-primary mb-3" style={{ maxWidth: "18rem" }}>
+      <div className="card-header">Dane podstawowe</div>
+      <div className="card-body">
+        <p className="card-text">
+          Typ konta: {isAdmin ? "Pracodawca" : "Pracownik"}
+        </p>
+        <p className="card-text">
+          Status konta: {isActive ? "Aktywne" : "Nieaktywne"}
+        </p>
+        <p className="card-text">Login: {login}</p>
+      </div>
+      <div className="card-header">Dane adresowe właściciela konta</div>
+      <div className="card-body">
+        <p className="card-text">
+          Imię i Nazwisko: {`${firstName} ${lastName}`}
+        </p>
+        <p className="card-text">Adres:</p>
+        <p className="card-text">{address}</p>
+        <p className="card-text">{`${postalCode} ${city}`}</p>
+        <p className="card-text">Telefon: {phone}</p>
+        <p className="card-text">Email: {email}</p>
+      </div>
     </div>
   );
 };

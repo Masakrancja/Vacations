@@ -69,7 +69,13 @@ const AllEventsPage = () => {
     <>
       {loading ? <div className={styleLoader()}></div> : null}
       <h2>Moje urlopy</h2>
-      {error ? <Error message={message} /> : eventsContent}
+      {error ? (
+        <Error message={message} />
+      ) : (
+        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4">
+          {eventsContent}
+        </div>
+      )}
     </>
   );
 };
