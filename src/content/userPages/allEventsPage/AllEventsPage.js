@@ -60,7 +60,7 @@ const AllEventsPage = () => {
   }, []);
 
   const eventsContent = events.map((event) => (
-    <div key={event.id}>
+    <div className="col p-2" key={event.id}>
       <Event event={event} />
     </div>
   ));
@@ -72,7 +72,7 @@ const AllEventsPage = () => {
       {error ? (
         <Error message={message} />
       ) : (
-        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4">
+        <div className="row row-cols-xl-4 row-cols-lg-3 row-cols-sm-2 row-cols-1">
           {eventsContent}
         </div>
       )}

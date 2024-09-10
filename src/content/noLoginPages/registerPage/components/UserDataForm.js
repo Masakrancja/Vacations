@@ -44,102 +44,96 @@ const UserDataForm = () => {
 
   return (
     <>
+      <h5 className="mt-3">Dane użytkownika</h5>
       <div className="row mt-4">
-        <div className="col-1"></div>
-        <div className="col-2">Imię</div>
-        <div className="col-2">
+        <div className="col-3">Imię</div>
+        <div className="col-9">
           <input
             type="text"
+            className="form-control"
             value={firstName}
             onChange={handleFirstName}
             placeholder="Podaj imię"
           />
         </div>
-        <div className="col"></div>
       </div>
 
       <div className="row mt-1">
-        <div className="col-1"></div>
-        <div className="col-2">Nazwisko</div>
-        <div className="col-2">
+        <div className="col-3">Nazwisko</div>
+        <div className="col-9">
           <input
             type="text"
+            className="form-control"
             value={lastName}
             onChange={handleLastName}
             placeholder="Podaj nazwisko"
           />
         </div>
-        <div className="col"></div>
       </div>
 
       <div className="row mt-1">
-        <div className="col-1"></div>
-        <div className="col-2">Adres</div>
-        <div className="col-2">
+        <div className="col-3">Adres</div>
+        <div className="col-9">
           <input
             type="text"
+            className="form-control"
             value={address}
             onChange={handleAddress}
             placeholder="Podaj adres"
           />
         </div>
-        <div className="col"></div>
       </div>
 
       <div className="row mt-1">
-        <div className="col-1"></div>
-        <div className="col-2">Kod pocztowy</div>
-        <div className="col-2">
+        <div className="col-3">Kod pocztowy</div>
+        <div className="col-9">
           <input
             type="text"
+            className="form-control"
             value={postalCode}
             onChange={handlePostalCode}
             placeholder="Podaj kod pocztowy"
           />
         </div>
-        <div className="col"></div>
       </div>
 
       <div className="row mt-1">
-        <div className="col-1"></div>
-        <div className="col-2">Miasto</div>
-        <div className="col-2">
+        <div className="col-3">Miasto</div>
+        <div className="col-9">
           <input
             type="text"
+            className="form-control"
             value={city}
             onChange={handleCity}
             placeholder="Podaj miasto"
           />
         </div>
-        <div className="col"></div>
       </div>
 
       <div className="row mt-1">
-        <div className="col-1"></div>
-        <div className="col-2">Telefon</div>
-        <div className="col-2">
+        <div className="col-3">Telefon</div>
+        <div className="col-9">
           <input
             type="text"
+            className="form-control"
             value={phone}
             onChange={handlePhone}
             placeholder="Podaj telefon kontaktowy"
           />
         </div>
-        <div className="col"></div>
       </div>
 
       <div className="row mt-1">
-        <div className="col-1"></div>
-        <div className="col-2">Email</div>
-        <div className="col-2">
+        <div className="col-3">Email</div>
+        <div className="col-md-9">
           <input
             type="text"
+            className="form-control"
             value={email}
             onChange={handleEmail}
             placeholder="Podaj email"
           />
         </div>
-        <div className="col"></div>
       </div>
     </>
   );

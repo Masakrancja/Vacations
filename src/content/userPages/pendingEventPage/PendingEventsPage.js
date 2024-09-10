@@ -71,7 +71,13 @@ const PendingEventsPage = () => {
     <>
       {loading ? <div className={styleLoader()}></div> : null}
       <h2>Urlopy oczekujące</h2>
-      {error ? <Error message={message} /> : eventsContent}
+      {error ? (
+        <Error message={message} />
+      ) : (
+        <div className="row row-cols-xl-4 row-cols-lg-3 row-cols-sm-2 row-cols-1">
+          {eventsContent}
+        </div>
+      )}
     </>
   );
 };

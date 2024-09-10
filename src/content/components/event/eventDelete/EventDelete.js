@@ -21,6 +21,11 @@ const EventDelete = ({ event, setEvent }) => {
   const navigate = useNavigate();
 
   const { id } = event;
+
+  console.log('event',event);
+  console.log('message',message);
+  console.log('id',id);
+
   useEffect(() => {
     (async () => {
       try {
@@ -32,10 +37,13 @@ const EventDelete = ({ event, setEvent }) => {
         };
         const response = await fetch(URI + "/events/" + id, options);
         const data = await response.json();
-        if (data.status === "OK") {
+
+        console.log(data);
+
+        if (data.code === 204) {
           setError(false);
           setMessage("Poprawnie usunięto urlop");
-          setEvent(null);
+          navigate('/events/all');
         } else {
           if (data.code === 401) {
             setIsLogged(false);
@@ -53,8 +61,10 @@ const EventDelete = ({ event, setEvent }) => {
           }
         }
       } catch (error) {
-        setError(true);
-        setMessage(error.message);
+        if (error.code !== 404) {
+          setError(true);
+          setMessage(error.message);
+        }
       } finally {
         setLoading(false);
       }

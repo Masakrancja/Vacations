@@ -41,7 +41,7 @@ const GroupsPage = () => {
     <Error message={message} />
   ) : (
     groups.map((group) => (
-      <div key={group.id}>
+      <div className="col p-2" key={group.id}>
         <Group {...group} />
       </div>
     ))
@@ -50,7 +50,7 @@ const GroupsPage = () => {
   return (
     <>
       {loading ? <div className={styleLoader()}></div> : null}
-      <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4">
+      <div className="row row-cols-xl-4 row-cols-lg-3 row-cols-sm-2 row-cols-1">
         {groupView}
       </div>
     </>

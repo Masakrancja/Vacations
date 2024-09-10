@@ -18,6 +18,6 @@ const Content = () => {
     <NoLoginPages />
   );
 
-  return <div className="col-xl-10 col-md-12 p-2">{contentForm}</div>;
+  return <div className="col-lg-10 col-md-12 p-2">{contentForm}</div>;
 };
 export default Content;

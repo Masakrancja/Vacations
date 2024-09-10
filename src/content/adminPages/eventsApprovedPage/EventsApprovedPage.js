@@ -66,7 +66,7 @@ const EventsApprovedPage = () => {
   const eventContent = events
     .filter((event) => event.status === "approved")
     .map((event) => (
-      <div key={event.id}>
+      <div className="col p-2" key={event.id}>
         <Event event={event} />
       </div>
     ));
@@ -78,7 +78,7 @@ const EventsApprovedPage = () => {
       {error ? (
         <Error message={message} />
       ) : (
-        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4">
+        <div className="row row-cols-xl-4 row-cols-lg-3 row-cols-sm-2 row-cols-1">
           {eventContent}
         </div>
       )}

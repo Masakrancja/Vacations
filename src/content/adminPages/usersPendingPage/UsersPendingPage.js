@@ -63,7 +63,7 @@ const UsersPendingPage = () => {
         Boolean(user.isAdmin) === false && Boolean(user.isActive) === false
     )
     .map((user) => (
-      <div key={user.id}>
+      <div className="col p-2" key={user.id}>
         <User user={user} />
       </div>
     ));
@@ -72,7 +72,12 @@ const UsersPendingPage = () => {
     <>
       {loading ? <div className={styleLoader()}></div> : null}
       <h2>Pracownicy oczekujący za zatwierdzenie</h2>
-      {error ? <Error message={message} /> : usersContent}
+      {error 
+        ? <Error message={message} /> 
+        : <div className="row row-cols-xl-4 row-cols-lg-3 row-cols-sm-2 row-cols-1">
+            {usersContent}
+          </div>
+      }
     </>
   );
 };

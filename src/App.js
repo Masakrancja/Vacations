@@ -14,7 +14,6 @@ function App() {
           <Header />
           <main
             className="row mx-2"
-            style={{ minHeight: "calc(100vh - 160px)" }}
           >
             <Menu />
             <Content />

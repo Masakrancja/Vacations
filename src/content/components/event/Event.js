@@ -39,40 +39,38 @@ const Event = ({ event }) => {
       {isAdmin ? (
         <>
           {event !== null ? (
-            <div className="col p-2 mt-2">
-              <div
-                className="card border-primary mb-3"
-                style={{ maxWidth: "18rem" }}
-              >
-                {userFullName ? (
-                  <div className="card-header">{userFullName}</div>
-                ) : null}
+            <div
+              className="card border-primary mx-auto  mb-3"
+              style={{ maxWidth: "18rem" }}
+            >
+              {userFullName ? (
+                <div className="card-header">{userFullName}</div>
+              ) : null}
 
-                <div className="card-body">
-                  <EventShow event={localEvent} />
-                  {status === "pending" ? (
-                    <EventChangeStatus
-                      event={localEvent}
-                      setEvent={setLocalEvent}
-                    />
-                  ) : null}
-                  {wantCancel === "yes" ? (
-                    <EventCancelAdmin
-                      event={localEvent}
-                      setEvent={setLocalEvent}
-                    />
-                  ) : null}
-                </div>
+              <div className="card-body">
+                <EventShow event={localEvent} />
+                {status === "pending" ? (
+                  <EventChangeStatus
+                    event={localEvent}
+                    setEvent={setLocalEvent}
+                  />
+                ) : null}
+                {wantCancel === "yes" ? (
+                  <EventCancelAdmin
+                    event={localEvent}
+                    setEvent={setLocalEvent}
+                  />
+                ) : null}
               </div>
             </div>
           ) : null}
         </>
       ) : (
-        <div className="col p-2 mt-2">
+        <>
           {event !== null ? (
             <>
               <div
-                className="card border-primary mb-3"
+                className="card border-primary mx-auto mb-3"
                 style={{ maxWidth: "18rem", minHeight: "18rem" }}
               >
                 {isEdit ? (
@@ -142,7 +140,7 @@ const Event = ({ event }) => {
               </div>
             </>
           ) : null}
-        </div>
+        </>
       )}
     </>
   );

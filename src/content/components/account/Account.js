@@ -6,7 +6,7 @@ const Account = ({ account, user, group }) => {
     user.userData;
 
   return (
-    <div className="card border-primary mb-3" style={{ maxWidth: "18rem" }}>
+    <div className="card border-primary mx-auto mb-3" style={{ maxWidth: "18rem" }}>
       <div className="card-header">Dane podstawowe</div>
       <div className="card-body">
         <p className="card-text">

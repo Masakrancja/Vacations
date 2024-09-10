@@ -34,6 +34,7 @@ const GroupDataForm = () => {
 
   return (
     <>
+    <h5 className="mt-3">Dane firmy</h5>
       <div className="row mt-3">
         <div className="col-3">Nazwa</div>
         <div className="col-9">
@@ -48,59 +49,55 @@ const GroupDataForm = () => {
       </div>
 
       <div className="row mt-1">
-        <div className="col-1"></div>
-        <div className="col-2">Adres</div>
-        <div className="col-2">
+        <div className="col-3">Adres</div>
+        <div className="col-9">
           <input
             type="text"
+            className="form-control"
             value={groupAddress}
             onChange={handleGroupAddress}
             placeholder="Podaj adres firmy"
           />
         </div>
-        <div className="col"></div>
       </div>
 
       <div className="row mt-1">
-        <div className="col-1"></div>
-        <div className="col-2">Kod pocztowy</div>
-        <div className="col-2">
+        <div className="col-3">Kod pocztowy</div>
+        <div className="col-9">
           <input
             type="text"
+            className="form-control"
             value={groupPostalCode}
             onChange={handleGroupPostalCode}
             placeholder="Podaj kod pocztowy firmy"
           />
         </div>
-        <div className="col"></div>
       </div>
 
       <div className="row mt-1">
-        <div className="col-1"></div>
-        <div className="col-2">Miasto</div>
-        <div className="col-2">
+        <div className="col-3">Miasto</div>
+        <div className="col-9">
           <input
             type="text"
+            className="form-control"
             value={groupCity}
             onChange={handleGroupCity}
             placeholder="Podaj miasto firmy"
           />
         </div>
-        <div className="col"></div>
       </div>
 
       <div className="row mt-1">
-        <div className="col-1"></div>
-        <div className="col-2">NIP</div>
-        <div className="col-2">
+        <div className="col-3">NIP</div>
+        <div className="col-9">
           <input
             type="text"
+            className="form-control"
             value={groupNip}
             onChange={handleGroupNip}
             placeholder="Podaj NIP firmy"
           />
         </div>
-        <div className="col"></div>
       </div>
     </>
   );

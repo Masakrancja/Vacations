@@ -45,7 +45,7 @@ const SelectDataForm = () => {
   ) : (
     groups.map((group) => (
       <option key={group.id} value={group.id}>
-        {group.name}
+        {`${group.name} - NIP: ${group.nip}`}
       </option>
     ))
   );

@@ -14,7 +14,7 @@ const Header = () => {
   return (
     <header
       style={{ height: "100px" }}
-      className="w-100 sticky-top bg-primary-subtle text-center"
+      className="w-100 sticky-top bg-warning-subtle text-center"
     >
       <div className="row h-100">
         <div className="col-xl-1 d-none d-xl-block"></div>

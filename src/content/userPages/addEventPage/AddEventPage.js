@@ -90,7 +90,7 @@ const AddEventPage = () => {
     <>
       {loading ? <div className={styleLoader()}></div> : null}
       <h2>Dodaj urlop</h2>
-      <div className="card border-primary mb-3">
+      <div className="card border-primary mx-auto mb-3">
         {/* <div className="card-header">Header</div> */}
 
         <div className="card-body">

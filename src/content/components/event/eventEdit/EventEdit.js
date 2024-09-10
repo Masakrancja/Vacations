@@ -37,8 +37,12 @@ const EventEdit = ({ event, setEvent }) => {
     setNotice(e.target.value);
   };
 
+  console.log('message', message);
+  console.log('error', error);
+
   const handleSubmit = (e) => {
     setLoading(true);
+    setMessage("");
     e.preventDefault();
     (async () => {
       try {

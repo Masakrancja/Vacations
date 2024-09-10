@@ -125,7 +125,7 @@ const User = ({ user }) => {
       <div
         className={`card ${
           isActive === true ? "border-success" : "border-danger"
-        }`}
+        } mx-auto`}
         style={{ maxWidth: "18rem" }}
       >
         <div className="card-header">
