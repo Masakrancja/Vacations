@@ -18,6 +18,7 @@ const StoreProvider = ({ children }) => {
   const [userFullName, setUserFullName] = useState(null);
   const [event, setEvent] = useState(null);
   const [isEventWasCanceled, setIsEventWasCanceled] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   return (
     <StoreContext.Provider
@@ -38,6 +39,8 @@ const StoreProvider = ({ children }) => {
         setEvent,
         isEventWasCanceled,
         setIsEventWasCanceled,
+        loading,
+        setLoading,
       }}
     >
       {children}

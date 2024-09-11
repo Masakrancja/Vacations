@@ -111,7 +111,7 @@ const LoginForm = () => {
           </div>
 
           <div className="col-3 h-100 d-flex align-items-center">
-            <button className="btn btn-primary" type="submit">
+            <button className="btn btn-outline-primary" type="submit">
               Zaloguj
             </button>
           </div>

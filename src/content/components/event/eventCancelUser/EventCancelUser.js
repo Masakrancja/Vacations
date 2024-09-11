@@ -21,14 +21,15 @@ const EventCancelUser = ({ event, setEvent }) => {
 
   let btnName = "";
   if (event.wantCancel === "yes") {
-    btnName = "Anuluj prośbę o anulowanie";
+    btnName = "Anuluj prośbę o anulowanie urlopu";
   } else if (event.wantCancel === "no") {
-    btnName = "Wyślij prośbę o anulowanie";
+    btnName = "Wyślij prośbę o anulowanie urlopu";
   }
 
   const { id } = event;
 
   const handleOnClick = () => {
+    setError(false);
     setLoading(true);
     (async () => {
       try {
@@ -76,8 +77,11 @@ const EventCancelUser = ({ event, setEvent }) => {
   return (
     <>
       {loading ? <div className={styleLoader()}></div> : null}
-      <div>
-        <button className="btn btn-primary" onClick={handleOnClick}>
+      <div className="text-center p-2">
+        <button
+          className="btn btn-sm btn-outline-primary"
+          onClick={handleOnClick}
+        >
           {btnName}
         </button>
       </div>

@@ -51,8 +51,6 @@ const AccountPage = () => {
           }
         }
 
-        console.log(data.response);
-
         const { id, groupId } = data.response;
 
         response = await fetch(URI + "/users/" + id, options);

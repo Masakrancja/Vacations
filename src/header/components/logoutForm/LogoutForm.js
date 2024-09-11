@@ -100,36 +100,11 @@ const LogoutForm = () => {
             </div>
           </div>
           <div className="col-3 h-100 d-flex align-items-center">
-            <button className="btn btn-primary" type="submit">
+            <button className="btn btn-outline-primary" type="submit">
               Wyloguj
             </button>
           </div>
         </div>
-
-        {/* <div className={style("div-wrapper")}>
-          <div className={style("div-content")}>
-            <div className={"div-fullname"}>
-              Witaj, <span className={style("bold")}>{fullName}</span>
-            </div>
-            <div>
-              Typ konta:{" "}
-              <span className={style("bold")}>
-                {isAdmin ? "Właściciel" : "Pracownik"}
-              </span>
-            </div>
-            <div>
-              Status konta:{" "}
-              <span className={style(isActive ? "active" : "inactive")}>
-                {isActive ? "Aktywne" : "Nieaktywne"}
-              </span>
-            </div>
-          </div>
-          <div className={style("div-btn")}>
-            <button className={style("btn")} type="submit">
-              Wyloguj
-            </button>
-          </div>
-        </div> */}
       </form>
     </>
   );

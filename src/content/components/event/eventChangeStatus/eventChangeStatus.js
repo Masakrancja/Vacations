@@ -24,6 +24,7 @@ const EventChangeStatus = ({ event, setEvent }) => {
     const { id } = event;
     const { status } = e.target.dataset;
     setLoading(true);
+    setError(false);
     (async () => {
       try {
         const options = {
@@ -74,14 +75,14 @@ const EventChangeStatus = ({ event, setEvent }) => {
         <>
           <div>
             <button
-              className="btn btn-success"
+              className="btn btn-sm btn-outline-success"
               data-status="approved"
               onClick={handleOnClick}
             >
               Zatwierdź
             </button>
             <button
-              className="btn btn-danger"
+              className="btn btn-sm btn-outline-danger"
               data-status="canceled"
               onClick={handleOnClick}
             >

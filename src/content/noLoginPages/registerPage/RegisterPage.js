@@ -150,7 +150,7 @@ const RegisterPage = () => {
         <div className="row my-4">
           <div className="col"></div>
           <div className="col text-center">
-            <button type="submit" className="btn btn-primary btn-lg">
+            <button type="submit" className="btn btn-lg btn-outline-primary">
               Zarejestruj
             </button>
           </div>

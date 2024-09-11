@@ -30,6 +30,7 @@ const EventCancelAdmin = ({ event, setEvent }) => {
   const { id, wantCancel } = event;
 
   const handleOnClik = () => {
+    setError(false);
     setLoading(true);
     (async () => {
       try {
@@ -83,7 +84,10 @@ const EventCancelAdmin = ({ event, setEvent }) => {
       {loading ? <div className={styleLoader()}></div> : null}
       <h6>Pracownik wysłał prośbę o anulowanie urlopu</h6>
       {wantCancel ? (
-        <button className="btn btn-primary" onClick={handleOnClik}>
+        <button
+          className="btn btn-sm btn-outline-primary"
+          onClick={handleOnClik}
+        >
           Anuluj urlop
         </button>
       ) : null}

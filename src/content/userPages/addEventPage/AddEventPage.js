@@ -25,12 +25,13 @@ const AddEventPage = () => {
     setValidAt,
     event,
     setEvent,
+    loading,
+    setLoading,
   } = useContext(StoreContext);
   const [reasonId, setReasonId] = useState(null);
   const [dateFrom, setDateFrom] = useState(today);
   const [dateTo, setDateTo] = useState(today);
   const [notice, setNotice] = useState("");
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [message, setMessage] = useState("");
   const [, , removeCookie] = useCookies(["token"]);
@@ -47,6 +48,7 @@ const AddEventPage = () => {
   }, [reasonId, dateFrom, dateTo, notice]);
 
   const handleOnSubmit = (e) => {
+    setError(false);
     setLoading(true);
     e.preventDefault();
     (async () => {
@@ -88,7 +90,6 @@ const AddEventPage = () => {
 
   return (
     <>
-      {loading ? <div className={styleLoader()}></div> : null}
       <h2>Dodaj urlop</h2>
       <div className="card border-primary mx-auto mb-3">
         {/* <div className="card-header">Header</div> */}
@@ -104,7 +105,7 @@ const AddEventPage = () => {
             />
             <Notice notice={notice} setNotice={setNotice} />
             <div className="text-center pt-3">
-              <button className="btn btn-primary" type="submit">
+              <button className="btn btn-sm btn-outline-primary" type="submit">
                 Dodaj
               </button>
             </div>

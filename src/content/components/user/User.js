@@ -184,7 +184,7 @@ const User = ({ user }) => {
           {show ? <UserInfo {...userData} /> : null}
           <button
             type="button"
-            className="btn btn-primary text-center"
+            className="btn btn-sm btn-outline-primary text-center"
             onClick={handleOnClick}
           >
             {showTitle}
@@ -194,47 +194,6 @@ const User = ({ user }) => {
         </div>
       </div>
     </div>
-
-    // <>
-    //   {loading ? <div className={styleLoader()}></div> : null}
-    //   <div className={style(isActive === true ? "active" : "inactive")}>
-    //     <div>
-    //       <p>
-    //         Imię i nazwisko: <span>{fullName}</span>
-    //       </p>
-    //       <p>
-    //         Login: <span>{login}</span>
-    //       </p>
-    //       <p>
-    //         Zarejestrowany: <span>{createdAt.substr(0, 10)}</span>
-    //       </p>
-    //       <p>Status: {isActive === true ? "Aktywny" : "Nieaktywny"}</p>
-    //       <label>
-    //         <input
-    //           type="radio"
-    //           value={true}
-    //           name={`status${id}`}
-    //           defaultChecked={isActive}
-    //           onChange={handleOnChange}
-    //         />
-    //         Aktywny
-    //       </label>
-    //       <label>
-    //         <input
-    //           type="radio"
-    //           value={false}
-    //           name={`status${id}`}
-    //           defaultChecked={!isActive}
-    //           onChange={handleOnChange}
-    //         />
-    //         Nieaktywny
-    //       </label>
-    //       {show ? <UserInfo {...userData} /> : null}
-    //       <button onClick={handleOnClick}>{showTitle}</button>
-    //       {error ? <Error message={message} /> : <Success message={message} />}
-    //     </div>
-    //   </div>
-    // </>
   );
 };
 export default User;

@@ -1,6 +1,10 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
+import BemCssModules from "bem-css-modules";
 
 import { StoreContext } from "../../../StoreProvider";
+import { URI } from "../../../config";
 import EventShow from "./eventShow/EventShow";
 import EventEdit from "./eventEdit/EventEdit";
 import Confirm from "../confirm/Confirm";
@@ -8,15 +12,62 @@ import EventDelete from "./eventDelete/EventDelete";
 import EventCancelUser from "./eventCancelUser/EventCancelUser";
 import EventCancelAdmin from "./eventCancelAdmin/EventCancelAdmin";
 import EventChangeStatus from "./eventChangeStatus/eventChangeStatus";
+import EventWaiting from "./eventWaiting/EventWaiting";
+
+import { default as LoaderStyles } from "../../../Loader.module.scss";
+const styleLoader = BemCssModules(LoaderStyles);
 
 const Event = ({ event }) => {
+  const { token, setToken, setIsLogged, setIsAdmin, setValidAt } =
+    useContext(StoreContext);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const [message, setMessage] = useState("");
+  const [, , removeCookie] = useCookies(["token"]);
+  const navigate = useNavigate();
   const { isAdmin, userFullName } = useContext(StoreContext);
   const [isEdit, setIsEdit] = useState(false);
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [show, setShow] = useState(false);
   const [btnName, setBtnName] = useState("Edytuj");
   const [localEvent, setLocalEvent] = useState(event);
-  const { status, wantCancel } = localEvent;
+
+  useEffect(() => {
+    const { id } = event;
+    if (isConfirmed) {
+      setLocalEvent(null);
+      (async () => {
+        const options = {
+          method: "DELETE",
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        };
+        try {
+          const response = await fetch(URI + "/events/" + id, options);
+          const data = await response.json();
+          setIsConfirmed(false);
+
+          if (data.code === 401) {
+            setIsLogged(false);
+            setIsAdmin(false);
+            setToken("");
+            setValidAt("");
+            removeCookie("isLogged", { path: "/" });
+            removeCookie("isAdmin", { path: "/" });
+            removeCookie("token", { path: "/" });
+            removeCookie("validAt", { path: "/" });
+            navigate("/");
+          }
+        } catch (error) {
+          setError(true);
+          setMessage(error.message);
+        } finally {
+          setLoading(false);
+        }
+      })();
+    }
+  }, [isConfirmed]);
 
   const toogleEdit = () => {
     setIsEdit((prev) => {
@@ -38,10 +89,10 @@ const Event = ({ event }) => {
     <>
       {isAdmin ? (
         <>
-          {event !== null ? (
+          {localEvent !== null ? (
             <div
-              className="card border-primary mx-auto  mb-3"
-              style={{ maxWidth: "18rem" }}
+              className="card border-primary mx-auto mb-3"
+              style={{ maxWidth: "18rem", minHeight: "24rem" }}
             >
               {userFullName ? (
                 <div className="card-header">{userFullName}</div>
@@ -49,13 +100,13 @@ const Event = ({ event }) => {
 
               <div className="card-body">
                 <EventShow event={localEvent} />
-                {status === "pending" ? (
+                {localEvent.status === "pending" ? (
                   <EventChangeStatus
                     event={localEvent}
                     setEvent={setLocalEvent}
                   />
                 ) : null}
-                {wantCancel === "yes" ? (
+                {localEvent.wantCancel === "yes" ? (
                   <EventCancelAdmin
                     event={localEvent}
                     setEvent={setLocalEvent}
@@ -67,11 +118,11 @@ const Event = ({ event }) => {
         </>
       ) : (
         <>
-          {event !== null ? (
+          {localEvent !== null ? (
             <>
               <div
                 className="card border-primary mx-auto mb-3"
-                style={{ maxWidth: "18rem", minHeight: "18rem" }}
+                style={{ maxWidth: "18rem", minHeight: "24rem" }}
               >
                 {isEdit ? (
                   <EventEdit event={localEvent} setEvent={setLocalEvent} />
@@ -79,11 +130,11 @@ const Event = ({ event }) => {
                   <EventShow event={localEvent} />
                 )}
                 <div className="row">
-                  {status === "pending" ? (
+                  {localEvent.status === "pending" ? (
                     <>
                       <div className="col p-2 text-center">
                         <button
-                          className="btn btn-primary"
+                          className="btn btn-sm btn-outline-primary"
                           onClick={toogleEdit}
                         >
                           {btnName}
@@ -91,7 +142,7 @@ const Event = ({ event }) => {
                       </div>
                       <div className="col p-2 text-center">
                         <button
-                          className="btn btn-primary"
+                          className="btn btn-sm btn-outline-primary"
                           onClick={handleDelete}
                         >
                           Usuń
@@ -100,42 +151,33 @@ const Event = ({ event }) => {
                     </>
                   ) : (
                     <div className="col p-2 text-center">
-                      <button className="btn btn-primary" onClick={toogleEdit}>
+                      <button
+                        className="btn btn-sm btn-outline-primary"
+                        onClick={toogleEdit}
+                      >
                         {btnName}
                       </button>
                     </div>
                   )}
-
-                  {/* <div className="col p-2 text-center">
-                    <button className="btn btn-primary" onClick={toogleEdit}>
-                      {btnName}
-                    </button>
-                  </div>
-                  <div className="col p-2 text-center">
-                    {status === "pending" ? (
-                      <button
-                        className="btn btn-primary"
-                        onClick={handleDelete}
-                      >
-                        Usuń
-                      </button>
-                    ) : null}
-                  </div> */}
                 </div>
-                {status === "approved" ? (
+                {localEvent.status === "approved" ? (
                   <>
                     <EventCancelUser
                       event={localEvent}
                       setEvent={setLocalEvent}
                     />
-                    {wantCancel === "yes" ? "Oczekuje na akceptacje" : null}
+                    {localEvent.wantCancel === "yes" ? (
+                      <EventWaiting message="Oczekuje na akceptacje" />
+                    ) : null}
                   </>
                 ) : null}
                 {show ? (
                   <Confirm setShow={setShow} setIsConfirmed={setIsConfirmed} />
                 ) : null}
                 {isConfirmed ? (
-                  <EventDelete event={localEvent} setEvent={setLocalEvent} />
+                  loading ? (
+                    <div className={styleLoader()}></div>
+                  ) : null
                 ) : null}
               </div>
             </>

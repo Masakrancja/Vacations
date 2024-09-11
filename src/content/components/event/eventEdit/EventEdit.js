@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import BemCssModules from "bem-css-modules";
@@ -37,12 +37,9 @@ const EventEdit = ({ event, setEvent }) => {
     setNotice(e.target.value);
   };
 
-  console.log('message', message);
-  console.log('error', error);
-
   const handleSubmit = (e) => {
+    setError(false);
     setLoading(true);
-    setMessage("");
     e.preventDefault();
     (async () => {
       try {
@@ -122,11 +119,12 @@ const EventEdit = ({ event, setEvent }) => {
           ></textarea>
         </label>
         <div className="text-center">
-          <button className="btn btn-primary" type="submit">
+          <button className="btn btn-sm btn-outline-primary" type="submit">
             Zapisz
           </button>
         </div>
       </form>
+
       {error ? <Error message={message} /> : <Success message={message} />}
     </div>
   );
