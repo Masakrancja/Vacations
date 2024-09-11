@@ -1,15 +1,11 @@
 import React, { useContext, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
-import BemCssModules from "bem-css-modules";
 
 import { StoreContext } from "../../../StoreProvider";
 import { URI } from "../../../config";
 import Error from "../../../content/components/error/Error";
-
-import { default as LoaderStyles } from "../../../Loader.module.scss";
-
-const styleLoader = BemCssModules(LoaderStyles);
+import Loader from "../../../content/components/loader/Loader";
 
 const LoginForm = () => {
   const { setIsLogged, setIsAdmin, setToken, setValidAt } =
@@ -87,7 +83,6 @@ const LoginForm = () => {
 
   return (
     <>
-      {loading ? <div className={styleLoader()}></div> : null}
       <form className="h-100" method="POST" onSubmit={handleOnSubmit}>
         <div className="row h-100">
           <div className="col-3"></div>
@@ -118,6 +113,7 @@ const LoginForm = () => {
         </div>
       </form>
       {error ? <Error message={message} /> : null}
+      {loading ? <Loader /> : null}
     </>
   );
 };

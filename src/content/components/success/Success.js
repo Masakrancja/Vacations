@@ -1,6 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 
-const Success = ({ message }) => {
-  return <div className="text-center text-success fw-bold">{message}</div>;
+const Error = ({ message }) => {
+  const [show, setShow] = useState(true);
+
+  const handleClick = () => {
+    setShow(false);
+  };
+
+  return (
+    <>
+      {show ? (
+        <div className="position-absolute top-50 start-50 translate-middle">
+          <div
+            className="alert alert-success alert-dismissible fade show fw-bold"
+            role="alert"
+          >
+            {message}
+            <button
+              type="button"
+              onClick={handleClick}
+              className="btn-close"
+              aria-label="Close"
+            ></button>
+          </div>
+        </div>
+      ) : null}
+    </>
+  );
 };
-export default Success;
+export default Error;

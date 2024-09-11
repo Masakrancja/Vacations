@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from "react";
-import BemCssModules from "bem-css-modules";
 import { URI } from "../../../config";
 import Error from "../../components/error/Error";
 import Group from "../../components/group/Group";
-
-import { default as LoaderStyles } from "../../../Loader.module.scss";
-
-const styleLoader = BemCssModules(LoaderStyles);
+import Loader from "../../components/loader/Loader";
 
 const GroupsPage = () => {
   const [groups, setGroups] = useState([]);
@@ -49,10 +45,10 @@ const GroupsPage = () => {
 
   return (
     <>
-      {loading ? <div className={styleLoader()}></div> : null}
       <div className="row row-cols-xl-4 row-cols-lg-3 row-cols-sm-2 row-cols-1">
         {groupView}
       </div>
+      {loading ? <Loader /> : null}
     </>
   );
 };

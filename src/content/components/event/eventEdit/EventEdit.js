@@ -1,16 +1,13 @@
 import React, { useState, useContext } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
-import BemCssModules from "bem-css-modules";
 
 import { StoreContext } from "../../../../StoreProvider";
 import { URI } from "../../../../config";
 import Error from "../../error/Error";
 import Success from "../../success/Success";
 import SelectReason from "../../selectReason/SelectReason";
-
-import { default as LoaderStyles } from "../../../../Loader.module.scss";
-const styleLoader = BemCssModules(LoaderStyles);
+import Loader from "../../loader/Loader";
 
 const EventEdit = ({ event, setEvent }) => {
   const { token, setToken, setIsLogged, setIsAdmin, setValidAt } =
@@ -21,6 +18,7 @@ const EventEdit = ({ event, setEvent }) => {
   const [reasonId, setReasonId] = useState(event.reasonId);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [success, setSuccess] = useState(false);
   const [message, setMessage] = useState("");
   const [, , removeCookie] = useCookies(["token"]);
   const navigate = useNavigate();
@@ -39,6 +37,7 @@ const EventEdit = ({ event, setEvent }) => {
 
   const handleSubmit = (e) => {
     setError(false);
+    setSuccess(false);
     setLoading(true);
     e.preventDefault();
     (async () => {
@@ -60,7 +59,7 @@ const EventEdit = ({ event, setEvent }) => {
         const data = await response.json();
         if (data.status === "OK") {
           setEvent(data.response);
-          setError(false);
+          setSuccess(true);
           setMessage("Poprawnie zapisano urlop");
         } else {
           if (data.code === 401) {
@@ -89,7 +88,6 @@ const EventEdit = ({ event, setEvent }) => {
 
   return (
     <div className="mb-2 p-2">
-      {loading ? <div className={styleLoader()}></div> : null}
       <form method="POST" onSubmit={handleSubmit}>
         <SelectReason id={reasonId} setReasonId={setReasonId} />
         <label className="mt-1">
@@ -124,8 +122,9 @@ const EventEdit = ({ event, setEvent }) => {
           </button>
         </div>
       </form>
-
-      {error ? <Error message={message} /> : <Success message={message} />}
+      {error ? <Error message={message} /> : null}
+      {success ? <Success message={message} /> : null}
+      {loading ? <Loader /> : null}
     </div>
   );
 };

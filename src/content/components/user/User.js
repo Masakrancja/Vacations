@@ -5,14 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { StoreContext } from "../../../StoreProvider";
 import { URI } from "../../../config";
 import Error from "../error/Error";
-import Success from "../success/Success";
 import UserInfo from "../userInfo/UserInfo";
-
-import BemCssModules from "bem-css-modules";
-
-import { default as LoaderStyles } from "../../../Loader.module.scss";
-
-const styleLoader = BemCssModules(LoaderStyles);
+import Loader from "../loader/Loader";
 
 const User = ({ user }) => {
   const [, , removeCookie] = useCookies(["token"]);
@@ -31,6 +25,8 @@ const User = ({ user }) => {
   const isActive = Boolean(localUser.isActive);
 
   const handleOnClick = () => {
+    setError(false);
+    setMessage("");
     setLoading(true);
     (async () => {
       try {
@@ -42,7 +38,6 @@ const User = ({ user }) => {
         const data = await response.json();
         if (data.status === "OK") {
           setUserData(data.response.userData);
-          setError(false);
           setMessage("");
         } else {
           if (data.code === 401) {
@@ -91,7 +86,6 @@ const User = ({ user }) => {
         const response = await fetch(URI + "/users/" + id, options);
         const data = await response.json();
         if (data.status === "OK") {
-          setError(false);
           setMessage(data.message);
           setLocalUser((prevUser) => ({ ...prevUser, isActive: !isActive }));
         } else {
@@ -121,7 +115,6 @@ const User = ({ user }) => {
 
   return (
     <div className="col">
-      {loading ? <div className={styleLoader()}></div> : null}
       <div
         className={`card ${
           isActive === true ? "border-success" : "border-danger"
@@ -129,17 +122,21 @@ const User = ({ user }) => {
         style={{ maxWidth: "18rem" }}
       >
         <div className="card-header">
-          Imię i nazwisko: <span>{fullName}</span>
+          <span className="fw-bold">{fullName}</span>
         </div>
         <div className="card-body">
           <h5 className="card-title">
             Login: <span>{login}</span>
           </h5>
           <p className="card-text">
-            Zarejestrowany: <span>{createdAt.substr(0, 10)}</span>
+            Zarejestrowany:{" "}
+            <span className="fw-bold">{createdAt.substr(0, 10)}</span>
           </p>
           <p className="card-text">
-            Status: {isActive === true ? "Aktywny" : "Nieaktywny"}
+            Status:{" "}
+            <span className="fw-bold">
+              {isActive === true ? "Aktywny" : "Nieaktywny"}
+            </span>
           </p>
           <div className="row">
             <div className="col">
@@ -181,17 +178,20 @@ const User = ({ user }) => {
               </div>
             </div>
           </div>
-          {show ? <UserInfo {...userData} /> : null}
-          <button
-            type="button"
-            className="btn btn-sm btn-outline-primary text-center"
-            onClick={handleOnClick}
-          >
-            {showTitle}
-          </button>
+          <div className="mt-3">{show ? <UserInfo {...userData} /> : null}</div>
 
-          {error ? <Error message={message} /> : <Success message={message} />}
+          <div className="text-center mt-2">
+            <button
+              type="button"
+              className="btn btn-sm btn-outline-primary text-center"
+              onClick={handleOnClick}
+            >
+              {showTitle}
+            </button>
+          </div>
         </div>
+        {error ? <Error message={message} /> : null}
+        {loading ? <Loader /> : null}
       </div>
     </div>
   );

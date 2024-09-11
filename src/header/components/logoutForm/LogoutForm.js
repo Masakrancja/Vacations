@@ -1,14 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
-import BemCssModules from "bem-css-modules";
 
 import { StoreContext } from "../../../StoreProvider";
 import { URI } from "../../../config";
-
-import { default as LoaderStyles } from "../../../Loader.module.scss";
-
-const styleLoader = BemCssModules(LoaderStyles);
+import Loader from "../../../content/components/loader/Loader";
 
 const LogoutForm = () => {
   const { token, isAdmin, setIsLogged, setIsAdmin, setToken, setValidAt } =
@@ -73,7 +69,6 @@ const LogoutForm = () => {
 
   return (
     <>
-      {loading ? <div className={styleLoader()}></div> : null}
       <form className="h-100" method="POST" onSubmit={handleOnSubmit}>
         <div className="row h-100">
           <div className="col-9 h-100 d-flex align-items-center">
@@ -106,6 +101,7 @@ const LogoutForm = () => {
           </div>
         </div>
       </form>
+      {loading ? <Loader /> : null}
     </>
   );
 };

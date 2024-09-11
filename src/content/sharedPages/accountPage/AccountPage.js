@@ -1,15 +1,12 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
-import BemCssModules from "bem-css-modules";
+
 import { StoreContext } from "../../../StoreProvider";
 import { URI } from "../../../config";
 import Account from "../../components/account/Account";
 import Error from "../../components/error/Error";
-
-import { default as LoaderStyles } from "../../../Loader.module.scss";
-
-const styleLoader = BemCssModules(LoaderStyles);
+import Loader from "../../components/loader/Loader";
 
 const AccountPage = () => {
   const { token, setToken, setIsLogged, setIsAdmin, setValidAt } =
@@ -105,7 +102,6 @@ const AccountPage = () => {
 
   return (
     <>
-      {loading ? <div className={styleLoader()}></div> : null}
       <h2>Moje konto</h2>
       {error ? (
         <Error message={message} />
@@ -116,6 +112,7 @@ const AccountPage = () => {
           ) : null}
         </>
       )}
+      {loading ? <Loader /> : null}
     </>
   );
 };

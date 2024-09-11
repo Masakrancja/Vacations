@@ -1,16 +1,13 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
-import BemCssModules from "bem-css-modules";
+
 import { StoreContext } from "../../../StoreProvider";
 import { URI } from "../../../config";
 import SelectUser from "../../components/selectUser/SelectUser";
 import Event from "../../components/event/Event";
 import Error from "../../components/error/Error";
-
-import { default as LoaderStyles } from "../../../Loader.module.scss";
-
-const styleLoader = BemCssModules(LoaderStyles);
+import Loader from "../../components/loader/Loader";
 
 const EventsCancelledPage = () => {
   const { token, setToken, setIsLogged, setIsAdmin, setValidAt, userId } =
@@ -67,13 +64,12 @@ const EventsCancelledPage = () => {
     .filter((event) => event.status === "cancelled")
     .map((event) => (
       <div className="col p-2" key={event.id}>
-      <Event event={event} />
-    </div>
+        <Event event={event} />
+      </div>
     ));
 
   return (
     <>
-      {loading ? <div className={styleLoader()}></div> : null}
       <SelectUser />
       {error ? (
         <Error message={message} />
@@ -82,6 +78,7 @@ const EventsCancelledPage = () => {
           {eventContent}
         </div>
       )}
+      {loading ? <Loader /> : null}
     </>
   );
 };

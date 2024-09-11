@@ -1,15 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
-import BemCssModules from "bem-css-modules";
 
 import { StoreContext } from "../../../StoreProvider";
 import { URI } from "../../../config";
 import Error from "../error/Error";
-
-import { default as LoaderStyles } from "../../../Loader.module.scss";
-
-const styleLoader = BemCssModules(LoaderStyles);
+import Loader from "../loader/Loader";
 
 const SelectUser = () => {
   const {
@@ -85,7 +81,6 @@ const SelectUser = () => {
 
   return (
     <div className="mt-2 w-50">
-      {loading ? <div className={styleLoader()}></div> : null}
       <section>
         <h2>Wybierz pracownika z listy</h2>
         <select className="form-select" onChange={handleOnChange}>
@@ -93,6 +88,7 @@ const SelectUser = () => {
           {usersContent}
         </select>
         {error ? <Error message={message} /> : null}
+        {loading ? <Loader /> : null}
       </section>
     </div>
   );

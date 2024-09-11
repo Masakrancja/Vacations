@@ -10,9 +10,19 @@ const Error = ({ message }) => {
   return (
     <>
       {show ? (
-        <div>
-          <div className="text-center text-danger fw-bold">{message}</div>
-          <button onClick={handleClick}>OK</button>
+        <div className="position-absolute top-50 start-50 translate-middle">
+          <div
+            className="alert alert-danger alert-dismissible fade show fw-bold"
+            role="alert"
+          >
+            {message}
+            <button
+              type="button"
+              onClick={handleClick}
+              className="btn-close"
+              aria-label="Close"
+            ></button>
+          </div>
         </div>
       ) : null}
     </>

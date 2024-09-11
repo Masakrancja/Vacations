@@ -1,22 +1,17 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
-import BemCssModules from "bem-css-modules";
 
 import { StoreContext } from "../../../StoreProvider";
 import { URI } from "../../../config";
 import EventShow from "./eventShow/EventShow";
 import EventEdit from "./eventEdit/EventEdit";
 import Confirm from "../confirm/Confirm";
-import EventDelete from "./eventDelete/EventDelete";
 import EventCancelUser from "./eventCancelUser/EventCancelUser";
 import EventCancelAdmin from "./eventCancelAdmin/EventCancelAdmin";
 import EventChangeStatus from "./eventChangeStatus/eventChangeStatus";
 import EventWaiting from "./eventWaiting/EventWaiting";
-
-import { default as LoaderStyles } from "../../../Loader.module.scss";
-const styleLoader = BemCssModules(LoaderStyles);
-
+import Loader from "../loader/Loader";
 const Event = ({ event }) => {
   const { token, setToken, setIsLogged, setIsAdmin, setValidAt } =
     useContext(StoreContext);
@@ -174,11 +169,7 @@ const Event = ({ event }) => {
                 {show ? (
                   <Confirm setShow={setShow} setIsConfirmed={setIsConfirmed} />
                 ) : null}
-                {isConfirmed ? (
-                  loading ? (
-                    <div className={styleLoader()}></div>
-                  ) : null
-                ) : null}
+                {isConfirmed ? loading ? <Loader /> : null : null}
               </div>
             </>
           ) : null}

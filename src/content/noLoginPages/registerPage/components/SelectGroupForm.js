@@ -1,13 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
-import BemCssModules from "bem-css-modules";
 
 import { NoLoginStoreContext } from "../../NoLoginStoreProvider";
 import { URI } from "../../../../config";
 import Error from "../../../components/error/Error";
-
-import { default as LoaderStyles } from "../../../../Loader.module.scss";
-
-const styleLoader = BemCssModules(LoaderStyles);
+import Loader from "../../../components/loader/Loader";
 
 const SelectDataForm = () => {
   const { setGroupId } = useContext(NoLoginStoreContext);
@@ -55,23 +51,19 @@ const SelectDataForm = () => {
   };
 
   return (
-    <>
-      {loading ? <div className={styleLoader()}></div> : null}
-      <div>
-        <div className="row mt-4">
-          <div className="col-3">Wybierz firmę</div>
-          <div className="col-9">
-            <select
-              className="form-select"
-              aria-label="wybierz firmę"
-              onChange={handleOnChange}
-            >
-              {groupView}
-            </select>
-          </div>
-        </div>
+    <div className="row mt-4">
+      <div className="col-3">Wybierz firmę</div>
+      <div className="col-9">
+        <select
+          className="form-select"
+          aria-label="wybierz firmę"
+          onChange={handleOnChange}
+        >
+          {groupView}
+        </select>
       </div>
-    </>
+      {loading ? <Loader /> : null}
+    </div>
   );
 };
 export default SelectDataForm;

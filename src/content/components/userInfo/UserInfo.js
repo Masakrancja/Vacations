@@ -1,10 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
-
-import BemCssModules from "bem-css-modules";
-
-import { default as UserInfoStyle } from "./UserInfo.module.scss";
-
-const style = BemCssModules(UserInfoStyle);
+import React from "react";
 
 const UserInfo = ({
   address,
@@ -16,19 +10,25 @@ const UserInfo = ({
   postalCode,
 }) => {
   return (
-    <div className={style()}>
-      <p>User Info</p>
-      <p>
-        {firstName} {lastName}
-      </p>
-
-      <p>{address}</p>
-      <p>
+    <>
+      <address>
+        <strong>
+          {firstName} {lastName}
+        </strong>
+        <br />
+        {address}
+        <br />
         {postalCode} {city}
-      </p>
-      <p>{phone}</p>
-      <p>{email}</p>
-    </div>
+        <br />
+      </address>
+      <address>
+        <abbr title="Phone">Tel: </abbr>
+        {phone}
+        <br />
+        <abbr title="Email">Email: </abbr>
+        {email}
+      </address>
+    </>
   );
 };
 export default UserInfo;

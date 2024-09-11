@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
-import BemCssModules from "bem-css-modules";
 
 import { StoreContext } from "../../../StoreProvider";
 import { URI } from "../../../config";
@@ -10,10 +9,7 @@ import SelectData from "../../components/selectData/SelectData";
 import Notice from "../../components/notice/Notice";
 import Error from "../../components/error/Error";
 import Success from "../../components/success/Success";
-
-import { default as LoaderStyles } from "../../../Loader.module.scss";
-
-const styleLoader = BemCssModules(LoaderStyles);
+import Loader from "../../components/loader/Loader";
 
 const AddEventPage = () => {
   const today = new Date().toISOString().substring(0, 10);
@@ -25,14 +21,14 @@ const AddEventPage = () => {
     setValidAt,
     event,
     setEvent,
-    loading,
-    setLoading,
   } = useContext(StoreContext);
+  const [loading, setLoading] = useState(false);
   const [reasonId, setReasonId] = useState(null);
   const [dateFrom, setDateFrom] = useState(today);
   const [dateTo, setDateTo] = useState(today);
   const [notice, setNotice] = useState("");
   const [error, setError] = useState(false);
+  const [success, setSuccess] = useState(false);
   const [message, setMessage] = useState("");
   const [, , removeCookie] = useCookies(["token"]);
   const navigate = useNavigate();
@@ -49,6 +45,7 @@ const AddEventPage = () => {
 
   const handleOnSubmit = (e) => {
     setError(false);
+    setSuccess(false);
     setLoading(true);
     e.preventDefault();
     (async () => {
@@ -61,7 +58,7 @@ const AddEventPage = () => {
         const response = await fetch(URI + "/events", options);
         const data = await response.json();
         if (data.status === "OK") {
-          setError(false);
+          setSuccess(true);
           navigate("/events/pending");
         } else {
           if (data.code === 401) {
@@ -92,8 +89,6 @@ const AddEventPage = () => {
     <>
       <h2>Dodaj urlop</h2>
       <div className="card border-primary mx-auto mb-3">
-        {/* <div className="card-header">Header</div> */}
-
         <div className="card-body">
           <form method="POST" onSubmit={handleOnSubmit}>
             <SelectReason id={reasonId} setReasonId={setReasonId} />
@@ -105,13 +100,25 @@ const AddEventPage = () => {
             />
             <Notice notice={notice} setNotice={setNotice} />
             <div className="text-center pt-3">
-              <button className="btn btn-sm btn-outline-primary" type="submit">
-                Dodaj
-              </button>
+              {loading ? (
+                <button
+                  className="btn btn-outline-primary"
+                  type="submit"
+                  disabled
+                >
+                  Dodaj
+                </button>
+              ) : (
+                <button className="btn btn-outline-primary" type="submit">
+                  Dodaj
+                </button>
+              )}
             </div>
           </form>
-          {error ? <Error message={message} /> : <Success message={message} />}
         </div>
+        {error ? <Error message={message} /> : null}
+        {success ? <Success message={message} /> : null}
+        {loading ? <Loader /> : null}
       </div>
     </>
   );

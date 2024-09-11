@@ -1,16 +1,11 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
-import BemCssModules from "bem-css-modules";
 
 import { StoreContext } from "../../../StoreProvider";
 import { URI } from "../../../config";
 import Error from "../error/Error";
-
-import { default as LoaderStyles } from "../../../Loader.module.scss";
-
-const styleLoader = BemCssModules(LoaderStyles);
-
+import Loader from "../loader/Loader";
 const SelectReason = ({ id, setReasonId }) => {
   const { token, setToken, setIsLogged, setIsAdmin, setValidAt } =
     useContext(StoreContext);
@@ -73,25 +68,23 @@ const SelectReason = ({ id, setReasonId }) => {
   };
 
   return (
-    <>
-      {loading ? <div className={styleLoader()}></div> : null}
-      <div>
-        {error ? (
-          <Error message={message} />
-        ) : (
-          <>
-            <div className="text-center p-1">Wybierz powód</div>
-            <select
-              className="form-select form-select"
-              onChange={handleReasonChange}
-              value={Number(id)}
-            >
-              {reasonsItems}
-            </select>
-          </>
-        )}
-      </div>
-    </>
+    <div>
+      {error ? (
+        <Error message={message} />
+      ) : (
+        <>
+          <div className="text-center p-1">Wybierz powód</div>
+          <select
+            className="form-select form-select"
+            onChange={handleReasonChange}
+            value={Number(id)}
+          >
+            {reasonsItems}
+          </select>
+        </>
+      )}
+      {loading ? <Loader /> : null}
+    </div>
   );
 };
 export default SelectReason;

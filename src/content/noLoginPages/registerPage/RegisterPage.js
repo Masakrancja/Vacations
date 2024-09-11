@@ -1,5 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
-import BemCssModules from "bem-css-modules";
+import React, { useContext, useState } from "react";
 
 import { NoLoginStoreContext } from "../NoLoginStoreProvider";
 import { URI } from "../../../config";
@@ -10,10 +9,7 @@ import SelectGroupForm from "./components/SelectGroupForm";
 import GroupDataForm from "./components/GroupDataForm";
 import Error from "../../components/error/Error";
 import Success from "../../components/success/Success";
-
-import { default as LoaderStyle } from "../../../Loader.module.scss";
-
-const styleLoader = BemCssModules(LoaderStyle);
+import Loader from "../../components/loader/Loader";
 
 const RegisterPage = () => {
   const {
@@ -54,10 +50,12 @@ const RegisterPage = () => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [error, setError] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const handleOnSubmit = (e) => {
     setMessage("");
     setError(false);
+    setSuccess(false);
     e.preventDefault();
     setLoading(true);
     const body = {
@@ -94,7 +92,7 @@ const RegisterPage = () => {
         const response = await fetch(URI + "/users", options);
         const data = await response.json();
         if (data.status === "OK") {
-          setError(false);
+          setSuccess(true);
           setLogin("");
           setPass("");
           setPass2("");
@@ -131,7 +129,6 @@ const RegisterPage = () => {
 
   return (
     <>
-      {loading ? <div className={styleLoader()}></div> : null}
       <h2 className="py-2">Rejestracja</h2>
       <form method="POST" onSubmit={handleOnSubmit}>
         <UserOrAdminDataForm />
@@ -157,11 +154,9 @@ const RegisterPage = () => {
           <div className="col"></div>
         </div>
       </form>
-      {message !== "" ? (
-        <>
-          {error ? <Error message={message} /> : <Success message={message} />}
-        </>
-      ) : null}
+      {error ? <Error message={message} /> : null}
+      {success ? <Success message={message} /> : null}
+      {loading ? <Loader /> : null}
     </>
   );
 };
