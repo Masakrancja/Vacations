@@ -69,21 +69,25 @@ const EventChangeStatus = ({ event, setEvent }) => {
     <>
       {isConfirmed === false ? (
         <>
-          <div>
-            <button
-              className="btn btn-sm btn-outline-success"
-              data-status="approved"
-              onClick={handleOnClick}
-            >
-              Zatwierdź
-            </button>
-            <button
-              className="btn btn-sm btn-outline-danger"
-              data-status="canceled"
-              onClick={handleOnClick}
-            >
-              Odrzuć
-            </button>
+          <div className="row">
+            <div className="col-6 text-center">
+              <button
+                className="btn btn-sm btn-outline-success"
+                data-status="approved"
+                onClick={handleOnClick}
+              >
+                Zatwierdź
+              </button>
+            </div>
+            <div className="col-6 text-center">
+              <button
+                className="btn btn-sm btn-outline-danger"
+                data-status="cancelled"
+                onClick={handleOnClick}
+              >
+                Odrzuć
+              </button>
+            </div>
           </div>
           {error ? <Error message={message} /> : null}
         </>

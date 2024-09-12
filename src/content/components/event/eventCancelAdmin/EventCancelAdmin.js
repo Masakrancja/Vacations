@@ -19,6 +19,7 @@ const EventCancelAdmin = ({ event, setEvent }) => {
   } = useContext(StoreContext);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [success, setSuccess] = useState(false);
   const [message, setMessage] = useState("");
   const [, , removeCookie] = useCookies(["token"]);
   const navigate = useNavigate();
@@ -27,6 +28,7 @@ const EventCancelAdmin = ({ event, setEvent }) => {
 
   const handleOnClik = () => {
     setError(false);
+    setSuccess(false);
     setLoading(true);
     (async () => {
       try {
@@ -42,7 +44,7 @@ const EventCancelAdmin = ({ event, setEvent }) => {
         const response = await fetch(URI + "/events/" + id, options);
         const data = await response.json();
         if (data.status === "OK") {
-          setError(false);
+          setSuccess(true);
           setMessage("Urlop został anulowany");
           setEvent((prevEvent) => ({
             ...prevEvent,
@@ -77,7 +79,7 @@ const EventCancelAdmin = ({ event, setEvent }) => {
 
   return (
     <>
-      <h6>Pracownik wysłał prośbę o anulowanie urlopu</h6>
+      <div>Pracownik wysłał prośbę o anulowanie urlopu</div>
       {wantCancel ? (
         <button
           className="btn btn-sm btn-outline-primary"
@@ -87,7 +89,8 @@ const EventCancelAdmin = ({ event, setEvent }) => {
         </button>
       ) : null}
       {loading ? <Loader /> : null}
-      {error ? <Error message={message} /> : <Success message={message} />}
+      {error ? <Error message={message} /> : null}
+      {success ? <Success message={message} /> : null}
     </>
   );
 };

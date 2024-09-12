@@ -27,6 +27,8 @@ const Event = ({ event }) => {
   const [btnName, setBtnName] = useState("Edytuj");
   const [localEvent, setLocalEvent] = useState(event);
 
+  const today = new Date().toISOString().slice(0, 10);
+
   useEffect(() => {
     const { id } = event;
     if (isConfirmed) {
@@ -64,6 +66,13 @@ const Event = ({ event }) => {
     }
   }, [isConfirmed]);
 
+  let borderColor = "border-primary";
+  if (localEvent?.status === "cancelled") {
+    borderColor = "border-danger";
+  } else if (localEvent?.status === "approved") {
+    borderColor = "border-success";
+  }
+
   const toogleEdit = () => {
     setIsEdit((prev) => {
       if (prev) {
@@ -82,11 +91,11 @@ const Event = ({ event }) => {
 
   return (
     <>
-      {isAdmin ? (
+      {localEvent !== null ? (
         <>
-          {localEvent !== null ? (
+          {isAdmin ? (
             <div
-              className="card border-primary mx-auto mb-3"
+              className={`card ${borderColor} border-2 mx-auto mb-3`}
               style={{ maxWidth: "18rem", minHeight: "24rem" }}
             >
               {userFullName ? (
@@ -109,14 +118,10 @@ const Event = ({ event }) => {
                 ) : null}
               </div>
             </div>
-          ) : null}
-        </>
-      ) : (
-        <>
-          {localEvent !== null ? (
+          ) : (
             <>
               <div
-                className="card border-primary mx-auto mb-3"
+                className={`card ${borderColor} border-2 mx-auto mb-3`}
                 style={{ maxWidth: "18rem", minHeight: "24rem" }}
               >
                 {isEdit ? (
@@ -144,37 +149,29 @@ const Event = ({ event }) => {
                         </button>
                       </div>
                     </>
-                  ) : (
-                    <div className="col p-2 text-center">
-                      <button
-                        className="btn btn-sm btn-outline-primary"
-                        onClick={toogleEdit}
-                      >
-                        {btnName}
-                      </button>
-                    </div>
-                  )}
+                  ) : null}
+                  {localEvent.status === "approved" &&
+                  localEvent.dateFrom > today ? (
+                    <>
+                      <EventCancelUser
+                        event={localEvent}
+                        setEvent={setLocalEvent}
+                      />
+                      {localEvent.wantCancel === "yes" ? (
+                        <EventWaiting message="Oczekuje na akceptacje" />
+                      ) : null}
+                    </>
+                  ) : null}
                 </div>
-                {localEvent.status === "approved" ? (
-                  <>
-                    <EventCancelUser
-                      event={localEvent}
-                      setEvent={setLocalEvent}
-                    />
-                    {localEvent.wantCancel === "yes" ? (
-                      <EventWaiting message="Oczekuje na akceptacje" />
-                    ) : null}
-                  </>
-                ) : null}
                 {show ? (
                   <Confirm setShow={setShow} setIsConfirmed={setIsConfirmed} />
                 ) : null}
                 {isConfirmed ? loading ? <Loader /> : null : null}
               </div>
             </>
-          ) : null}
+          )}
         </>
-      )}
+      ) : null}
     </>
   );
 };
