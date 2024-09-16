@@ -70,7 +70,7 @@ const LoginForm = () => {
           navigate("/");
         } else {
           setError(true);
-          setMessage(data.message);
+          setMessage("Niepoprawne dane logowania. Spróbuj ponownie");
         }
       } catch (error) {
         setError(true);

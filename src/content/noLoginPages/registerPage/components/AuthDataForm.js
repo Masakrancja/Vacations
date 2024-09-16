@@ -21,8 +21,8 @@ const AuthDataForm = () => {
   return (
     <>
       <div className="row mt-3">
-        <div className="col-3">Login</div>
-        <div className="col-9">
+        <div className="col-md-3 d-none d-sm-block ">Login</div>
+        <div className="col-md-9 col-sm-12">
           <input
             type="text"
             className="form-control"

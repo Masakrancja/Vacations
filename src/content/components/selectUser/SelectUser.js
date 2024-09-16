@@ -7,7 +7,7 @@ import { URI } from "../../../config";
 import Error from "../error/Error";
 import Loader from "../loader/Loader";
 
-const SelectUser = () => {
+const SelectUser = ({ defaultUserId }) => {
   const {
     token,
     setUserId,
@@ -74,7 +74,7 @@ const SelectUser = () => {
     ));
 
   const handleOnChange = (e) => {
-    const userId = Number(e.target.value);
+    const userId = Number(e.target.value) || null;
     setUserId(userId);
     setUserFullName(users.filter((user) => user.id === userId)[0]?.fullName);
   };
@@ -83,8 +83,12 @@ const SelectUser = () => {
     <div className="mt-2 w-50">
       <section>
         <h2>Wybierz pracownika z listy</h2>
-        <select className="form-select" onChange={handleOnChange}>
-          <option>Wszyscy pracownicy</option>
+        <select
+          value={defaultUserId}
+          className="form-select"
+          onChange={handleOnChange}
+        >
+          <option value="default">Wszyscy pracownicy</option>
           {usersContent}
         </select>
         {error ? <Error message={message} /> : null}

@@ -57,7 +57,7 @@ const UsersPage = () => {
   const usersContent = users
     .filter((user) => Boolean(user.isAdmin) === false)
     .map((user) => (
-      <div className="col p-2" key={user.id}>
+      <div className="col" key={user.id}>
         <User user={user} />
       </div>
     ));
@@ -68,7 +68,7 @@ const UsersPage = () => {
       {error ? (
         <Error message={message} />
       ) : (
-        <div className="row row-cols-xl-4 row-cols-lg-3 row-cols-sm-2 row-cols-1">
+        <div className="row row-cols-xl-4 row-cols-lg-3 row-cols-sm-2 row-cols-1 mb-5">
           {usersContent}
         </div>
       )}

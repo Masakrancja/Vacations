@@ -59,7 +59,7 @@ const PendingEventsPage = () => {
   const eventsContent = events
     .filter((event) => event.status === "pending")
     .map((event) => (
-      <div key={event.id}>
+      <div className="col" key={event.id}>
         <Event event={event} />
       </div>
     ));
@@ -70,7 +70,7 @@ const PendingEventsPage = () => {
       {error ? (
         <Error message={message} />
       ) : (
-        <div className="row row-cols-xl-4 row-cols-lg-3 row-cols-sm-2 row-cols-1">
+        <div className="row row-cols-xl-4 row-cols-lg-3 row-cols-sm-2 row-cols-1 mb-5">
           {eventsContent}
         </div>
       )}

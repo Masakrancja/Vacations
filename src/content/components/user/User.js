@@ -118,8 +118,8 @@ const User = ({ user }) => {
       <div
         className={`card ${
           isActive === true ? "border-success" : "border-danger"
-        } border-2 mx-auto`}
-        style={{ maxWidth: "18rem" }}
+        } border-2 mx-auto mb-3`}
+        style={{ maxWidth: "18rem", minHeight: "18rem" }}
       >
         <div className="card-header">
           <span className="fw-bold">{fullName}</span>

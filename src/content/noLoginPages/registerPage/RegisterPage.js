@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import { NoLoginStoreContext } from "../NoLoginStoreProvider";
 import { URI } from "../../../config";
@@ -128,7 +128,7 @@ const RegisterPage = () => {
   };
 
   return (
-    <>
+    <div className="mb-5">
       <h2 className="py-2">Rejestracja</h2>
       <form method="POST" onSubmit={handleOnSubmit}>
         <UserOrAdminDataForm />
@@ -146,7 +146,7 @@ const RegisterPage = () => {
         ) : null}
         <div className="row my-4">
           <div className="col"></div>
-          <div className="col text-center">
+          <div className="col">
             <button type="submit" className="btn btn-lg btn-outline-primary">
               Zarejestruj
             </button>
@@ -157,7 +157,7 @@ const RegisterPage = () => {
       {error ? <Error message={message} /> : null}
       {success ? <Success message={message} /> : null}
       {loading ? <Loader /> : null}
-    </>
+    </div>
   );
 };
 export default RegisterPage;
