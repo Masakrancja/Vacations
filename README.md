@@ -2,6 +2,11 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Config App
+
+First you should change api address if you need.
+Open file `config.js` and fill URI variable correct address
+
 ## Available Scripts
 
 In the project directory, you can run:
