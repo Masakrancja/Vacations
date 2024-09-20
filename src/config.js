@@ -1,2 +1,2 @@
-//export const URI = "http://api.vacations.local";
-export const URI = "https://api.vacations.kefas.ovh/";
+export const URI = "http://api.vacations.local";
+//export const URI = "https://api.vacations.kefas.ovh/";

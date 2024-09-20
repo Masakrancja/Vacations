@@ -20,45 +20,51 @@ const EventsCancelledPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    (async () => {
-      try {
-        const options = {
-          method: "GET",
-          headers: { Authorization: "Bearer " + token },
-        };
-        let response;
-        if (userId) {
-          response = await fetch(URI + "/events?userid=" + userId, options);
-        } else {
-          response = await fetch(URI + "/events", options);
-        }
-        const data = await response.json();
-        if (data.status === "OK") {
-          setEvents(data.response);
-        } else {
-          if (data.code === 401) {
-            setIsLogged(false);
-            setIsAdmin(false);
-            setToken("");
-            setValidAt("");
-            removeCookie("isLogged", { path: "/" });
-            removeCookie("isAdmin", { path: "/" });
-            removeCookie("token", { path: "/" });
-            removeCookie("validAt", { path: "/" });
-            navigate("/");
-          } else {
-            setError(true);
-            setMessage(data.message);
-          }
-        }
-      } catch (error) {
-        setError(true);
-        setMessage(error.message);
-      } finally {
-        setLoading(false);
-      }
-    })();
+    getContent();
+    const interval = setInterval(() => {
+      getContent();
+    }, 5000);
+    return () => clearInterval(interval);
   }, [userId]);
+
+  const getContent = async () => {
+    try {
+      const options = {
+        method: "GET",
+        headers: { Authorization: "Bearer " + token },
+      };
+      let response;
+      if (userId) {
+        response = await fetch(URI + "/events?userid=" + userId, options);
+      } else {
+        response = await fetch(URI + "/events", options);
+      }
+      const data = await response.json();
+      if (data.status === "OK") {
+        setEvents(data.response);
+      } else {
+        if (data.code === 401) {
+          setIsLogged(false);
+          setIsAdmin(false);
+          setToken("");
+          setValidAt("");
+          removeCookie("isLogged", { path: "/" });
+          removeCookie("isAdmin", { path: "/" });
+          removeCookie("token", { path: "/" });
+          removeCookie("validAt", { path: "/" });
+          navigate("/");
+        } else {
+          setError(true);
+          setMessage(data.message);
+        }
+      }
+    } catch (error) {
+      setError(true);
+      setMessage(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const eventContent = events
     .filter((event) => event.status === "cancelled")
