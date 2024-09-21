@@ -61,7 +61,10 @@ const UsersPage = () => {
   };
 
   const usersContent = users
-    .filter((user) => Boolean(user.isAdmin) === false)
+    .filter(
+      (user) =>
+        Boolean(user.isAdmin) === false && !Boolean(user.isActive) === false
+    )
     .map((user) => (
       <div className="col" key={user.id}>
         <User user={user} />

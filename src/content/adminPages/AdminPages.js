@@ -3,7 +3,6 @@ import { Routes, Route } from "react-router-dom";
 
 import UsersPage from "./usersPage/UsersPage";
 import UsersPendingPage from "./usersPendingPage/UsersPendingPage";
-import EventsPage from "./eventsPage/EventsPage";
 import EventsPendingPage from "./eventsPendingPage/EventsPendingPage";
 import EventsApprovedPage from "./eventsApprovedPage/EventsApprovedPage";
 import EventsCancelledPage from "./eventsCancelledPage/EventsCancelledPage";
@@ -15,7 +14,6 @@ const AdminPages = () => {
     <Routes>
       <Route path="/users/all" Component={UsersPage} />
       <Route path="/users/pending" Component={UsersPendingPage} />
-      <Route path="/events/all" Component={EventsPage} />
       <Route path="/events/pending" Component={EventsPendingPage} />
       <Route path="/events/approved" Component={EventsApprovedPage} />
       <Route path="/events/cancelled" Component={EventsCancelledPage} />

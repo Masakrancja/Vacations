@@ -26,16 +26,6 @@ const AdminMenu = () => {
           Pracownicy oczekujący
         </NavLink>
         <NavLink
-          to="/events/all"
-          exact="false"
-          className={({ isActive }) =>
-            [isActive ? "fw-bold list-group-item-primary" : null].join(" ") +
-            " list-group-item list-group-item-action"
-          }
-        >
-          Urlopy pracowników
-        </NavLink>
-        <NavLink
           to="/events/pending"
           exact="true"
           className={({ isActive }) =>

@@ -103,8 +103,8 @@ const Event = ({ event }) => {
               ) : null}
 
               <div className="card-body">
-                <EventShow event={localEvent} />
-                {localEvent.status === "pending" ? (
+                <EventShow event={event} />
+                {event.status === "pending" ? (
                   <EventChangeStatus
                     event={localEvent}
                     setEvent={setLocalEvent}
@@ -127,7 +127,7 @@ const Event = ({ event }) => {
                 {isEdit ? (
                   <EventEdit event={localEvent} setEvent={setLocalEvent} />
                 ) : (
-                  <EventShow event={localEvent} />
+                  <EventShow event={event} />
                 )}
                 <div className="row">
                   {localEvent.status === "pending" ? (

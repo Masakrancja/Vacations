@@ -21,11 +21,14 @@ const EventsApprovedPage = () => {
 
   useEffect(() => {
     getContent();
+  }, [userId]);
+
+  useEffect(() => {
     const interval = setInterval(() => {
       getContent();
     }, 5000);
     return () => clearInterval(interval);
-  }, [userId]);
+  }, []);
 
   const getContent = async () => {
     try {

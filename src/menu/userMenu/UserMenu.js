@@ -15,15 +15,6 @@ const UserMenu = () => {
           Dodaj urlop
         </NavLink>
         <NavLink
-          to="/events/all"
-          className={({ isActive }) =>
-            [isActive ? "fw-bold list-group-item-primary" : null].join(" ") +
-            " list-group-item list-group-item-action"
-          }
-        >
-          Moje urlopy
-        </NavLink>
-        <NavLink
           to="/events/pending"
           className={({ isActive }) =>
             [isActive ? "fw-bold list-group-item-primary" : null].join(" ") +

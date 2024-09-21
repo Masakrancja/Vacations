@@ -28,11 +28,14 @@ const EventsPetitionsPage = () => {
 
   useEffect(() => {
     getContent();
+  }, [userId, isEventWasCanceled]);
+
+  useEffect(() => {
     const interval = setInterval(() => {
       getContent();
     }, 5000);
     return () => clearInterval(interval);
-  }, [userId, isEventWasCanceled]);
+  }, []);
 
   const getContent = async () => {
     try {
