@@ -46,8 +46,8 @@ const UserDataForm = () => {
     <>
       <h5 className="mt-3">Dane użytkownika</h5>
       <div className="row mt-4">
-        <div className="col-3">Imię</div>
-        <div className="col-9">
+        <div className="col-md-3 d-none d-md-block">Imię</div>
+        <div className="col-md-9 col-12">
           <input
             type="text"
             className="form-control"
@@ -59,8 +59,8 @@ const UserDataForm = () => {
       </div>
 
       <div className="row mt-1">
-        <div className="col-3">Nazwisko</div>
-        <div className="col-9">
+        <div className="col-md-3 d-none d-md-block">Nazwisko</div>
+        <div className="col-md-9 col-12">
           <input
             type="text"
             className="form-control"
@@ -72,8 +72,8 @@ const UserDataForm = () => {
       </div>
 
       <div className="row mt-1">
-        <div className="col-3">Adres</div>
-        <div className="col-9">
+        <div className="col-md-3 d-none d-md-block">Adres</div>
+        <div className="col-md-9 col-12">
           <input
             type="text"
             className="form-control"
@@ -85,8 +85,8 @@ const UserDataForm = () => {
       </div>
 
       <div className="row mt-1">
-        <div className="col-3">Kod pocztowy</div>
-        <div className="col-9">
+        <div className="col-md-3 d-none d-md-block">Kod pocztowy</div>
+        <div className="col-md-9 col-12">
           <input
             type="text"
             className="form-control"
@@ -98,8 +98,8 @@ const UserDataForm = () => {
       </div>
 
       <div className="row mt-1">
-        <div className="col-3">Miasto</div>
-        <div className="col-9">
+        <div className="col-md-3 d-none d-md-block">Miasto</div>
+        <div className="col-md-9 col-12">
           <input
             type="text"
             className="form-control"
@@ -111,8 +111,8 @@ const UserDataForm = () => {
       </div>
 
       <div className="row mt-1">
-        <div className="col-3">Telefon</div>
-        <div className="col-9">
+        <div className="col-md-3 d-none d-md-block">Telefon</div>
+        <div className="col-md-9 col-12">
           <input
             type="text"
             className="form-control"
@@ -124,8 +124,8 @@ const UserDataForm = () => {
       </div>
 
       <div className="row mt-1">
-        <div className="col-3">Email</div>
-        <div className="col-md-9">
+        <div className="col-md-3 d-none d-md-block">Email</div>
+        <div className="col-md-9 col-12">
           <input
             type="text"
             className="form-control"

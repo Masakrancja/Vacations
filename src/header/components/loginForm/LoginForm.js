@@ -84,8 +84,7 @@ const LoginForm = () => {
   return (
     <>
       <form className="h-100" method="POST" onSubmit={handleOnSubmit}>
-        <div className="row h-100">
-          <div className="col-3"></div>
+        <div className="row h-100 justify-content-around">
           <div className="col-6 h-100 d-flex align-items-center">
             <div>
               <input

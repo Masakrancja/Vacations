@@ -55,8 +55,12 @@ const EventEdit = ({ event, setEvent }) => {
             reasonId,
           }),
         };
+        console.log(options);
+        console.log(id);
+
         const response = await fetch(URI + "/events/" + id, options);
         const data = await response.json();
+
         if (data.status === "OK") {
           setEvent(data.response);
           setSuccess(true);

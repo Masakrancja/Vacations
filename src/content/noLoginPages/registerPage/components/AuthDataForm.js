@@ -21,8 +21,8 @@ const AuthDataForm = () => {
   return (
     <>
       <div className="row mt-3">
-        <div className="col-md-3 d-none d-sm-block ">Login</div>
-        <div className="col-md-9 col-sm-12">
+        <div className="col-md-3 d-none d-md-block">Login</div>
+        <div className="col-md-9 col-12">
           <input
             type="text"
             className="form-control"
@@ -33,8 +33,8 @@ const AuthDataForm = () => {
         </div>
       </div>
       <div className="row mt-1">
-        <div className="col-3">Hasło</div>
-        <div className="col-9">
+        <div className="col-md-3 d-none d-md-block">Hasło</div>
+        <div className="col-md-9 col-12">
           <input
             type="password"
             className="form-control"
@@ -43,11 +43,10 @@ const AuthDataForm = () => {
             placeholder="Podaj hasło"
           />
         </div>
-        <div className="col"></div>
       </div>
       <div className="row mt-1">
-        <div className="col-3">Hasło ponownie</div>
-        <div className="col-9">
+        <div className="col-md-3 d-none d-md-block">Hasło ponownie</div>
+        <div className="col-md-9 col-12">
           <input
             type="password"
             className="form-control"

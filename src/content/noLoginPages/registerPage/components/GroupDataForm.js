@@ -34,10 +34,10 @@ const GroupDataForm = () => {
 
   return (
     <>
-    <h5 className="mt-3">Dane firmy</h5>
+      <h5 className="mt-3">Dane firmy</h5>
       <div className="row mt-3">
-        <div className="col-3">Nazwa</div>
-        <div className="col-9">
+        <div className="col-md-3 d-none d-md-block">Nazwa</div>
+        <div className="col-md-9 col-12">
           <input
             type="text"
             className="form-control"
@@ -49,8 +49,8 @@ const GroupDataForm = () => {
       </div>
 
       <div className="row mt-1">
-        <div className="col-3">Adres</div>
-        <div className="col-9">
+        <div className="col-md-3 d-none d-md-block">Adres</div>
+        <div className="col-md-9 col-12">
           <input
             type="text"
             className="form-control"
@@ -62,8 +62,8 @@ const GroupDataForm = () => {
       </div>
 
       <div className="row mt-1">
-        <div className="col-3">Kod pocztowy</div>
-        <div className="col-9">
+        <div className="col-md-3 d-none d-md-block">Kod pocztowy</div>
+        <div className="col-md-9 col-12">
           <input
             type="text"
             className="form-control"
@@ -75,8 +75,8 @@ const GroupDataForm = () => {
       </div>
 
       <div className="row mt-1">
-        <div className="col-3">Miasto</div>
-        <div className="col-9">
+        <div className="col-md-3 d-none d-md-block">Miasto</div>
+        <div className="col-md-9 col-12">
           <input
             type="text"
             className="form-control"
@@ -88,8 +88,8 @@ const GroupDataForm = () => {
       </div>
 
       <div className="row mt-1">
-        <div className="col-3">NIP</div>
-        <div className="col-9">
+        <div className="col-md-3 d-none d-md-block">NIP</div>
+        <div className="col-md-9 col-12">
           <input
             type="text"
             className="form-control"

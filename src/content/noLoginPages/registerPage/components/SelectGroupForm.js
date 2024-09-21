@@ -52,8 +52,8 @@ const SelectDataForm = () => {
 
   return (
     <div className="row mt-4">
-      <div className="col-3">Wybierz firmę</div>
-      <div className="col-9">
+      <div className="col-md-3 d-none d-md-block">Wybierz firmę</div>
+      <div className="col-md-9 col-12">
         <select
           className="form-select"
           aria-label="wybierz firmę"
